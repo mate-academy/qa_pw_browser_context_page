@@ -12,6 +12,12 @@ export class CreateArticlePage {
     this.errorMessage = page.getByRole('list').nth(1);
   }
 
+  async open() {
+    await test.step(`Open 'Create article' page`, async () => {
+      await this.page.goto('/editor');
+    });
+  }
+
   async fillTitleField(title) {
     await test.step(`Fill the 'Title' field`, async () => {
       await this.titleField.fill(title);
@@ -30,9 +36,28 @@ export class CreateArticlePage {
     });
   }
 
+  async fillTagsField() {
+    await test.step(`Fill the 'Tags' field`, async () => {
+      //await this.textField.fill(text);
+    });
+  }
+
   async clickPublishArticleButton() {
     await test.step(`Click the 'Publish Article' button`, async () => {
       await this.publishArticleButton.click();
+    });
+  }
+
+  async submitCreateArticleForm(article) {
+    await test.step(`Submit the 'Create Article' form`, async () => {
+      await this.fillTitleField(article.title);
+      await this.fillDescriptionField(article.description);
+      await this.fillTextField(article.text);
+      // eslint-disable-next-line playwright/no-conditional-in-test
+      if (article.tags.length > 0) {
+        await this.fillTextField(article.tags);
+      }
+      await this.clickPublishArticleButton();
     });
   }
 

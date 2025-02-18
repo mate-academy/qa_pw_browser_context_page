@@ -11,8 +11,9 @@
 - Assert user can follow the article created by another user.
 - Assert user can see the edited article changes 
 2. Use test case as an example:
-- Assert user 2 can see the articles posted by User1. 
-3. Re-run all your tests and make sure they pass after the updates. 
+- View an article created by another user.
+- Successful `Sign in` flow test.
+3. Re-run all your tests and ensure they pass after the updates. 
 
 ## Task Reporting: 
 1. Add and commit all your updates. 
