@@ -35,7 +35,7 @@ export const test = base.extend<{
   },
   logger: [
     async ({}, use) => {
-      const logger = new Logger('debug');
+      const logger = new Logger('error');
 
       await use(logger);
     },

@@ -1,4 +1,4 @@
-# Practice task: View article test cases
+# Practice task: View article multi-user tests
 
 ## Preparation:
 1. Open the forked repo in VSCode.
