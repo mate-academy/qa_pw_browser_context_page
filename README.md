@@ -15,7 +15,7 @@
 - User don't see articles in "Your Feed" after unfollowing another user profile.
 2. Automate the test for single user working in two contexts:
 - User can sign in with changed in profile password.
-- User can see own article in "Global feed" when not logged in
+- User can see own article in "Global feed" when not logged in.
 3. Use test examples:
 - View an article created by another user.
 - Successful "Sign in" flow test.
