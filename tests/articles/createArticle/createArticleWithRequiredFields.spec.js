@@ -24,6 +24,6 @@ test('Creat an article with required fields', async ({
   await createArticlePage.fillTextField(articleWithoutTags.text);
   await createArticlePage.clickPublishArticleButton();
 
-  await viewArticlePage.assertArticleTitle(articleWithoutTags.title);
-  await viewArticlePage.assertArticleText(articleWithoutTags.text);
+  await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
+  await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
 });

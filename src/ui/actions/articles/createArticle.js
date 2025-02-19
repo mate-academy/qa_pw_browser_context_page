@@ -9,7 +9,7 @@ export async function createArticle(page, article) {
 
     await createArticlePage.open();
     await createArticlePage.submitCreateArticleForm(article);
-    await viewArticlePage.assertArticleTitle(article.title);
+    await viewArticlePage.assertArticleTitleIsVisible(article.title);
 
     return viewArticlePage.url();
   });

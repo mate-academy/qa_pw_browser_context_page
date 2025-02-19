@@ -20,6 +20,6 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 test('View an article created by another user', async ({}) => {
   await viewArticlePageUser2.open(article.url);
 
-  await viewArticlePageUser2.assertArticleTitle(article.title);
-  await viewArticlePageUser2.assertArticleText(article.text);
+  await viewArticlePageUser2.assertArticleTitleIsVisible(article.title);
+  await viewArticlePageUser2.assertArticleTextIsVisible(article.text);
 });

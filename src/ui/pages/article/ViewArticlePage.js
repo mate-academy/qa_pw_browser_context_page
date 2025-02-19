@@ -16,13 +16,13 @@ export class ViewArticlePage {
     });
   }
 
-  async assertArticleTitle(title) {
+  async assertArticleTitleIsVisible(title) {
     await test.step(`Assert the article has correct title`, async () => {
       await expect(this.articleTitleHeader).toContainText(title);
     });
   }
 
-  async assertArticleText(text) {
+  async assertArticleTextIsVisible(text) {
     await test.step(`Assert the article has correct text`, async () => {
       await expect(this.page.getByText(text)).toBeVisible();
     });
