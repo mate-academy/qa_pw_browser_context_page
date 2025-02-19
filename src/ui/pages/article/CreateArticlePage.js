@@ -6,6 +6,7 @@ export class CreateArticlePage {
     this.titleField = page.getByPlaceholder('Article Title');
     this.descriptionField = page.getByPlaceholder(`What's this article about?`);
     this.textField = page.getByPlaceholder('Write your article (in markdown)');
+    this.tagsFiled = page.getByPlaceholder('Enter tags');
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
@@ -36,9 +37,12 @@ export class CreateArticlePage {
     });
   }
 
-  async fillTagsField() {
+  async fillTagsField(tags) {
     await test.step(`Fill the 'Tags' field`, async () => {
-      //await this.textField.fill(text);
+      for (let i = 0; i < tags.length; i++) {
+        await this.tagField.fill(tags[i]);
+        await this.page.keyboard.press('Enter');
+      }
     });
   }
 
@@ -55,7 +59,7 @@ export class CreateArticlePage {
       await this.fillTextField(article.text);
       // eslint-disable-next-line playwright/no-conditional-in-test
       if (article.tags.length > 0) {
-        await this.fillTextField(article.tags);
+        await this.fillTagsField(article.tags);
       }
       await this.clickPublishArticleButton();
     });
