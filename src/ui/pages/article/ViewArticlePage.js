@@ -6,6 +6,10 @@ export class ViewArticlePage {
     this.articleTitleHeader = page.getByRole('heading');
   }
 
+  authorLinkInArticleHeader(username) {
+    return this.page.getByRole('link', { username }).first();
+  }
+
   url() {
     return this.page.url();
   }
@@ -25,6 +29,12 @@ export class ViewArticlePage {
   async assertArticleTextIsVisible(text) {
     await test.step(`Assert the article has correct text`, async () => {
       await expect(this.page.getByText(text)).toBeVisible();
+    });
+  }
+
+  async assertArticleAuthorNameIsVisible(username) {
+    await test.step(`Assert the article has correct author username`, async () => {
+      await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
 }
