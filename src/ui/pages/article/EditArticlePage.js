@@ -7,7 +7,7 @@ export class EditArticlePage {
     this.titleField = page.getByPlaceholder('Article Title');
     this.descriptionField = page.getByPlaceholder(`What's this article about?`);
     this.textField = page.getByPlaceholder('Write your article (in markdown)');
-    this.tagsFiled = page.getByPlaceholder('Enter tags');
+    this.tagsField = page.getByPlaceholder('Enter tags');
     this.UpdateArticleButton = page.getByRole('button', {
       name: 'Update Article',
     });
@@ -15,7 +15,6 @@ export class EditArticlePage {
       .getByRole('button')
       .filter({ hasText: 'Edit Article' })
       .first();
-    this.textField = page.getByPlaceholder('Write your article (in markdown)');
   }
 
   async assertArticleTitle(title) {
