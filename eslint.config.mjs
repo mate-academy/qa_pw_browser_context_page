@@ -18,7 +18,6 @@ export default [
         {
           code: 800,
           comments: 80,
-          ignorePattern: 'import *',
         },
       ],
       ...playwright.configs['flat/recommended'].rules,
