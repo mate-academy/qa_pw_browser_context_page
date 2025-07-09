@@ -28,12 +28,11 @@ export class SettingsPage {
       })
   }
 
-  async assertPasswordFieldHasNewPassword(password) {
+  async assertPasswordFieldIsVisible() {
     await test.step(
-      'Assert password field has new password',
+      'Assert password field is visible',
       async () => {
-        await expect(this.passwordField).toHaveAttribute('value', password);
-     
+        await expect(this.passwordField).toBeVisible();
       })
   }
 

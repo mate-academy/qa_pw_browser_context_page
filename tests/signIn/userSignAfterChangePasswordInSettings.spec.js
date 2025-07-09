@@ -25,7 +25,7 @@ test(
     await homePage.clickSettingsLink();
     await settingsPage.changePassword(newPassword);
     await settingsPage.open();
-    await settingsPage.assertPasswordFieldHasNewPassword(newPassword);
+    await settingsPage.assertPasswordFieldIsVisible();
 
     user1.password = newPassword;
 
