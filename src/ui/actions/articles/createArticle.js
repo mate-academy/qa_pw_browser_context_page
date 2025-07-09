@@ -10,9 +10,9 @@ export async function createArticle(page, article) {
     await createArticlePage.open();
     await createArticlePage.submitCreateArticleForm(article);
     await viewArticlePage.assertArticleTitleIsVisible(article.title);
-
+    
     return viewArticlePage.url();
   });
-
+  console.log(article['title'])
   return article;
 }
