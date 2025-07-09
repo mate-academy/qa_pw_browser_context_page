@@ -10,6 +10,7 @@ export const test = base.extend<{
   user2;
   logger;
   infoTestLog;
+  newPassword;
 }>({
   page1: async ({ page }, use) => {
     await use(page);
@@ -32,6 +33,10 @@ export const test = base.extend<{
     const user2 = generateNewUserData(logger);
 
     await use(user2);
+  },
+  newPassword: async ({ logger }, use) => {
+    const newPassword = generateNewUserData(logger);
+    await use(newPassword.password);
   },
   logger: [
     async ({}, use) => {

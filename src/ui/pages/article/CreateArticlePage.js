@@ -57,7 +57,6 @@ export class CreateArticlePage {
       await this.fillTitleField(article.title);
       await this.fillDescriptionField(article.description);
       await this.fillTextField(article.text);
-      // eslint-disable-next-line playwright/no-conditional-in-test
       if (article.tags.length > 0) {
         await this.fillTagsField(article.tags);
       }
