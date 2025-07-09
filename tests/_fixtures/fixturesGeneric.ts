@@ -35,7 +35,7 @@ export const test = base.extend<{
     await use(user2);
   },
   newPassword: async ({ logger }, use) => {
-    const newPassword = generateNewUserData(logger)
+    const newPassword = generateNewUserData(logger);
     await use(newPassword.password);
   },
   logger: [

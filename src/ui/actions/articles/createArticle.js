@@ -13,6 +13,5 @@ export async function createArticle(page, article) {
     
     return viewArticlePage.url();
   });
-  console.log(article['title'])
   return article;
 }

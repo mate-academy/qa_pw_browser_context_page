@@ -15,7 +15,7 @@ export class HomePage {
 
   async open() {
     await test.step('Open HomePage', async () => {
-      this.page.goto('/');
+      await this.page.goto('/');
     });
   }
   async clickSettingsLink() {

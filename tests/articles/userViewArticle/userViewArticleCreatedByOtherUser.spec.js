@@ -4,7 +4,7 @@ import { createArticle } from '../../../src/ui/actions/articles/createArticle'
 import { HomePage } from '../../../src/ui/pages/HomePage'
 
 let homePage;
-let article
+let article;
 
 test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   await signUpUser(page1, user1);
