@@ -20,19 +20,19 @@ export class ViewArticlePage {
 
   async clickFollowButton() {
     await test.step('Click follow button', async () => {
-      this.followUserButton.click()
+      await this.followUserButton.click();
     })
   }
 
   async clickUnfollowButton() {
     await test.step('Click unfollow button', async () => {
-      this.unfollowUserButton.click()
+      await this.unfollowUserButton.click();
     })
   }
 
   async clickEditArticleButton() {
     await test.step('Click edit article button', async () => {
-      this.editArticleButton.click()
+      await this.editArticleButton.click();
     })
   }
 
@@ -47,7 +47,7 @@ export class ViewArticlePage {
   async open(url) {
     await test.step(`Open 'View Article' page`, async () => {
       await this.page.goto(url);
-      await this.page.waitForLoadState('load')
+      await this.page.waitForLoadState('load');
     });
   }
 
@@ -87,8 +87,8 @@ export class ViewArticlePage {
     await test.step(
       `Assert article link equal to ${articleLink}`,
        async () => {
-        expect( await this.url() ).toBe(articleLink)
-       })
+        expect( await this.url() ).toBe(articleLink);
+       });
   }
 
   async assertButtonStateUnfavoriteFavoriteIsVisible(buttonState) {
@@ -97,19 +97,20 @@ export class ViewArticlePage {
       `Assert is visible button state ${buttonState}`,
       async () => {
         if (buttonState === 'favorite') {
-          await expect(this.favoriteButton).toBeVisible()
+          await expect(this.favoriteButton).toBeVisible();
         }
         if (buttonState === 'unfavorite') {
-          await expect(this.unfavoriteButton).toBeVisible()
+          await expect(this.unfavoriteButton).toBeVisible();
         }
-      }
-    )
+      });
   } 
+
   async assertUnfollowButtonIsVisible() {
     await test.step('Assert unfollow button is visible', async () => {
       await expect(this.unfollowUserButton).toBeVisible();
     });
   }
+
   async assertFollowButtonIsVisible() {
     await test.step('Assert follow button is visible', async () => {
       await expect(this.followUserButton).toBeVisible();

@@ -20,7 +20,7 @@ export class EditArticlePage {
 
    async clickUpdateArticleButton() {
     await test.step('Click update article button', async () => {
-      await this.updateArticleButton.click()
+      await this.updateArticleButton.click();
     });
   }
 

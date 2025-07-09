@@ -52,7 +52,7 @@ export class HomePage {
 
   async assertArticleVisibleInYourFeed(articleName) {
     await test.step(
-      `Assert the article ${articleName}, visible in global feed tab`, 
+      `Assert the article ${articleName}, visible in your feed tab`, 
       async () =>{
         const searchedArticle = (
           await this.articles
@@ -64,7 +64,7 @@ export class HomePage {
 
   async assertArticleVisibleInGlobalFeed(articleName) {
     await test.step(
-      `Assert the article ${articleName}, visible in your feed tab`, 
+      `Assert the article ${articleName}, visible in global feed tab`, 
       async () => {
         const maxRetries = 5;
         
