@@ -12,6 +12,8 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 
 
 
+
+
 test('View an article created by another user', async ({
   page2,
   user2,
