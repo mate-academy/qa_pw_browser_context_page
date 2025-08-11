@@ -1,13 +1,18 @@
+/* eslint-disable max-len */
 import { test, expect } from '@playwright/test';
 
 export class ViewArticlePage {
   constructor(page) {
     this.page = page;
+
     this.articleTitleHeader = page.getByRole('heading');
+    this.followButton = page.locator('button', { hasText: 'Follow' }).first();
+    this.unfollowButton = page.locator('button', { hasText: 'Unfollow' }).first();  
   }
 
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    // Corrected to match by accessible name instead of "username" property
+    return this.page.getByRole('link', { name: username }).first();
   }
 
   url() {
@@ -37,4 +42,29 @@ export class ViewArticlePage {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
+
+  async clickFollowAuthorButton() {
+    await test.step(`Click 'Follow Author' button`, async () => {
+      await this.followButton.click();
+    });
+  }
+
+  async assertAuthorIsFollowed() {
+    await test.step(`Assert the author is followed`, async () => {
+      await expect(this.unfollowButton).toBeVisible();
+    });
+  }
+
+  async clickUnfollowAuthorButton() {
+    await test.step(`Click 'Unfollow Author'`, async () => {
+      await this.unfollowButton.click();
+    });
+  }
+
+  async assertAuthorIsUnfollowed() {
+    await test.step(`Assert unfollowed`, async () => {
+      await expect(this.followButton).toBeVisible();
+    });
+  }
+
 }
