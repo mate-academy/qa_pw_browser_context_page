@@ -2,7 +2,7 @@ import { test as base } from '@playwright/test';
 import { SignUpPage } from '../../src/ui/pages/auth/SignUpPage';
 import { SignInPage } from '../../src/ui/pages/auth/SignInPage';
 import { HomePage } from '../../src/ui/pages/HomePage';
-import { SettihgsPage } from '../../src/ui/pages/SettingsPage';
+import { SettingsPage } from '../../src/ui/pages/SettingsPage';
 
 export const test = base.extend<{
   signUpPage;
@@ -26,7 +26,7 @@ export const test = base.extend<{
     await use(homePage);
   },
   settingsPage: async ({ page }, use) => {
-    const settingsPage = new SettihgsPage(page);
+    const settingsPage = new SettingsPage(page);
 
     await use(settingsPage);
   },

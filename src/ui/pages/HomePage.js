@@ -63,13 +63,13 @@ export class HomePage {
 
   async assertArticleIsVisibleInYourFeed(title) {
     await test.step(`Assert the article is visible in the 'Your Feed'`, async () => {
-      await expect(this.articleTitleLinkiInTabs(title)).toContainText(title);
+      await expect(this.articleTitleLinkInTabs(title)).toContainText(title);
     });
   }
 
   async assertArticleIsNotVisibleInYourFeed(title) {
     await test.step(`Assert the article is visible in the 'Your Feed'`, async () => {
-      await expect(this.articleTitleLinkiInTabs(title)).toBeHidden();
+      await expect(this.articleTitleLinkInTabs(title)).toBeHidden();
     });
   }
 }

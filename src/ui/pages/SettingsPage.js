@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-export class SettihgsPage {
+export class SettingsPage {
   constructor(page) {
     this.page = page;
     this.newPasswordField = page.getByPlaceholder('New Password');
