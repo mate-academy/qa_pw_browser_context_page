@@ -4,8 +4,9 @@ export class SignUpPage {
   constructor(page) {
     this.page = page;
     this.usernameField = page.getByPlaceholder('Username');
+    this.bioField = page.getByPlaceholder('Short bio about you');
     this.emailField = page.getByPlaceholder('Email');
-    this.passwordField = page.getByPlaceholder('Password');
+    this.passwordField = page.getByPlaceholder(/Password/);
     this.signUpButton = page.getByRole('button', { name: 'Sign up' });
     this.errorMessage = page.getByRole('list').nth(1);
   }
