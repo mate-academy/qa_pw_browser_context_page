@@ -2,6 +2,7 @@ import { test } from '../../_fixtures/fixtures';
 import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
+import { updateArticle } from '../../../src/ui/actions/articles/updateArticle';
 
 test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   await signUpUser(page1, user1);
@@ -10,7 +11,7 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   await createArticle(page1, articleWithoutTags);
 });
 
-test('User can view an updated article from another user', async ({
+test('User can view an updated article by another user', async ({
   page1,
   page2,
   user1,
@@ -20,7 +21,7 @@ test('User can view an updated article from another user', async ({
   const updatedArticle = {
     ...articleWithoutTags,
     title: `${articleWithoutTags.title} (Updated)`,
-    text: `${articleWithoutTags.text} — edited version.`,
+    text: `${articleWithoutTags.text} — updated text.`,
   };
 
   await updateArticle(page1, articleWithoutTags.url, updatedArticle);
@@ -30,5 +31,5 @@ test('User can view an updated article from another user', async ({
 
   await viewArticlePage.assertArticleTitleIsVisible(updatedArticle.title);
   await viewArticlePage.assertArticleTextIsVisible(updatedArticle.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username); // ✅ Correct author
 });

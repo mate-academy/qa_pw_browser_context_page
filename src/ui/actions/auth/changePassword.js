@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { SettingsPage } from '../../pages/settings/SettingsPage';
+import { SettingsPage } from '../../pages/auth/SettingsPage';
 import { HomePage } from '../../pages/HomePage';
 
 export async function changePassword(page, newPassword) {
