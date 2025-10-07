@@ -42,7 +42,13 @@ test('Unfollowed user’s new article does not appear in "Your Feed"', async ({
   await homePage.open();
   await homePage.openGlobalFeed();
   await homePage.openAuthorProfile(user1.username);
+
+  // Explicit follow/unfollow sequence
+  await profilePage.clickFollowButton();
+  await profilePage.assertFollowingState(true);
+
   await profilePage.clickUnfollowButton();
+  await profilePage.assertFollowingState(false);
 
   const newArticle = { ...articleWithoutTags, title: 'Unseen Article' };
   await createArticle(page1, newArticle);

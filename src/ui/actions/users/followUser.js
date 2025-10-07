@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ProfilePage } from '../../pages/profile/ProfilePage';
+import { ProfilePage } from '../../pages/auth/ProfilePage';
 
 export async function followUser(page, username) {
   await test.step(`Follow user: ${username}`, async () => {

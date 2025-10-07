@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { ProfilePage } from '../../pages/profile/ProfilePage';
+import { ProfilePage } from '../../pages/auth/ProfilePage';
 
 export async function unfollowUser(page, username) {
   await test.step(`Unfollow user: ${username}`, async () => {

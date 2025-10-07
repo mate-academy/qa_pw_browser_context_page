@@ -13,8 +13,8 @@ export class SettingsPage {
     });
   }
 
-  async submitChangePasswordForm(oldPassword, newPassword) {
-    await test.step('Submit password change form', async () => {
+  async submitChangePasswordForm(newPassword) {
+    await test.step('Submit change password form', async () => {
       await this.newPasswordInput.fill(newPassword);
       await this.updateButton.click();
     });
