@@ -4,6 +4,27 @@ export class EditArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.editArticleButton = page.getByRole('link', { name: ' Edit Article' }).first()
+    this.articleTitle = page.getByPlaceholder('Article Title');
+    this.updateArticleButton = page.getByRole('button', {name: 'Update Article'});
+  }
+
+  async fillArticleTitleField(title) {
+    await test.step('fill article title field', async () => {
+      await this.articleTitle.fill(title);
+    });
+  }
+
+  async clickUpdateArticleButton() {
+    await test.step('click update article button', async () => {
+      await this.updateArticleButton.click();
+    });
+  }
+
+  async clickEditArticleButton() {
+    await test.step('click edit article button', async () => {
+      await this.editArticleButton.click();
+    });
   }
 
   async assertArticleTitle(title) {

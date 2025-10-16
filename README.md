@@ -11,7 +11,7 @@
 
 ## Task
 
-1. Automate the multi-user test: 
+1. Automate the multi-user test:
 
     - *User can view an article created by another user in the Global Feed.*
     - *User can follow the article created by another user.*
@@ -26,11 +26,11 @@
     - *User can see own article in "Global feed" when not logged in.*
 
     Use the following example tests as templates:
-   
+
     - `viewArticleCreatedByAnotherUser.spec.js`
     - `signInPositive.spec.js`
-    
-3. Re-run all your tests and ensure they pass after the updates. 
+
+3. Re-run all your tests and ensure they pass after the updates.
 
 ## Task Reporting
 
