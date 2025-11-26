@@ -6,9 +6,12 @@ export class CreateArticlePage {
     this.titleField = page.getByPlaceholder('Article Title');
     this.descriptionField = page.getByPlaceholder(`What's this article about?`);
     this.textField = page.getByPlaceholder('Write your article (in markdown)');
-    this.tagsFiled = page.getByPlaceholder('Enter tags');
+    this.tagsField = page.getByPlaceholder('Enter tags');
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
+    });
+    this.updateArticleButton = page.getByRole('button', {
+      name: 'Update Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
   }
@@ -40,7 +43,7 @@ export class CreateArticlePage {
   async fillTagsField(tags) {
     await test.step(`Fill the 'Tags' field`, async () => {
       for (let i = 0; i < tags.length; i++) {
-        await this.tagField.fill(tags[i]);
+        await this.tagsField.fill(tags[i]);
         await this.page.keyboard.press('Enter');
       }
     });
@@ -49,6 +52,12 @@ export class CreateArticlePage {
   async clickPublishArticleButton() {
     await test.step(`Click the 'Publish Article' button`, async () => {
       await this.publishArticleButton.click();
+    });
+  }
+
+  async clickUpdateArticleleButton() {
+    await test.step(`Click the 'Update Article' button`, async () => {
+      await this.updateArticleButton.click();
     });
   }
 
@@ -62,6 +71,19 @@ export class CreateArticlePage {
         await this.fillTagsField(article.tags);
       }
       await this.clickPublishArticleButton();
+    });
+  }
+
+  async submitUpdateArticleForm(article) {
+    await test.step(`Submit the 'Update Article' form`, async () => {
+      await this.fillTitleField(article.title);
+      await this.fillDescriptionField(article.description);
+      await this.fillTextField(article.text);
+      // eslint-disable-next-line playwright/no-conditional-in-test
+      if (article.tags.length > 0) {
+        await this.fillTagsField(article.tags);
+      }
+      await this.clickUpdateArticleleButton();
     });
   }
 
