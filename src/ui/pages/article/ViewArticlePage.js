@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 export class ViewArticlePage {
   constructor(page) {
     this.page = page;
-    this.articleTitleHeader = page.getByRole('heading');
+    this.articleTitleHeader = page.locator('.banner').getByRole('heading');
     this.editArticleLink = page
       .getByRole('link', { name: 'Edit Article' })
       .first();

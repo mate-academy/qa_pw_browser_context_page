@@ -27,7 +27,7 @@ test.beforeEach(
 
 test('View an article updated by another user', async ({
   page2,
-  user2,
+  user1,
   articleWithoutTags,
   updatedArticleWithoutTags,
 }) => {
@@ -41,5 +41,5 @@ test('View an article updated by another user', async ({
   await viewArticlePage.assertArticleTextIsVisible(
     updatedArticleWithoutTags.text,
   );
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
 });

@@ -55,9 +55,7 @@ export class HomePage {
   async assertArticleTitleIsVisible(title) {
     await test.step(`Assert the article has correct title`, async () => {
       await expect(
-        this.page
-          .getByRole('link')
-          .getByRole('heading', { name: `Article title: ${title}` }),
+        this.page.getByRole('link').getByRole('heading', { name: `${title}` }),
       ).toBeVisible();
     });
   }
@@ -66,7 +64,7 @@ export class HomePage {
     await test.step(`Assert the article has correct description`, async () => {
       await expect(
         this.page.getByRole('link', {
-          name: `Article description: ${description}`,
+          name: `${description}`,
         }),
       ).toBeVisible();
     });
