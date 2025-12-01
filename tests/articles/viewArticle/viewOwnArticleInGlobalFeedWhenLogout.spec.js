@@ -15,7 +15,6 @@ test('User can see own article in "Global feed" when not logged in', async ({
 }) => {
   const homePage = new HomePage(page2);
   await homePage.open();
-  await page2.waitForTimeout(20000); // this timeout needs article to be created (article creates up to 20 seconds)
   await page2.reload();
   await homePage.assertGlobalFeedTabIsVisible();
   await homePage.assertArticleTitleIsVisible(articleWithoutTags.title);
