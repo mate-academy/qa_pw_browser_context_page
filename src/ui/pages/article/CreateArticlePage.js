@@ -11,8 +11,17 @@ export class CreateArticlePage {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
+    this.updateArticleButton = page.getByRole('button', {
+      name: 'Update Article'
+    });
   }
 
+  async clickUpdateArticleButton() {
+    await test.step(`Click on 'Update Article' button`, async () => {
+      await this.updateArticleButton.click();
+    });
+  }
+  
   async open() {
     await test.step(`Open 'Create article' page`, async () => {
       await this.page.goto('/editor');
