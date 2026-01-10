@@ -14,5 +14,8 @@ export async function createArticle(page, article) {
     return viewArticlePage.url();
   });
 
+  const parts = article.url.split('/');
+  article['slug'] = parts[parts.length - 1];
+
   return article;
 }
