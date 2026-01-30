@@ -33,6 +33,14 @@ export class SignInPage {
     });
   }
 
+  async submitSignInForm(user) {
+    await test.step(`Fill the 'Sign In' form`, async () => {
+      await this.fillEmailField(user.email);
+      await this.fillPasswordField(user.password);
+      await this.clickSignInButton();
+    });
+  }
+
   async assertErrorMessageContainsText(messageText) {
     await test.step(`Assert the '${messageText}' error is shown`, async () => {
       await expect(this.errorMessage).toContainText(messageText);
