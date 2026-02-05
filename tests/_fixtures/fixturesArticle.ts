@@ -8,8 +8,14 @@ export const test = base.extend<{
   articleWithOneTag;
   createArticlePage;
   viewArticlePage;
+  newArticleWithoutTags;
 }>({
   articleWithoutTags: async ({ logger }, use) => {
+    const article = generateNewArticleData(logger);
+
+    await use(article);
+  },
+  newArticleWithoutTags: async ({ logger }, use) => {
     const article = generateNewArticleData(logger);
 
     await use(article);

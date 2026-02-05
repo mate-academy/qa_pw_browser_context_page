@@ -4,10 +4,26 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.articleEditButton = page.getByRole(
+      'link', 
+      { name: 'Edit Article' })
+      .first();
   }
 
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    return this.page.getByRole('link', { name: username }).first();
+  }
+
+  followUserLink(username) {
+    return this.page.getByRole('button', 
+      { name: `Follow ${username}` })
+      .first()
+  }
+
+  unFollowUserLink(username) {
+    return this.page.getByRole('button', 
+      { name: `Unfollow ${username}` })
+      .first()
   }
 
   url() {
@@ -37,4 +53,40 @@ export class ViewArticlePage {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
+
+  async followUserLinkClick(username) {
+    await test.step('Click follow user in viewed adrticle page', async () =>{
+      await this.followUserLink(username).click();
+    });
+  }
+
+  async unFollowUserLinkToBeVisible(username) {
+    await test.step('Unfollow button to be visible', async () =>{
+      await expect(this.unFollowUserLink(username)).toBeVisible();
+    });
+  }
+
+  async unFollowUserLinkClick(username) {
+    await test.step('Click Unfollow user in viewed adrticle page', async () =>{
+      await this.unFollowUserLink(username).click();
+    });
+  }
+
+  async followUserLinkToBeVisible(username) {
+    await test.step('Follow button to be visible', async () =>{
+      await expect(this.followUserLink(username)).toBeVisible();
+    });
+  }
+
+  async clickArticleEditButton() {
+    await test.step('Click Edit article page', async() =>{
+      await this.articleEditButton.click();
+    });
+  }
+
+
+
+
+
+
 }
