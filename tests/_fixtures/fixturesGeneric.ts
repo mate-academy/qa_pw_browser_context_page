@@ -15,12 +15,15 @@ export const test = base.extend<
     logger;
   }
 >({
-  page1: async ({ page }, use) => {
-    await use(page);
+  page1: async ({ browser }, use) => {
+    const context1 = await browser.newContext();
+    const page1 = await context1.newPage();
+
+    await use(page1);
   },
   page2: async ({ browser }, use) => {
-    const context = await browser.newContext();
-    const page2 = await context.newPage();
+    const context2 = await browser.newContext();
+    const page2 = await context2.newPage();
 
     await use(page2);
   },
