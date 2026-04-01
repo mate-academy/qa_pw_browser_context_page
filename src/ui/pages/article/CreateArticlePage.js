@@ -10,12 +10,13 @@ export class CreateArticlePage {
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
+    this.updateArticle = page.getByRole('button', { name: 'Update Article' });
     this.errorMessage = page.getByRole('list').nth(1);
   }
 
   async open() {
     await test.step(`Open 'Create article' page`, async () => {
-      await this.page.goto('/editor');
+      await this.page.goto('/editor', { waitUntil: 'commit' });
     });
   }
 
@@ -40,7 +41,7 @@ export class CreateArticlePage {
   async fillTagsField(tags) {
     await test.step(`Fill the 'Tags' field`, async () => {
       for (let i = 0; i < tags.length; i++) {
-        await this.tagField.fill(tags[i]);
+        await this.tagsFiled.fill(tags[i]);
         await this.page.keyboard.press('Enter');
       }
     });
@@ -49,6 +50,12 @@ export class CreateArticlePage {
   async clickPublishArticleButton() {
     await test.step(`Click the 'Publish Article' button`, async () => {
       await this.publishArticleButton.click();
+    });
+  }
+
+  async clickUpdateArticleButton() {
+    await test.step(`Click the 'Update Article' button`, async () => {
+      await this.updateArticle.click();
     });
   }
 
@@ -61,7 +68,6 @@ export class CreateArticlePage {
       if (article.tags.length > 0) {
         await this.fillTagsField(article.tags);
       }
-      await this.clickPublishArticleButton();
     });
   }
 

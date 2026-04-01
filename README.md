@@ -13,9 +13,9 @@
 
 1. Automate the multi-user test: 
 
-    - *User can view an article created by another user in the Global Feed.*
+    - *User can view an article created by another user in the Global Feed.* 
     - *User can follow the article created by another user.*
-    - *User can unfollow the article created by another user.*
+    - *User can unfollow the article created by another user.* 
     - *User can view an article updated by another user.*
     - *User can see other user's new articles in "Your Feed" after following their profile.*
     - *User doesn't see other user's articles in "Your Feed" after unfollowing their profile.*
