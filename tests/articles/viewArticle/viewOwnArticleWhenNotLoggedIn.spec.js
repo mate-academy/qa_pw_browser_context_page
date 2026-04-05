@@ -13,15 +13,15 @@ test.beforeEach(async ({ page1, user1, page2, articleWithoutTags }) => {
 });
 
 test('User can see own article in "Global feed" when not logged in.',
-  async ({ user2, articleWithoutTags}) => {
+  async ({ user1, articleWithoutTags}) => {
     await homePage.open();
     await homePage.clickGlobalFeedTab();
-    await homePage.reload();
 
     await homePage.assertArticleTitleIsVisible(articleWithoutTags.title);
     await homePage.assertArticleDescriptionIsVisible(
-      articleWithoutTags.description);
-    await homePage.assertArticleAuthorNameIsVisible(user2.username);
+      articleWithoutTags.title, articleWithoutTags.description);
+    await homePage.assertArticleAuthorNameIsVisible(articleWithoutTags.title,
+      user1.username);
   });
 
 

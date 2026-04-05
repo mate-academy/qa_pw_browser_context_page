@@ -7,9 +7,9 @@ export class ViewArticlePage {
     this.editArticleButton = page.getByRole('link',
       { name: 'Edit Article' }).first();
     this.followArticleButton = page.getByRole('button',
-      { name: 'Follow' }).first();
+      { name: /Follow/ }).first();
     this.unfollowArticleButton = page.getByRole('button',
-      { name: 'Unfollow' }).first();
+      { name: /Unfollow/ }).first();
   }
 
   authorLinkInArticleHeader(username) {

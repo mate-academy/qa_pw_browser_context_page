@@ -24,7 +24,7 @@ test('User can sign in with changed in profile password.',
   const password = faker.internet.password();
 
   await homePage1.open();
-  await profilePage.clickProfileLink();
+  await profilePage.clickProfileLink(user.username);
   await profilePage.clickEditProfileButton();
   await profilePage.fillNewPasswordField(password);
   await profilePage.clickUpdateSettingsButton();

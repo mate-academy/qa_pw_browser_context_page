@@ -6,12 +6,10 @@ export class HomePage {
     this.yourFeedTab = page.getByText('Your Feed');
     this.globalFeedTab = page.getByText('Global Feed');
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
-    this.articleTitleHeader = page.locator('.container.page')
-      .getByRole('heading').first();
   }
 
-  authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+  articlePreviewByTitle(title) {
+    return this.page.locator('.article-preview').filter({ hasText: title });
   }
 
   async open() {
@@ -52,27 +50,34 @@ export class HomePage {
 
   async assertArticleTitleIsVisible(title) {
     await test.step(`Assert the article has correct title`, async () => {
-      await expect(this.articleTitleHeader).toContainText(title);
+      await expect(
+        this.articlePreviewByTitle(title).getByRole('heading'),
+      ).toContainText(title);
     });
   }
 
   async assertArticleTitleIsNotVisible(title) {
     await test.step(`Assert the article with title '${title}' is not visible`,
       async () => {
-      await expect(this.articleTitleHeader).toBeHidden();
+      await expect(this.articlePreviewByTitle(title)).toBeHidden();
     });
   }
 
-  async assertArticleDescriptionIsVisible(description) {
+  async assertArticleDescriptionIsVisible(title, description) {
     await test.step(`Assert the article has correct description`, async () => {
-      await expect(this.page.getByText(description)).toBeVisible();
+      await expect(
+        this.articlePreviewByTitle(title).getByText(description),
+      ).toBeVisible();
     });
   }
 
-  async assertArticleAuthorNameIsVisible(username) {
+  async assertArticleAuthorNameIsVisible(title, username) {
     await test.step(`Assert the article has correct author username`,
       async () => {
-        await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
+        await expect(
+          this.articlePreviewByTitle(title).getByRole('link',
+            { name: username }),
+        ).toBeVisible();
       });
   }
 }

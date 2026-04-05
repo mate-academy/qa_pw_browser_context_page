@@ -17,8 +17,8 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   homePage = new HomePage(page2);
 });
 
-test('User can see other user\'s new articles in' +
-  ' "Your Feed" after following their profile.',
+test('User can not see other user\'s new articles in' +
+  ' "Your Feed" after unfollowing their profile.',
   async ({ articleWithoutTags, }) => {
     await viewArticlePage.open(articleWithoutTags.url);
     await viewArticlePage.clickFollowArticleButton();

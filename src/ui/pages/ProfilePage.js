@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 export class ProfilePage {
   constructor(page) {
     this.page = page;
-    this.profilelink = page.getByRole('link', { name: 'your profile image' })
+    this.profileLink = (username) => page.getByRole('link', { name: username });
     this.editProfileButton = page.getByRole('link',
       { name: 'Edit Profile Settings' })
     this.articlePreview = page.locator('.article-preview');
@@ -12,9 +12,9 @@ export class ProfilePage {
       { name: 'Update Settings' });
   }
 
-  async clickProfileLink() {
+  async clickProfileLink(username) {
     await test.step(`Click the 'Profile' link`, async () => {
-      await this.profilelink.click();
+      await this.profileLink(username).click();
     });
   }
 

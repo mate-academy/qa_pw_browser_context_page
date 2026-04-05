@@ -21,7 +21,7 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 });
 
 test('View an article updated by another user',
-  async ({ user2, articleWithoutTags, }) => {
+  async ({ user1, articleWithoutTags, }) => {
     const title = faker.lorem.words()
     const text = faker.lorem.sentences(2);
 
@@ -34,5 +34,5 @@ test('View an article updated by another user',
 
     await viewArticlePage2.assertArticleTitleIsVisible(title);
     await viewArticlePage2.assertArticleTextIsVisible(text);
-    await viewArticlePage2.assertArticleAuthorNameIsVisible(user2.username);
+    await viewArticlePage2.assertArticleAuthorNameIsVisible(user1.username);
   });

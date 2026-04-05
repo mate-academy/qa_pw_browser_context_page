@@ -18,24 +18,25 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 });
 
 test('View an article created by another user',
-  async ({ user2, articleWithoutTags, }) => {
+  async ({ user1, articleWithoutTags, }) => {
   await viewArticlePage.open(articleWithoutTags.url);
 
   await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
   await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
 });
 
 test('View an article created by another user in the Global Feed',
-  async ({ user2, articleWithoutTags}) => {
+  async ({ user1, articleWithoutTags}) => {
 
     await homePage.open();
     await homePage.clickGlobalFeedTab();
 
     await homePage.assertArticleTitleIsVisible(articleWithoutTags.title);
     await homePage.assertArticleDescriptionIsVisible(
-      articleWithoutTags.description);
-    await homePage.assertArticleAuthorNameIsVisible(user2.username);
+      articleWithoutTags.title, articleWithoutTags.description);
+    await homePage.assertArticleAuthorNameIsVisible(articleWithoutTags.title,
+      user1.username);
   });
 
 

@@ -14,7 +14,7 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   viewArticlePage = new ViewArticlePage(page2);
 });
 
-test('User can follow the article created by another user',
+test('User can unfollow the article created by another user',
   async ({ articleWithoutTags}) => {
     await viewArticlePage.open(articleWithoutTags.url);
     await viewArticlePage.clickFollowArticleButton();

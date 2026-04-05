@@ -19,7 +19,7 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 
 test('User can see other user\'s new articles in' +
   ' "Your Feed" after following their profile.',
-  async ({ user2, articleWithoutTags, }) => {
+  async ({ user1, articleWithoutTags, }) => {
     await viewArticlePage.open(articleWithoutTags.url);
     await viewArticlePage.clickFollowArticleButton();
     await homePage.open();
@@ -27,6 +27,7 @@ test('User can see other user\'s new articles in' +
 
     await homePage.assertArticleTitleIsVisible(articleWithoutTags.title);
     await homePage.assertArticleDescriptionIsVisible(
-      articleWithoutTags.description);
-    await homePage.assertArticleAuthorNameIsVisible(user2.username);
+      articleWithoutTags.title, articleWithoutTags.description);
+    await homePage.assertArticleAuthorNameIsVisible(articleWithoutTags.title,
+      user1.username);
   });
