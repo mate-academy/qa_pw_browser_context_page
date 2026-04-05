@@ -13,7 +13,7 @@ export class ViewArticlePage {
   }
 
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    return this.page.getByRole('link', { name: username }).first();
   }
 
   url() {
