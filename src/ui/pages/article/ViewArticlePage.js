@@ -4,10 +4,16 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.editArticleButton = page.getByRole('link',
+      { name: 'Edit Article' }).first();
+    this.followArticleButton = page.getByRole('button',
+      { name: /Follow/ }).first();
+    this.unfollowArticleButton = page.getByRole('button',
+      { name: /Unfollow/ }).first();
   }
 
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    return this.page.getByRole('link', { name: username }).first();
   }
 
   url() {
@@ -16,7 +22,31 @@ export class ViewArticlePage {
 
   async open(url) {
     await test.step(`Open 'View Article' page`, async () => {
-      await this.page.goto(url);
+      await this.page.goto(url, { waitUntil: 'commit' });
+    });
+  }
+
+  async reload() {
+    await test.step(`Reload the page`, async () => {
+      await this.page.reload({ waitUntil: 'commit' });
+    });
+  }
+
+  async clickFollowArticleButton() {
+    await test.step(`Click the 'Follow' button`, async () => {
+      await this.followArticleButton.click();
+    });
+  }
+
+  async clickEditArticleButton() {
+    await test.step(`Click the 'Edit Article' button`, async () => {
+      await this.editArticleButton.click();
+    });
+  }
+
+  async clickUnfollowArticleButton() {
+    await test.step(`Click the 'Unfollow' button`, async () => {
+      await this.unfollowArticleButton.click();
     });
   }
 
@@ -33,8 +63,21 @@ export class ViewArticlePage {
   }
 
   async assertArticleAuthorNameIsVisible(username) {
-    await test.step(`Assert the article has correct author username`, async () => {
+    await test.step(`Assert the article has correct author username`,
+      async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
+    });
+  }
+
+  async assertFollowArticleButtonIsVisible() {
+    await test.step(`Assert the 'Follow' button is visible`, async () => {
+      await expect(this.followArticleButton).toBeVisible();
+    });
+  }
+
+  async assertUnfollowArticleButtonIsVisible() {
+    await test.step(`Assert the 'Unfollow' button is visible`, async () => {
+      await expect(this.unfollowArticleButton).toBeVisible();
     });
   }
 }
