@@ -11,7 +11,8 @@ export class SignInPage {
 
   async open() {
     await test.step(`Open 'Sign In' page`, async () => {
-      await this.page.goto('/user/login');
+      await this.page.goto('/user/login', { waitUntil: 'commit' });
+      await this.page.waitForTimeout(1000);
     });
   }
 
