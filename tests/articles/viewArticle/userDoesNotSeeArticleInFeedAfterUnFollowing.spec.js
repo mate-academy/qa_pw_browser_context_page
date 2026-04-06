@@ -4,12 +4,9 @@ import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 import { HomePage } from '../../../src/ui/pages/HomePage';
 import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 
-let homePage2;
-let viewArticlePage2;
-
 test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
-  homePage2 = new HomePage(page2);
-  viewArticlePage2 = new ViewArticlePage(page2);
+  const homePage2 = new HomePage(page2);
+  const viewArticlePage2 = new ViewArticlePage(page2);
 
   await signUpUser(page1, user1);
   await signUpUser(page2, user2);
@@ -23,8 +20,11 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 
 test('UnFollow user from article and check non-visibility in the feed', async ({
   user1,
+  page2,
   articleWithoutTags,
 }) => {
+  const homePage2 = new HomePage(page2);
+  const viewArticlePage2 = new ViewArticlePage(page2);
   await viewArticlePage2.clickUnfollowAuthorButton(user1.username);
 
   await homePage2.open();

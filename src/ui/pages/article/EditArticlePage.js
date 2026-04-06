@@ -23,31 +23,31 @@ export class EditArticlePage {
   }
 
   async removeTitle() {
-    await test.step(`Remove aticle title`, async () => {
+    await test.step(`Remove article title`, async () => {
       await this.articleTitle.fill('');
     });
   }
 
   async editArticleDescription(article) {
-    await test.step(`Edit aticle description`, async () => {
+    await test.step(`Edit article description`, async () => {
       await this.articleDesc.fill(article.description);
     });
   }
 
   async removeDescription() {
-    await test.step(`Remove aticle description`, async () => {
+    await test.step(`Remove article description`, async () => {
       await this.articleDesc.fill('');
     });
   }
 
   async editArticleText(article) {
-    await test.step(`Edit aticle text`, async () => {
+    await test.step(`Edit article text`, async () => {
       await this.articleText.fill(article.text);
     });
   }
 
   async removeText() {
-    await test.step(`Remove aticle text`, async () => {
+    await test.step(`Remove article text`, async () => {
       await this.articleText.fill('');
     });
   }
