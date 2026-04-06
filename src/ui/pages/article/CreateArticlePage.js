@@ -6,7 +6,7 @@ export class CreateArticlePage {
     this.titleField = page.getByPlaceholder('Article Title');
     this.descriptionField = page.getByPlaceholder(`What's this article about?`);
     this.textField = page.getByPlaceholder('Write your article (in markdown)');
-    this.tagsFiled = page.getByPlaceholder('Enter tags');
+    this.tagField = page.getByPlaceholder('Enter tags');
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
@@ -15,7 +15,7 @@ export class CreateArticlePage {
 
   async open() {
     await test.step(`Open 'Create article' page`, async () => {
-      await this.page.goto('/editor');
+      await this.page.goto('/editor', { waitUntil: 'commit' });
     });
   }
 
