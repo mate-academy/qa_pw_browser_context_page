@@ -7,11 +7,19 @@ export class SignInPage {
     this.passwordField = page.getByPlaceholder('Password');
     this.signInButton = page.getByRole('button', { name: 'Sign in' });
     this.errorMessage = page.getByRole('list').nth(1);
+    this.homePageLink = page.getByRole('navigation')
+    .getByRole('link', { name: 'conduit' });
   }
 
   async open() {
     await test.step(`Open 'Sign In' page`, async () => {
       await this.page.goto('/user/login');
+    });
+  }
+
+  async homePageLinkClick() {
+    await test.step(`Open 'Home' page`, async () => {
+      await this.homePageLink.click();
     });
   }
 

@@ -4,6 +4,9 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.followButton = page.getByRole('button').first();
+    this.editArticleButton = page.
+    getByRole('link', { name: ' Edit Article' }).first();
   }
 
   authorLinkInArticleHeader(username) {
@@ -33,8 +36,21 @@ export class ViewArticlePage {
   }
 
   async assertArticleAuthorNameIsVisible(username) {
-    await test.step(`Assert the article has correct author username`, async () => {
+    await test.step(
+      `Assert the article has correct author username`, async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
+    });
+  }
+
+  async followButtonClick() {
+    await test.step(`Click follow button`, async () => {
+      await this.followButton.click();
+    });
+  }
+
+  async editArticleButtonClick() {
+    await test.step(`Edit article button click`, async () => {
+      await this.editArticleButton.click();
     });
   }
 }

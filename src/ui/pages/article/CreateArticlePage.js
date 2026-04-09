@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { HomePage } from '../HomePage';
 
 export class CreateArticlePage {
   constructor(page) {
@@ -11,11 +12,12 @@ export class CreateArticlePage {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
+    this.homePage = new HomePage(page);
   }
 
   async open() {
     await test.step(`Open 'Create article' page`, async () => {
-      await this.page.goto('/editor');
+      await this.homePage.clickNewArticleLink();
     });
   }
 
@@ -40,7 +42,7 @@ export class CreateArticlePage {
   async fillTagsField(tags) {
     await test.step(`Fill the 'Tags' field`, async () => {
       for (let i = 0; i < tags.length; i++) {
-        await this.tagField.fill(tags[i]);
+        await this.tagsFiled.fill(tags[i]);
         await this.page.keyboard.press('Enter');
       }
     });
