@@ -28,4 +28,6 @@ test('Verify user can log in after password is changed', async ({
   await signInPage.fillEmailField(user1.email);
   await signInPage.fillPasswordField(newPassword);
   await signInPage.clickSignInButton();
+  
+  await homePage.assertGlobalFeedTabIsVisible();
 });
