@@ -16,11 +16,12 @@ test('Verify user can log in after password is changed', async ({
   user1,
   page2,
 }) => {
-  const homePage = new HomePage(page1);
+  const homePage1 = new HomePage(page1);
+  const homePage2 = new HomePage(page2);
   const profilePage = new ProfilePage(page1);
   const signInPage = new SignInPage(page2);
 
-  await homePage.openSettingsPage();
+  await homePage1.openSettingsPage();
   await profilePage.profilePasswordFieldFill(newPassword);
   await profilePage.updateSettingsButtonClick();
 
@@ -28,6 +29,6 @@ test('Verify user can log in after password is changed', async ({
   await signInPage.fillEmailField(user1.email);
   await signInPage.fillPasswordField(newPassword);
   await signInPage.clickSignInButton();
-  
-  await homePage.assertGlobalFeedTabIsVisible();
+
+  await homePage2.assertGlobalFeedTabIsVisible();
 });

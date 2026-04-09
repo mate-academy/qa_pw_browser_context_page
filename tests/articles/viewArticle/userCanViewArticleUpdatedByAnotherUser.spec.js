@@ -22,10 +22,9 @@ test('View an article edited by another user', async ({
   const viewArticlePageOnPage1 = new ViewArticlePage(page1);
   const viewArticlePageOnPage2 = new ViewArticlePage(page2);
   const editArticlePage = new EditArticlePage(page1);
-  const homePage1 = new HomePage(page1);
   const homePage2 = new HomePage(page2);
 
-  await homePage2.open(articleWithoutTags.url);
+  await viewArticlePageOnPage2.open(articleWithoutTags.url);
 
   await viewArticlePageOnPage2.
   assertArticleTitleIsVisible(articleWithoutTags.title);
@@ -33,7 +32,7 @@ test('View an article edited by another user', async ({
   assertArticleTextIsVisible(articleWithoutTags.text);
   await viewArticlePageOnPage2.assertArticleAuthorNameIsVisible(user1.username);
 
-  await homePage1.open(articleWithoutTags.url);
+  await viewArticlePageOnPage1.open(articleWithoutTags.url);
   await viewArticlePageOnPage1.editArticleButtonClick();
   await editArticlePage.fillTitleField(articleWithOneTag.title);
   await editArticlePage.clickUpdateArticleButton();

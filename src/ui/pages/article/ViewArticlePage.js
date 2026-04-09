@@ -4,7 +4,7 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
-    this.followButton = page.getByRole('button', { name: 'Follow'}).first();
+    this.followButton = page.getByRole('button').first();
     this.editArticleButton = page.
     getByRole('link', { name: ' Edit Article' }).first();
   }
