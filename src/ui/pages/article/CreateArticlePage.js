@@ -25,17 +25,21 @@ export class CreateArticlePage {
     });
   }
 
+
   async fillDescriptionField(description) {
     await test.step(`Fill the 'Description' field`, async () => {
       await this.descriptionField.fill(description);
     });
   }
 
+
+
   async fillTextField(text) {
     await test.step(`Fill the 'Text' field`, async () => {
       await this.textField.fill(text);
     });
   }
+
 
   async fillTagsField(tags) {
     await test.step(`Fill the 'Tags' field`, async () => {
@@ -45,6 +49,7 @@ export class CreateArticlePage {
       }
     });
   }
+
 
   async clickPublishArticleButton() {
     await test.step(`Click the 'Publish Article' button`, async () => {
@@ -65,9 +70,11 @@ export class CreateArticlePage {
     });
   }
 
+  
   async assertErrorMessageContainsText(messageText) {
     await test.step(`Assert the '${messageText}' error is shown`, async () => {
       await expect(this.errorMessage).toContainText(messageText);
     });
   }
 }
+
