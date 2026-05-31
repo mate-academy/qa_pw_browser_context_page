@@ -14,5 +14,5 @@ export async function createArticle(page, article) {
     return viewArticlePage.url();
   });
 
-  return article;
+  return { article, url: article.url };
 }
