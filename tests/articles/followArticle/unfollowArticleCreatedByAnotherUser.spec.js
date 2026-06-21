@@ -12,14 +12,13 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 
 test('Unfollow an article created by another user', async ({
   page2,
-  user1,
   articleWithoutTags,
 }) => {
   const viewArticlePage = new ViewArticlePage(page2);
 
   await viewArticlePage.open(articleWithoutTags.url);
-  await viewArticlePage.clickFavoriteButton(user1.username);
-  await viewArticlePage.assertArticleIsFavorited(user1.username);
+  await viewArticlePage.clickFavoriteButton();
+  await viewArticlePage.assertArticleIsFavorited();
   await viewArticlePage.clickUnfavoriteButton();
-  await viewArticlePage.assertArticleIsNotFavorited(user1.username);
+  await viewArticlePage.assertArticleIsNotFavorited();
 });

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
 export class EditArticlePage {
   constructor(page) {
@@ -49,18 +49,6 @@ export class EditArticlePage {
       await this.fillDescriptionField(article.description);
       await this.fillTextField(article.text);
       await this.clickUpdateArticleButton();
-    });
-  }
-
-  async assertArticleTitle(title) {
-    await test.step(`Assert the article has correct title'`, async () => {
-      await expect(this.articleTitleHeader).toContainText(title);
-    });
-  }
-
-  async assertArticleText(text) {
-    await test.step(`Assert the article has correct text'`, async () => {
-      await expect(this.page.getByText(text)).toBeVisible();
     });
   }
 }

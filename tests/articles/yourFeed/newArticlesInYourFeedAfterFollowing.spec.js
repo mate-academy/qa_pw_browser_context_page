@@ -11,8 +11,7 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   await createArticle(page1, articleWithoutTags);
 });
 
-test("User can see other user's new articles \
-  in Your Feed after following their profile", async ({
+test("User can see other user's new articles in Your Feed after following their profile", async ({
   page1,
   page2,
   articleWithoutTags,
