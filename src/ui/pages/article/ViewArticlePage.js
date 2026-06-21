@@ -4,10 +4,13 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.favoriteButton = page
+      .getByRole('button', { name: 'Favorite Article (0)' })
+      .first();
   }
 
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    return this.page.getByRole('link', { name: username }).first();
   }
 
   url() {
@@ -33,8 +36,41 @@ export class ViewArticlePage {
   }
 
   async assertArticleAuthorNameIsVisible(username) {
-    await test.step(`Assert the article has correct author username`, async () => {
+    await test.step(`Assert article has correct author username`, async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
+    });
+  }
+
+  async clickFavoriteButton() {
+    await test.step(`Click the 'Favorite Article' button`, async () => {
+      await this.favoriteButton.click();
+    });
+  }
+
+  async clickUnfavoriteButton() {
+    await test.step(`Click the 'Unfavorite Article' button`, async () => {
+      const unfavoriteButton = this.page
+        .getByRole('button', { name: 'Unfavorite Article (1)' })
+        .first();
+      await unfavoriteButton.click();
+    });
+  }
+
+  async assertArticleIsFavorited() {
+    await test.step(`Assert the article is favorited`, async () => {
+      const unfavoriteButton = this.page
+        .getByRole('button', { name: 'Unfavorite Article (1)' })
+        .first();
+      await expect(unfavoriteButton).toBeVisible();
+    });
+  }
+
+  async assertArticleIsNotFavorited() {
+    await test.step(`Assert the article is not favorited`, async () => {
+      const favoriteButton = this.page
+        .getByRole('button', { name: 'Favorite Article (0)' })
+        .first();
+      await expect(favoriteButton).toBeVisible();
     });
   }
 }
