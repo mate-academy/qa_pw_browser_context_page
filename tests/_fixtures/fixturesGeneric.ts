@@ -1,28 +1,33 @@
 import { test as base } from '@playwright/test';
+import type { Page, TestInfo } from '@playwright/test';
 import { Logger } from '../../src/common/logger/Logger';
 import { generateNewUserData } from '../../src/common/testData/generateNewUserData';
+import { createPageInNewContext } from './createPageInNewContext';
 
-export const test = base.extend<
-  {
-    page1;
-    page2;
-    user;
-    user1;
-    user2;
-    infoTestLog;
-  },
-  {
-    logger;
-  }
->({
+type UserData = ReturnType<typeof generateNewUserData>;
+
+type GenericFixtures = {
+  page1: Page;
+  page2: Page;
+  user: UserData;
+  user1: UserData;
+  user2: UserData;
+  infoTestLog: string;
+};
+
+type GenericWorkerFixtures = {
+  logger: Logger;
+};
+
+export const test = base.extend<GenericFixtures, GenericWorkerFixtures>({
   page1: async ({ page }, use) => {
     await use(page);
   },
   page2: async ({ browser }, use) => {
-    const context = await browser.newContext();
-    const page2 = await context.newPage();
+    const { context, page } = await createPageInNewContext(browser);
 
-    await use(page2);
+    await use(page);
+    await context.close();
   },
   user: async ({ logger }, use) => {
     const user = generateNewUserData(logger);
@@ -46,7 +51,7 @@ export const test = base.extend<
     { scope: 'worker' },
   ],
   infoTestLog: [
-    async ({ logger }, use, testInfo) => {
+    async ({ logger }, use, testInfo: TestInfo) => {
       const indexOfTestSubfolderStart = testInfo.file.indexOf('/tests') + 7;
       const fileName = testInfo.file.substring(indexOfTestSubfolderStart);
 
