@@ -2,12 +2,22 @@ import { test as base } from '@playwright/test';
 import { generateNewArticleData } from '../../src/common/testData/generateNewArticleData';
 import { CreateArticlePage } from '../../src/ui/pages/article/CreateArticlePage';
 import { ViewArticlePage } from '../../src/ui/pages/article/ViewArticlePage';
+import { EditArticlePage } from '../../src/ui/pages/article/EditArticlePage';
+
+export interface Article {
+  title: string;
+  description: string;
+  text: string;
+  tags: string[];
+}
 
 export const test = base.extend<{
-  articleWithoutTags;
-  articleWithOneTag;
-  createArticlePage;
-  viewArticlePage;
+  createArticlePage: CreateArticlePage;
+  viewArticlePage: ViewArticlePage;
+  editArticlePage: EditArticlePage;
+  articleWithoutTags: Article;
+  articleWithOneTag: Article;
+  articleWithTwoTags: Article;
 }>({
   articleWithoutTags: async ({ logger }, use) => {
     const article = generateNewArticleData(logger);
@@ -28,5 +38,9 @@ export const test = base.extend<{
     const viewArticlePage = new ViewArticlePage(page);
 
     await use(viewArticlePage);
+  },
+
+  editArticlePage: async ({ page }, use) => {
+    await use(new EditArticlePage(page));
   },
 });
