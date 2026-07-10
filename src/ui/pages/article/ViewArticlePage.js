@@ -4,6 +4,22 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.editButton = page
+      .getByRole('link', { name: ' Edit Article' })
+      .first();
+    this.homeButton = page.getByRole('link', { name: 'Home' });
+  }
+
+  async clickEditButton() {
+    await test.step(`Click the 'Edit Article' button`, async () => {
+      await this.editButton.click();
+    });
+  }
+
+  async clickHomeButton() {
+    await test.step(`Click the 'Home' button`, async () => {
+      await this.homeButton.click();
+    });
   }
 
   authorLinkInArticleHeader(username) {
@@ -54,6 +70,14 @@ export class ViewArticlePage {
     await test.step(`Assert the article has correct text`, async () => {
       await expect(this.page.getByText(text)).toBeVisible();
     });
+  }
+
+  async assertArticleTagsAreVisible(tags) {
+    for (const tag of tags) {
+      await test.step(`Assert the article tag "${tag}" is visible`, async () => {
+        await expect(this.page.getByText(tag)).toBeVisible();
+      });
+    }
   }
 
   async assertArticleAuthorNameIsVisible(username) {

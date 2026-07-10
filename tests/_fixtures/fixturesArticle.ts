@@ -29,6 +29,11 @@ export const test = base.extend<{
 
     await use(article);
   },
+  articleWithTwoTags: async ({ logger }, use) => {
+    const article = generateNewArticleData(logger, 2);
+
+    await use(article);
+  },
   createArticlePage: async ({ page }, use) => {
     const createArticlePage = new CreateArticlePage(page);
 
