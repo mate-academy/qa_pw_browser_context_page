@@ -6,24 +6,24 @@ import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
 test.beforeEach(
   async ({
-    page1,
+    page,
     page2,
-    user1,
+    user,
     user2,
     articleWithOneTag,
     articleWithTwoTags,
   }) => {
-    await signUpUser(page1, user1);
+    await signUpUser(page, user);
     await signUpUser(page2, user2);
 
-    await createArticle(page1, articleWithOneTag);
-    await createArticle(page1, articleWithTwoTags);
+    await createArticle(page, articleWithOneTag);
+    await createArticle(page, articleWithTwoTags);
   },
 );
 
 test(`User can see other user's new articles in "Your Feed" after following their profile.`, async ({
   page2,
-  user1,
+  user,
   articleWithOneTag,
   articleWithTwoTags,
 }) => {
@@ -31,11 +31,11 @@ test(`User can see other user's new articles in "Your Feed" after following thei
 
   await viewArticlePage.open(articleWithOneTag.url);
 
-  await viewArticlePage.assertFollowButtonIsVisible(user1.username);
+  await viewArticlePage.assertFollowButtonIsVisible(user.username);
 
-  await viewArticlePage.clickFollowButton(user1.username);
+  await viewArticlePage.clickFollowButton(user.username);
 
-  await viewArticlePage.assertUnfollowButtonIsVisible(user1.username);
+  await viewArticlePage.assertUnfollowButtonIsVisible(user.username);
 
   const homePage = new HomePage(page2);
 

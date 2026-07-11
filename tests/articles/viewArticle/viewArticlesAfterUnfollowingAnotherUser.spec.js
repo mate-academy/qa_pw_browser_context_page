@@ -8,44 +8,44 @@ let viewArticlePage;
 
 test.beforeEach(
   async ({
-    page1,
+    page,
     page2,
-    user1,
+    user,
     user2,
     articleWithOneTag,
     articleWithTwoTags,
   }) => {
-    await signUpUser(page1, user1);
+    await signUpUser(page, user);
     await signUpUser(page2, user2);
 
-    await createArticle(page1, articleWithOneTag);
-    await createArticle(page1, articleWithTwoTags);
+    await createArticle(page, articleWithOneTag);
+    await createArticle(page, articleWithTwoTags);
 
     viewArticlePage = new ViewArticlePage(page2);
 
     await viewArticlePage.open(articleWithOneTag.url);
 
-    await viewArticlePage.assertFollowButtonIsVisible(user1.username);
+    await viewArticlePage.assertFollowButtonIsVisible(user.username);
 
-    await viewArticlePage.clickFollowButton(user1.username);
+    await viewArticlePage.clickFollowButton(user.username);
 
-    await viewArticlePage.assertUnfollowButtonIsVisible(user1.username);
+    await viewArticlePage.assertUnfollowButtonIsVisible(user.username);
   },
 );
 
 test(`User doesn't see other user's articles in "Your Feed" after unfollowing their profile.`, async ({
   page2,
-  user1,
+  user,
   articleWithOneTag,
   articleWithTwoTags,
 }) => {
   await viewArticlePage.open(articleWithOneTag.url);
 
-  await viewArticlePage.assertUnfollowButtonIsVisible(user1.username);
+  await viewArticlePage.assertUnfollowButtonIsVisible(user.username);
 
-  await viewArticlePage.clickUnfollowButton(user1.username);
+  await viewArticlePage.clickUnfollowButton(user.username);
 
-  await viewArticlePage.assertFollowButtonIsVisible(user1.username);
+  await viewArticlePage.assertFollowButtonIsVisible(user.username);
 
   const homePage = new HomePage(page2);
 

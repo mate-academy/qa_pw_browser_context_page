@@ -29,7 +29,7 @@ export class SignUpPage {
   }
 
   async fillPasswordField(password) {
-    await test.step(`Fill the 'Password' field`, async () => {
+    await test.step(`Fill password field by ${password}`, async () => {
       await this.passwordField.fill(password);
     });
   }

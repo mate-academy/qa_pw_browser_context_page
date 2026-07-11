@@ -10,11 +10,14 @@ let homePage;
 let settingsPage;
 let profilePage;
 
-test.beforeEach(async ({ page1, user }) => {
-  await signUpUser(page1, user);
+test.beforeEach(async ({ page, user }) => {
+  await signUpUser(page, user);
 });
 
-test('Successful `Sign in`', async ({ user, page2 }) => {
+test('User can sign in with changed in profile password.', async ({
+  user,
+  page2,
+}) => {
   signInPage = new SignInPage(page2);
   homePage = new HomePage(page2);
   settingsPage = new SettingsPage(page2);
@@ -33,8 +36,25 @@ test('Successful `Sign in`', async ({ user, page2 }) => {
 
   await settingsPage.assertHeadingIsVisible();
 
-  await settingsPage.fillPassswordField(newPassword);
+  await settingsPage.fillPasswordField(newPassword);
   await settingsPage.clickUpdateButton();
 
   await profilePage.assertAuthorizedUserNameIsVisible(user.username);
+
+  await profilePage.clickSettingsLink();
+
+  await settingsPage.assertHeadingIsVisible();
+
+  await settingsPage.clickLogoutButton();
+
+  await homePage.assertHeadingConduitIsVisible();
+
+  signInPage = new SignInPage(page2);
+
+  await signInPage.open();
+  await signInPage.fillEmailField(user.email);
+  await signInPage.fillPasswordField(newPassword);
+  await signInPage.clickSignInButton();
+
+  await homePage.assertYourFeedTabIsVisible();
 });

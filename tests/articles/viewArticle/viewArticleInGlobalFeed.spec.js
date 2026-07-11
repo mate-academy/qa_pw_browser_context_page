@@ -3,12 +3,12 @@ import { HomePage } from '../../../src/ui/pages/HomePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
-test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
-  await signUpUser(page1, user1);
+test.beforeEach(async ({ page, page2, user, user2, articleWithoutTags }) => {
+  await signUpUser(page, user);
   
   await signUpUser(page2, user2);
 
-  await createArticle(page1, articleWithoutTags);
+  await createArticle(page, articleWithoutTags);
 });
 
 test('User can view an article created by another user in the Global Feed', async ({

@@ -3,9 +3,14 @@ import { expect, test } from '@playwright/test';
 export class SettingsPage {
   constructor(page) {
     this.page = page;
-    this.headingYourSettings = page.getByRole('heading', { name: 'Your Settings' });
+    this.headingYourSettings = page.getByRole('heading', {
+      name: 'Your Settings',
+    });
     this.passwordField = page.getByPlaceholder('New Password');
     this.updateButton = page.getByRole('button', { name: 'Update Settings' });
+    this.logoutButton = page.getByRole('button', {
+      name: 'Or click here to logout.',
+    });
   }
 
   async clickUpdateButton() {
@@ -14,9 +19,15 @@ export class SettingsPage {
     });
   }
 
-  async fillPassswordField(text) {
-    await test.step(`Fill password field by ${text}`, async () => {
-      await this.passwordField.fill(text);
+    async clickLogoutButton() {
+    await test.step(`Click logout button`, async () => {
+      await this.logoutButton.click();
+    });
+  }
+
+  async fillPasswordField(password) {
+    await test.step(`Fill password field by ${password}`, async () => {
+      await this.passwordField.fill(password);
     });
   }
 

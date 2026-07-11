@@ -6,8 +6,8 @@ import { HomePage } from '../../src/ui/pages/HomePage';
 let signInPage;
 let homePage;
 
-test.beforeEach(async ({ page1, page2, user }) => {
-  await signUpUser(page1, user);
+test.beforeEach(async ({ page, page2, user }) => {
+  await signUpUser(page, user);
 
   signInPage = new SignInPage(page2);
   homePage = new HomePage(page2);

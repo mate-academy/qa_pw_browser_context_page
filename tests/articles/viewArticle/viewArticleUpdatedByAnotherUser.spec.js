@@ -11,9 +11,9 @@ let newTags;
 
 test.beforeEach(
   async ({
-    page1,
+    page,
     page2,
-    user1,
+    user,
     user2,
     articleWithTwoTags,
     viewArticlePage,
@@ -24,10 +24,10 @@ test.beforeEach(
     newBody = 'Updated body';
     newTags = ['tag1', 'tag2'];
 
-    await signUpUser(page1, user1);
+    await signUpUser(page, user);
     await signUpUser(page2, user2);
 
-    await createArticle(page1, articleWithTwoTags);
+    await createArticle(page, articleWithTwoTags);
 
     await viewArticlePage.clickEditButton();
     await editArticlePage.updateTitleField(newTitle);
@@ -36,8 +36,8 @@ test.beforeEach(
     await editArticlePage.updateTagsField(newTags);
     await editArticlePage.clickUpdateArticleButton();
 
-    await page1.waitForTimeout(1000);
-    await page1.reload();
+    await page.waitForTimeout(1000);
+    await page.reload();
 
     await viewArticlePage.assertArticleTitleIsVisible(newTitle);
   },
@@ -45,7 +45,7 @@ test.beforeEach(
 
 test('User can view an article updated by another user', async ({
   page2,
-  user1,
+  user,
   articleWithTwoTags,
 }) => {
   const viewArticlePage = new ViewArticlePage(page2);
@@ -54,5 +54,5 @@ test('User can view an article updated by another user', async ({
 
   await viewArticlePage.assertArticleTitleIsVisible(newTitle);
   await viewArticlePage.assertArticleTagsAreVisible(newTags);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user.username);
 });

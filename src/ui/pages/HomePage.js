@@ -7,6 +7,7 @@ export class HomePage {
     this.globalFeedTab = page.getByText('Global Feed');
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
     this.settingsLink = page.getByRole('link', { name: 'Settings' });
+    this.heading = page.getByRole('heading', { name: 'conduit' });
   }
 
   async open() {
@@ -36,6 +37,12 @@ export class HomePage {
   async assertYourFeedTabIsVisible() {
     await test.step(`Assert the 'Your Feed' tab is visible`, async () => {
       await expect(this.yourFeedTab).toBeVisible();
+    });
+  }
+
+  async assertHeadingConduitIsVisible() {
+    await test.step(`Assert the heading couduit is visible`, async () => {
+      await expect(this.heading).toContainText('conduit');
     });
   }
 

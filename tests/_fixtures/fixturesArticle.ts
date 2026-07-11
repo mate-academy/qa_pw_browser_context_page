@@ -3,6 +3,7 @@ import { generateNewArticleData } from '../../src/common/testData/generateNewArt
 import { CreateArticlePage } from '../../src/ui/pages/article/CreateArticlePage';
 import { ViewArticlePage } from '../../src/ui/pages/article/ViewArticlePage';
 import { EditArticlePage } from '../../src/ui/pages/article/EditArticlePage';
+import { Logger } from 'lint-staged';
 
 export interface Article {
   title: string;
@@ -18,6 +19,7 @@ export const test = base.extend<{
   articleWithoutTags: Article;
   articleWithOneTag: Article;
   articleWithTwoTags: Article;
+  logger: Logger;
 }>({
   articleWithoutTags: async ({ logger }, use) => {
     const article = generateNewArticleData(logger);

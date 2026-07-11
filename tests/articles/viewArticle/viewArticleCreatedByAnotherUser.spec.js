@@ -3,16 +3,16 @@ import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
-test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
-  await signUpUser(page1, user1);
+test.beforeEach(async ({ page, page2, user, user2, articleWithoutTags }) => {
+  await signUpUser(page, user);
   await signUpUser(page2, user2);
 
-  await createArticle(page1, articleWithoutTags);
+  await createArticle(page, articleWithoutTags);
 });
 
 test('View an article created by another user', async ({
   page2,
-  user1,
+  user,
   articleWithoutTags,
 }) => {
   const viewArticlePage = new ViewArticlePage(page2);
@@ -21,5 +21,5 @@ test('View an article created by another user', async ({
 
   await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
   await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user.username);
 });
