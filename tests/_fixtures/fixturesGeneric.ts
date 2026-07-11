@@ -1,4 +1,4 @@
-import { test as base, Page, BrowserContext } from '@playwright/test';
+import { test as base, Page } from '@playwright/test';
 import { Logger } from '../../src/common/logger/Logger';
 import { generateNewUserData } from '../../src/common/testData/generateNewUserData';
 
@@ -39,7 +39,7 @@ export const test = base.extend<
   },
   logger: [
     async ({}, use) => {
-      const logger = new Logger('error');
+      const logger = new Logger('debug');
 
       await use(logger);
     },

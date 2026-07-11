@@ -8,6 +8,11 @@ export class HomePage {
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
     this.settingsLink = page.getByRole('link', { name: 'Settings' });
     this.heading = page.getByRole('heading', { name: 'conduit' });
+    this.signInLink = page.getByRole('link', { name: 'Sign in' });
+  }
+
+  authorArticleHeaderLink(username) {
+    return this.page.getByRole('link', { name: username });
   }
 
   async open() {
@@ -22,9 +27,15 @@ export class HomePage {
     });
   }
 
-  async clickNewSettingsLink() {
+  async clickSettingsLink() {
     await test.step(`Click the 'Settings' link`, async () => {
       await this.settingsLink.click();
+    });
+  }
+
+  async clickSignInLink() {
+    await test.step(`Click the 'Sign In' link`, async () => {
+      await this.signInLink.click();
     });
   }
 
@@ -46,8 +57,23 @@ export class HomePage {
     });
   }
 
+  async assertArticleAuthorIsVisibleInGlobalFeed(username) {
+    const userNameToLower = username.toLowerCase();
+
+    await test.step(
+      `Assert article has '${username}' author name in Global Feed`,
+      async () => {
+      await expect(this.authorArticleHeaderLink(userNameToLower))
+      .toContainText(
+        userNameToLower,
+      );
+    });
+  }
+
   async assertArticleIsVisibleInGlobalFeed(title) {
-    await test.step(`Assert article '${title}' is visible in Global Feed`, async () => {
+    await test.step(
+      `Assert article '${title}' is visible in Global Feed`,
+      async () => {
       await expect(
         this.page.getByRole('heading').filter({ hasText: title }),
       ).toBeVisible();
@@ -55,7 +81,9 @@ export class HomePage {
   }
 
   async assertArticleIsVisibleInYourlFeed(title) {
-    await test.step(`Assert article '${title}' is visible in Your Feed`, async () => {
+    await test.step(
+      `Assert article '${title}' is visible in Your Feed`,
+      async () => {
       await expect(
         this.page.getByRole('heading').filter({ hasText: title }),
       ).toBeVisible();
@@ -63,7 +91,9 @@ export class HomePage {
   }
 
   async assertArticleIsNotVisibleInYourlFeed(title) {
-    await test.step(`Assert article '${title}' is not visible in Your Feed`, async () => {
+    await test.step(
+      `Assert article '${title}' is not visible in Your Feed`,
+      async () => {
       await expect(
         this.page.getByRole('heading').filter({ hasText: title }),
       ).toHaveCount(0);

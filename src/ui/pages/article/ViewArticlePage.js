@@ -4,10 +4,8 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
-    this.editButton = page
-      .getByRole('link', { name: ' Edit Article' })
-      .first();
-    this.homeButton = page.getByRole('link', { name: 'Home' });
+    this.editButton = page.getByRole('link', { name: 'Edit Article' }).first();
+    this.homeLink = page.getByRole('link', { name: 'Home' });
   }
 
   async clickEditButton() {
@@ -16,9 +14,9 @@ export class ViewArticlePage {
     });
   }
 
-  async clickHomeButton() {
-    await test.step(`Click the 'Home' button`, async () => {
-      await this.homeButton.click();
+  async clickHomeLink() {
+    await test.step(`Click the 'Home' link`, async () => {
+      await this.homeLink.click();
     });
   }
 
@@ -74,26 +72,34 @@ export class ViewArticlePage {
 
   async assertArticleTagsAreVisible(tags) {
     for (const tag of tags) {
-      await test.step(`Assert the article tag "${tag}" is visible`, async () => {
+      await test.step(
+        `Assert the article tag "${tag}" is visible`,
+        async () => {
         await expect(this.page.getByText(tag)).toBeVisible();
       });
     }
   }
 
   async assertArticleAuthorNameIsVisible(username) {
-    await test.step(`Assert the article has correct author ${username}`, async () => {
+    await test.step(
+      `Assert the article has correct author ${username}`,
+      async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
 
   async assertFollowButtonIsVisible(username) {
-    await test.step(`Assert the 'Follow ${username}' button is visible`, async () => {
+    await test.step(
+      `Assert the 'Follow ${username}' button is visible`,
+      async () => {
       await expect(this.followButton(username)).toBeVisible();
     });
   }
 
   async assertUnfollowButtonIsVisible(username) {
-    await test.step(`Assert the 'Unfollow ${username}' button is visible`, async () => {
+    await test.step(
+      `Assert the 'Unfollow ${username}' button is visible`,
+      async () => {
       await expect(this.unfollowButton(username)).toBeVisible();
     });
   }

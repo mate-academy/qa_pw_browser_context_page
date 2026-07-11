@@ -1,13 +1,15 @@
 import { test } from '../../_fixtures/fixtures';
-import { expect } from '@playwright/test';
-import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
-let newTitle;
-let newDescription;
-let newBody;
-let newTags;
+let article;
+
+const updatedArticle = {
+  title: 'Updated title',
+  description: 'Updated description',
+  body: 'Updated body',
+  tags: ['tag1', 'tag2'],
+};
 
 test.beforeEach(
   async ({
@@ -19,40 +21,50 @@ test.beforeEach(
     viewArticlePage,
     editArticlePage,
   }) => {
-    newTitle = 'Updated title';
-    newDescription = 'Updated description';
-    newBody = 'Updated body';
-    newTags = ['tag1', 'tag2'];
+    await test.step('Register two users', async () => {
+      await signUpUser(page, user);
+      await signUpUser(page2, user2);
+    });
 
-    await signUpUser(page, user);
-    await signUpUser(page2, user2);
+    await test.step('Create article as user1', async () => {
+      article = await createArticle(page, articleWithTwoTags);
+    });
 
-    await createArticle(page, articleWithTwoTags);
+    await test.step('Edit article as user1', async () => {
+      await viewArticlePage.clickEditButton();
+      await editArticlePage.updateTitleField(updatedArticle.title);
+      await editArticlePage.updateDescriptionField(updatedArticle.description);
+      await editArticlePage.updateBodyField(updatedArticle.body);
+      await editArticlePage.updateTagsField(updatedArticle.tags);
+      await editArticlePage.clickUpdateArticleButton();
 
-    await viewArticlePage.clickEditButton();
-    await editArticlePage.updateTitleField(newTitle);
-    await editArticlePage.updateDescriptionField(newDescription);
-    await editArticlePage.updateBodyField(newBody);
-    await editArticlePage.updateTagsField(newTags);
-    await editArticlePage.clickUpdateArticleButton();
+      await page.waitForURL(article.url);
+    });
 
-    await page.waitForTimeout(1000);
-    await page.reload();
+    await test.step('Assert article updated for user1', async () => {
+      await viewArticlePage.open(article.url);
 
-    await viewArticlePage.assertArticleTitleIsVisible(newTitle);
+      await viewArticlePage.assertArticleTitleIsVisible(updatedArticle.title);
+    });
   },
 );
 
 test('User can view an article updated by another user', async ({
-  page2,
   user,
-  articleWithTwoTags,
+  viewArticlePage2,
 }) => {
-  const viewArticlePage = new ViewArticlePage(page2);
+  await test.step('Open article as user2', async () => {
+    await viewArticlePage2.open(article.url);
+  });
 
-  await viewArticlePage.open(articleWithTwoTags.url);
-
-  await viewArticlePage.assertArticleTitleIsVisible(newTitle);
-  await viewArticlePage.assertArticleTagsAreVisible(newTags);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user.username);
+  await test.step(
+    'Assert updated article content is visible for user2',
+    async () => {
+    await viewArticlePage2
+    .assertArticleTitleIsVisible(updatedArticle.title);
+    await viewArticlePage2
+    .assertArticleTagsAreVisible(updatedArticle.tags);
+    await viewArticlePage2
+    .assertArticleAuthorNameIsVisible(user.username);
+  });
 });

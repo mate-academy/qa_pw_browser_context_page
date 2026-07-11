@@ -1,60 +1,57 @@
 import { test } from '../_fixtures/fixtures';
 import { signUpUser } from '../../src/ui/actions/auth/signUpUser';
-import { SignInPage } from '../../src/ui/pages/auth/SignInPage';
-import { HomePage } from '../../src/ui/pages/HomePage';
-import { SettingsPage } from '../../src/ui/pages/auth/SettingsPage';
-import { ProfilePage } from '../../src/ui/pages/auth/ProfilePage';
-
-let signInPage;
-let homePage;
-let settingsPage;
-let profilePage;
-
-test.beforeEach(async ({ page, user }) => {
-  await signUpUser(page, user);
-});
 
 test('User can sign in with changed in profile password.', async ({
+  page,
   user,
-  page2,
+  signInPage,
+  signInPage2,
+  homePage,
+  settingsPage,
+  profilePage,
 }) => {
-  signInPage = new SignInPage(page2);
-  homePage = new HomePage(page2);
-  settingsPage = new SettingsPage(page2);
-  profilePage = new ProfilePage(page2);
-
   const newPassword = '7jYUycSNtw*Q';
 
-  await signInPage.open();
-  await signInPage.fillEmailField(user.email);
-  await signInPage.fillPasswordField(user.password);
-  await signInPage.clickSignInButton();
+  await test.step('Register user', async () => {
+    await signUpUser(page, user);
+  });
 
-  await homePage.assertYourFeedTabIsVisible();
+  await test.step('Sign in with original password', async () => {
+    await signInPage.open();
+    await signInPage.fillEmailField(user.email);
+    await signInPage.fillPasswordField(user.password);
+    await signInPage.clickSignInButton();
 
-  await homePage.clickNewSettingsLink();
+    await homePage.assertYourFeedTabIsVisible();
+  });
 
-  await settingsPage.assertHeadingIsVisible();
+  await test.step('Change password in settings', async () => {
+    await homePage.clickNewSettingsLink();
 
-  await settingsPage.fillPasswordField(newPassword);
-  await settingsPage.clickUpdateButton();
+    await settingsPage.assertHeadingIsVisible();
 
-  await profilePage.assertAuthorizedUserNameIsVisible(user.username);
+    await settingsPage.fillPasswordField(newPassword);
+    await settingsPage.clickUpdateButton();
 
-  await profilePage.clickSettingsLink();
+    await profilePage.assertAuthorizedUserNameIsVisible(user.username);
+  });
 
-  await settingsPage.assertHeadingIsVisible();
+  await test.step('Log out', async () => {
+    await profilePage.clickSettingsLink();
 
-  await settingsPage.clickLogoutButton();
+    await settingsPage.assertHeadingIsVisible();
 
-  await homePage.assertHeadingConduitIsVisible();
+    await settingsPage.clickLogoutButton();
 
-  signInPage = new SignInPage(page2);
+    await homePage.assertHeadingConduitIsVisible();
+  });
 
-  await signInPage.open();
-  await signInPage.fillEmailField(user.email);
-  await signInPage.fillPasswordField(newPassword);
-  await signInPage.clickSignInButton();
+  await test.step('Sign in with new password in fresh context', async () => {
+    await signInPage2.open();
+    await signInPage2.fillEmailField(user.email);
+    await signInPage2.fillPasswordField(newPassword);
+    await signInPage2.clickSignInButton();
 
-  await homePage.assertYourFeedTabIsVisible();
+    await homePage.assertHeadingConduitIsVisible();
+  });
 });

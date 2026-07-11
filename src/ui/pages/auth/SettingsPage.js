@@ -19,7 +19,7 @@ export class SettingsPage {
     });
   }
 
-    async clickLogoutButton() {
+  async clickLogoutButton() {
     await test.step(`Click logout button`, async () => {
       await this.logoutButton.click();
     });
@@ -32,7 +32,9 @@ export class SettingsPage {
   }
 
   async assertHeadingIsVisible() {
-    await test.step(`Assert the heading "Your Settings" is visible`, async () => {
+    await test.step(
+      `Assert the heading "Your Settings" is visible`,
+      async () => {
       await expect(this.headingYourSettings).toBeVisible();
     });
   }
