@@ -3,8 +3,6 @@ import { expect } from '@playwright/test';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 
-let count = 0;
-
 test.beforeEach(async ({ page, user, articleWithoutTags }) => {
   await test.step('Register user and create article', async () => {
     await signUpUser(page, user);
@@ -24,9 +22,6 @@ test('User can see own article in Global feed when not logged in', async ({
 
   await test.step('Assert article is visible in Global feed', async () => {
     await expect(async () => {
-      count++;
-      console.log(count);
-
       await page2.reload();
       await homePage2.assertArticleAuthorIsVisibleInGlobalFeed(user.username);
     }).toPass({ timeout: 20000 });

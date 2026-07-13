@@ -26,7 +26,7 @@ test('User can sign in with changed in profile password.', async ({
   });
 
   await test.step('Change password in settings', async () => {
-    await homePage.clickNewSettingsLink();
+    await homePage.clickSettingsLink();
 
     await settingsPage.assertHeadingIsVisible();
 
