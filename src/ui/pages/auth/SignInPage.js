@@ -7,6 +7,7 @@ export class SignInPage {
     this.passwordField = page.getByPlaceholder('Password');
     this.signInButton = page.getByRole('button', { name: 'Sign in' });
     this.errorMessage = page.getByRole('list').nth(1);
+    this.homeLink = page.getByRole('link', { name: 'Home' });
   }
 
   async open() {
@@ -15,14 +16,20 @@ export class SignInPage {
     });
   }
 
+  async clickHomeLink() {
+    await test.step(`Click 'Home' link`, async () => {
+      await this.homeLink.click();
+    });
+  }
+
   async fillEmailField(email) {
-    await test.step(`Fill the 'Email' field`, async () => {
+    await test.step(`Fill the 'Email' field by: ${email}`, async () => {
       await this.emailField.fill(email);
     });
   }
 
   async fillPasswordField(password) {
-    await test.step(`Fill the 'Password' field`, async () => {
+    await test.step(`Fill password field by: ${password}`, async () => {
       await this.passwordField.fill(password);
     });
   }

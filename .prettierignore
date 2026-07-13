@@ -3,3 +3,9 @@ node_modules/
 /test-results/
 /playwright-report/
 README.md
+.prettierrc
+eslint.config.mjs
+package-lock.json
+package.json
+playwright.config.js
+src/common/logger/Logger.js

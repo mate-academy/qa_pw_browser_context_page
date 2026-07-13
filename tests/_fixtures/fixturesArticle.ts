@@ -1,13 +1,27 @@
-import { test as base } from '@playwright/test';
+import { test as base, Page } from '@playwright/test';
 import { generateNewArticleData } from '../../src/common/testData/generateNewArticleData';
 import { CreateArticlePage } from '../../src/ui/pages/article/CreateArticlePage';
 import { ViewArticlePage } from '../../src/ui/pages/article/ViewArticlePage';
+import { EditArticlePage } from '../../src/ui/pages/article/EditArticlePage';
+import { Logger } from 'lint-staged';
+
+export interface Article {
+  title: string;
+  description: string;
+  text: string;
+  tags: string[];
+}
 
 export const test = base.extend<{
-  articleWithoutTags;
-  articleWithOneTag;
-  createArticlePage;
-  viewArticlePage;
+  createArticlePage: CreateArticlePage;
+  viewArticlePage: ViewArticlePage;
+  viewArticlePage2: ViewArticlePage;
+  editArticlePage: EditArticlePage;
+  articleWithoutTags: Article;
+  articleWithOneTag: Article;
+  articleWithTwoTags: Article;
+  logger: Logger;
+  page2: Page;
 }>({
   articleWithoutTags: async ({ logger }, use) => {
     const article = generateNewArticleData(logger);
@@ -16,6 +30,11 @@ export const test = base.extend<{
   },
   articleWithOneTag: async ({ logger }, use) => {
     const article = generateNewArticleData(logger, 1);
+
+    await use(article);
+  },
+  articleWithTwoTags: async ({ logger }, use) => {
+    const article = generateNewArticleData(logger, 2);
 
     await use(article);
   },
@@ -28,5 +47,13 @@ export const test = base.extend<{
     const viewArticlePage = new ViewArticlePage(page);
 
     await use(viewArticlePage);
+  },
+  viewArticlePage2: async ({ page2 }, use) => {
+    const viewArticlePage2 = new ViewArticlePage(page2);
+
+    await use(viewArticlePage2);
+  },
+  editArticlePage: async ({ page }, use) => {
+    await use(new EditArticlePage(page));
   },
 });

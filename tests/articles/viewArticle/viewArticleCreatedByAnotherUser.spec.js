@@ -1,25 +1,23 @@
 import { test } from '../../_fixtures/fixtures';
-import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
-test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
-  await signUpUser(page1, user1);
+let article;
+
+test.beforeEach(async ({ page, page2, user, user2, articleWithoutTags }) => {
+  await signUpUser(page, user);
   await signUpUser(page2, user2);
 
-  await createArticle(page1, articleWithoutTags);
+  article = await createArticle(page, articleWithoutTags);
 });
 
 test('View an article created by another user', async ({
-  page2,
-  user2,
-  articleWithoutTags,
+  viewArticlePage2,
+  user,
 }) => {
-  const viewArticlePage = new ViewArticlePage(page2);
+  await viewArticlePage2.open(article.url);
 
-  await viewArticlePage.open(articleWithoutTags.url);
-
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
-  await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
+  await viewArticlePage2.assertArticleTitleIsVisible(article.title);
+  await viewArticlePage2.assertArticleTextIsVisible(article.text);
+  await viewArticlePage2.assertArticleAuthorNameIsVisible(user.username);
 });
