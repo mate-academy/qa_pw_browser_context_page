@@ -2,7 +2,6 @@ import { test } from '../../_fixtures/fixtures';
 import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
-import { vi } from '@faker-js/faker';
 import { EditArticlePage } from '../../../src/ui/pages/article/EditArticlePage';
 import { HomePage } from '../../../src/ui/pages/HomePage';
 import { expect } from '@playwright/test';

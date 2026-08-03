@@ -72,4 +72,3 @@ test("User can see own article in 'Global feed' when not logged in", async ({
   const articleTitles = body.articles.map(a => a.title);
   expect(articleTitles).toContain(articleWithoutTags.title);
 });
-п;

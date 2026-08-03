@@ -1,4 +1,3 @@
-import { th } from '@faker-js/faker';
 import { test, expect } from '@playwright/test';
 
 export class SettingsPage {
