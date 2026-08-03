@@ -4,6 +4,7 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.followButton = page.locator('.article-meta .action-btn').first();
   }
 
   authorLinkInArticleHeader(username) {
@@ -35,6 +36,19 @@ export class ViewArticlePage {
   async assertArticleAuthorNameIsVisible(username) {
     await test.step(`Assert the article has correct author username`, async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
+    });
+  }
+
+  async clickFollowButton() {
+    await test.step(`Click the Follow/Unfollow button`, async () => {
+      await this.followButton.click();
+    });
+  }
+
+  async assertFollowButtonText(username, action) {
+    await test.step(`Assert the button shows '${action} ${username}'`, async () => {
+      await expect(this.followButton).toContainText(action);
+      await expect(this.followButton).toContainText(new RegExp(username, 'i'));
     });
   }
 }
