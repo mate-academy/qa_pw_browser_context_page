@@ -5,9 +5,9 @@ export function generateNewUserData(logger) {
   const lastName = faker.person.lastName();
 
   const user = {
-    username: `${firstName}_${lastName}`.replaceAll(`'`).toLowerCase(),
+    username: `${firstName}_${lastName}`.replaceAll(`'`, '').toLowerCase(),
     email: faker.internet.email().toLowerCase(),
-    password: `${faker.internet.password}`,
+    password: `${faker.internet.password()}`,
   };
 
   logger.debug(`Generated new user data: ${JSON.stringify(user)}`);
