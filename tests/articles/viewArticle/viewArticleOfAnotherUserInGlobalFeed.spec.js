@@ -16,6 +16,7 @@ test('View an article created by another user in the Global Feed', async ({
 }) => {
   const homePage = new HomePage(page2);
 
+  await homePage.open();
   await homePage.clickGlobalFeedTab();
   await homePage.assertArticleIsVisibleInGlobalFeed(articleWithoutTags.title);
 });

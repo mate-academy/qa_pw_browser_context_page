@@ -75,13 +75,12 @@ export class HomePage {
     });
   }
 
-async assertArticleIsVisibleInGlobalFeedEventually(title) {
-  await test.step('Assert article is visible in Global Feed after reload', async () => {
-    await expect(async () => {
-      await this.page.reload();
-      await this.assertArticleIsVisibleInGlobalFeed(title);
-    }).toPass({ timeout: 15000 });
-  });
-}
-
+  async assertArticleIsVisibleInGlobalFeedEventually(title) {
+    await test.step('Assert article is visible in Global Feed after reload', async () => {
+      await expect(async () => {
+        await this.page.reload();
+        await this.assertArticleIsVisibleInGlobalFeed(title);
+      }).toPass({ timeout: 15000 });
+    });
+  }
 }
