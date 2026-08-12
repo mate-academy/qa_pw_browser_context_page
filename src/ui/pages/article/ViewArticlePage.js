@@ -3,7 +3,10 @@ import { test, expect } from '@playwright/test';
 export class ViewArticlePage {
   constructor(page) {
     this.page = page;
-    this.articleTitleHeader = page.getByRole('heading');
+    this.articleTitleHeader = page.locator('.banner h1');
+    // eslint-disable-next-line max-len
+    this.editArticleButton = page.getByRole('link', { name: 'Edit Article' }).first();
+  
   }
 
   authorLinkInArticleHeader(username) {
@@ -33,8 +36,53 @@ export class ViewArticlePage {
   }
 
   async assertArticleAuthorNameIsVisible(username) {
+    // eslint-disable-next-line max-len
     await test.step(`Assert the article has correct author username`, async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
+
+  followButton(username) {
+  return this.page.locator(`button:has-text("Follow ${username}")`).first();
+}
+
+  unfollowButton(username) {
+    return this.page.locator(`button:has-text("Unfollow ${username}")`).first();
+  }
+
+  async clickFollowButton(username) {
+    await test.step(`Click the 'Follow ${username}' button`, async () => {
+      await this.followButton(username).click();
+    });
+  }
+
+  async clickUnfollowButton(username) {
+    await test.step(`Click the 'Unfollow ${username}' button`, async () => {
+      await this.unfollowButton(username).click();
+    });
+  }
+
+  async assertFollowButtonIsVisible(username) {
+    // eslint-disable-next-line max-len
+    await test.step(`Assert the 'Follow ${username}' button is visible`, async () => {
+      await expect(this.followButton(username)).toBeVisible();
+    });
+  }
+
+  async assertUnfollowButtonIsVisible(username) {
+    // eslint-disable-next-line max-len
+    await test.step(`Assert the 'Unfollow ${username}' button is visible`, async () => {
+      await expect(this.unfollowButton(username)).toBeVisible();
+    });
+  }
+
+  async clickEditArticleButton() {
+    await test.step(`Click the 'Edit Article' button`, async () => {
+      await this.editArticleButton.click();
+    });
+
+  }
+
+  
+
 }
