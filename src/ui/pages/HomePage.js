@@ -18,4 +18,35 @@ export class HomePage {
       await expect(this.yourFeedTab).toBeVisible();
     });
   }
+
+  async clickYourFeedTab() {
+    await test.step(`Click the 'Your Feed' tab`, async () => {
+      await this.yourFeedTab.click();
+    });
+  }
+
+  async assertArticleIsVisible(title) {
+    await test.step(`Assert the article '${title}' is visible`, async () => {
+      await expect(this.page.getByText(title)).toBeVisible();
+    });
+  }
+
+  async clickArticle(title) {
+    await test.step(`Click the article '${title}'`, async () => {
+      await this.page.getByText(title).click();
+    });
+  }
+
+  async assertArticleIsNotVisible(title) {
+    await test.step(`Assert the article '${title}' is not visible`, 
+      async () => {
+      await expect(this.page.getByText(title)).not.toBeVisible();
+    });
+  }
+
+  async open() {
+  await test.step(`Open 'Home' page`, async () => {
+    await this.page.goto('/');
+  });
+}
 }
