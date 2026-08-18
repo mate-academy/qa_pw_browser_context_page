@@ -3,30 +3,30 @@ import { test, expect } from '@playwright/test';
 export class EditArticlePage {
   constructor(page) {
     this.page = page;
-    this.titleFild = page.getByPlaceholder('Article Title');
-    this.descriptionFild = page.getByPlaceholder("What's this article about?");
-    this.textFild = page.getByPlaceholder('Write your article (in markdown)');
+    this.titleField = page.getByPlaceholder('Article Title');
+    this.descriptionField = page.getByPlaceholder("What's this article about?");
+    this.textField = page.getByPlaceholder('Write your article (in markdown)');
     this.articleTitleHeader = page.getByRole('heading');
     this.updateArticleButton = page.getByRole('button', {
       name: 'Update Article',
     });
   }
 
-  async fillTitleFild(title) {
+  async fillTitleField(title) {
     await test.step(`Fill the 'Title' field`, async () => {
-      await this.titleFild.fill(title);
+      await this.titleField.fill(title);
     });
   }
 
-  async fillDescriptionFild(description) {
+  async fillDescriptionField(description) {
     await test.step(`Fill the 'Description' field`, async () => {
-      await this.descriptionFild.fill(description);
+      await this.descriptionField.fill(description);
     });
   }
 
-  async fillTextFild(text) {
+  async fillTextField(text) {
     await test.step(`Fill the 'Text' field`, async () => {
-      await this.textFild.fill(text);
+      await this.textField.fill(text);
     });
   }
 

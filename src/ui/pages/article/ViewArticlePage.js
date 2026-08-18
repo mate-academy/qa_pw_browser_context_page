@@ -51,7 +51,7 @@ export class ViewArticlePage {
     });
   }
 
-  async clickUnfollowBottun() {
+  async clickUnfollowButton() {
     await test.step(`Click 'Unfollow' button`, async () => {
       await this.unfollowButton.click();
     });

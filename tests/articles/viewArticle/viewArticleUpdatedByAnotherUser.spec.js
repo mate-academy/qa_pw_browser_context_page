@@ -25,8 +25,8 @@ test(
 
     await viewArticlePage1.clickEditArticleButton();
 
-    await editArticlePage.fillTitleFild(updatedTitle);
-    await editArticlePage.fillTextFild(updatedText);
+    await editArticlePage.fillTitleField(updatedTitle);
+    await editArticlePage.fillTextField(updatedText);
     await editArticlePage.clickUpdateArticleButton();
 
     await signUpUser(page2, user2);

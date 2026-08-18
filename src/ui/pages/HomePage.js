@@ -39,8 +39,10 @@ export class HomePage {
 
   async assertArticleIsNotVisible(title) {
     await test.step(`Assert the article '${title}' is not visible`, 
-      async () => {
-      await expect(this.page.getByText(title)).not.toBeVisible();
+      async () => { 
+        const articleLocator = this.page.getByText(title);
+
+      await expect(articleLocator).toHaveCount(0);
     });
   }
 
