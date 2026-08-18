@@ -16,25 +16,25 @@ export class ProfilePage {
 
   async clickFollowButton() {
     await test.step(`Click 'Follow' button`, async () => {
-      await this.followButton.first().click();
+      await this.followButton.click();
     });
   }
 
   async clickUnfollowButton() {
     await test.step(`Click 'Unfollow' button`, async () => {
-      await this.unfollowButton.first().click();
+      await this.unfollowButton.click();
     });
   }
 
   async assertUnfollowButtonIsVisible() {
     await test.step(`Assert the 'Unfollow' button is visible`, async () => {
-      await expect(this.unfollowButton.first()).toBeVisible();
+      await expect(this.unfollowButton).toBeVisible();
     });
   }
 
   async assertFollowButtonIsVisible() {
     await test.step(`Assert the 'Follow' button is visible`, async () => {
-      await expect(this.followButton.first()).toBeVisible();
+      await expect(this.followButton).toBeVisible();
     });
   }
 }

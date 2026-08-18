@@ -12,16 +12,19 @@ export const test = base.extend<{
   profilePage;
   settingsPage;
 }>({
+
   signUpPage: async ({ page }, use) => {
     const signUpPage = new SignUpPage(page);
 
     await use(signUpPage);
   },
+
   signInPage: async ({ page }, use) => {
     const signInPage = new SignInPage(page);
 
     await use(signInPage);
   },
+  
   homePage: async ({ page }, use) => {
     const homePage = new HomePage(page);
 
@@ -35,8 +38,8 @@ export const test = base.extend<{
   },
 
   settingsPage: async ({ page }, use) => {
-  const settingsPage = new SettingsPage(page);
+    const settingsPage = new SettingsPage(page);
 
-  await use(settingsPage);
-}
+    await use(settingsPage);
+  }
 });

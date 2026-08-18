@@ -1,10 +1,10 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
 export class SettingsPage {
   constructor(page) {
     this.page = page;
-    this.passwordFiled = page.getByPlaceholder('New Password');
-    thisupdateSettingsButton = page.getByRole('button', {
+    this.passwordField = page.getByPlaceholder('New Password');
+    this.updateSettingsButton = page.getByRole('button', {
       name: 'Update Settings',
     });
   }
