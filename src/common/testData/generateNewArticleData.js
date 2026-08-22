@@ -5,6 +5,7 @@ export function generateNewArticleData(logger, tagNumber = 0) {
 
   const article = {
     title: faker.lorem.words(),
+    newTitle: faker.lorem.words(),
     description: faker.lorem.sentence(4),
     text: faker.lorem.sentences(2),
     tags,
