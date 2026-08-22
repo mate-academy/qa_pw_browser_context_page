@@ -23,7 +23,7 @@ test('User can see other user articles in "Your Feed" after following their prof
   await homePage2.clickGlobalFeedTab();
   await homePage2.clickArticleByTitle(articleWithoutTags.title);
 
-  await viewArticlePage2.clickFollowButton(user1.username);
+  await viewArticlePage2.clickFollowButton();
 
   await homePage2.clickHomeLink();
   await homePage2.assertYourFeedTabIsVisible();

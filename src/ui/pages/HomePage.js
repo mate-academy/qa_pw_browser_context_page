@@ -44,7 +44,7 @@ export class HomePage {
   }
 
   async assertArticleIsVisible(title) {
-    await test.step(`Assert the article '${title}' is not visible`, async () => {
+    await test.step(`Assert the article '${title}' is visible`, async () => {
       await expect(
         this.page
           .locator('a.preview-link')

@@ -23,7 +23,7 @@ test("User doesn't see other user articles in 'Your Feed' after unfollowing thei
   await homePage2.clickGlobalFeedTab();
   await homePage2.clickArticleByTitle(articleWithoutTags.title);
 
-  await viewArticlePage2.clickFollowButton(user1.username);
+  await viewArticlePage2.clickFollowButton();
   await viewArticlePage2.clickUnfollowButton(user1.username);
 
   await homePage2.clickHomeLink();

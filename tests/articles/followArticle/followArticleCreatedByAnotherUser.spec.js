@@ -21,6 +21,6 @@ test('User can follow the article created by another user', async ({
   await homePage.clickGlobalFeedTab();
   await homePage.clickArticleByTitle(articleWithoutTags.title);
 
-  await viewArticlePage.clickFollowButton(user2.username);
+  await viewArticlePage.clickFollowButton();
   await viewArticlePage.assertUnfollowButtonIsVisible(user2.username);
 });
