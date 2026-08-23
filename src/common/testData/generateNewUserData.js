@@ -8,6 +8,7 @@ export function generateNewUserData(logger) {
     username: `${firstName}_${lastName}`.replaceAll(`'`),
     email: faker.internet.email().toLowerCase(),
     password: `${faker.internet.password}`,
+    newPassword: `${faker.internet.password}`,
   };
 
   logger.debug(`Generated new user data: ${JSON.stringify(user)}`);

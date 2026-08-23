@@ -12,14 +12,14 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 
 test('Follow the article created by another user.', async ({
   page2,
-  user2,
+  user1,
   articleWithoutTags,
 }) => {
   const viewArticlePage = new ViewArticlePage(page2);
 
   await viewArticlePage.open(articleWithoutTags.url);
   await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
   await viewArticlePage.clickFollow();
   await viewArticlePage.clickUnfollow();
   await viewArticlePage.assertUserUnfollowed();
