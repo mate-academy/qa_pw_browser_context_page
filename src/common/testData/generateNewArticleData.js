@@ -5,6 +5,7 @@ export function generateNewArticleData(logger, tagNumber = 0) {
 
   const article = {
     title: faker.lorem.words(),
+    newTitle: faker.lorem.words(),
     description: faker.lorem.sentence(4),
     text: faker.lorem.sentences(2),
     tags,
@@ -12,8 +13,8 @@ export function generateNewArticleData(logger, tagNumber = 0) {
 
   logger.debug(`Generated new article: ${JSON.stringify(article)}`);
 
-  if (tags.lenght === 0) {
-    logger.warning(`Article does not have tag: ${JSON.stringify(article)}`);
+  if (tags.length === 0) {
+    logger.warn(`Article does not have tag: ${JSON.stringify(article)}`);
   }
 
   return article;

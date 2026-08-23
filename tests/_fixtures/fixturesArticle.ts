@@ -10,7 +10,7 @@ export const test = base.extend<{
   viewArticlePage;
 }>({
   articleWithoutTags: async ({ logger }, use) => {
-    const article = generateNewArticleData(logger);
+    const article = generateNewArticleData(logger, 0);
 
     await use(article);
   },
