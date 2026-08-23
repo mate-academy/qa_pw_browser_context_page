@@ -44,7 +44,7 @@ export class HomePage {
   }
 
   async asserArticleIsHidden(title) {
-    await test.step(`Assert the 'Article' is visible`, async () => {
+    await test.step(`Assert the 'Article' is hidden`, async () => {
       await expect(
         this.page.getByRole('heading', {
           name: `Article title: ${title}`,
