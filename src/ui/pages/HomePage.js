@@ -66,10 +66,12 @@ export class HomePage {
     });
   }
 
-  async assertArticleIsVisibleInFeedWithPagination(title, maxPages = 40) {
+  async assertArticleIsVisibleInFeedWithPagination(title, maxPages = 10) {
     const stepName = `Assert the '${title}' article is visible (any page)`;
 
     await test.step(stepName, async () => {
+      await this.page.reload();
+
       for (let attempt = 0; attempt < maxPages; attempt += 1) {
         const isVisible = await this.articleLinkInFeed(title)
           .isVisible()
@@ -88,6 +90,7 @@ export class HomePage {
         }
 
         await this.nextPageButton.click();
+        await this.page.waitForTimeout(500);
       }
 
       await expect(this.articleLinkInFeed(title)).toBeVisible();

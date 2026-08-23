@@ -9,7 +9,7 @@ export class EditArticlePage {
       'Write your article (in markdown)',
     );
     this.publishButton = page.getByRole('button', {
-  name: 'Update Article',
+      name: 'Update Article',
     });
   }
 
@@ -26,7 +26,7 @@ export class EditArticlePage {
   }
 
   async clickPublishButton() {
-    await test.step(`Click the 'Publish Article' button`, async () => {
+    await test.step(`Click the 'Update Article' button`, async () => {
       await this.publishButton.click();
     });
   }
