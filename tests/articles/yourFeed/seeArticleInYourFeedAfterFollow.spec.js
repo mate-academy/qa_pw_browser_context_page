@@ -1,6 +1,6 @@
 import { test } from '../../_fixtures/fixtures';
 import { HomePage } from '../../../src/ui/pages/HomePage';
-import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
+import { ProfilePage } from '../../../src/ui/pages/ProfilePage';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { generateNewArticleData } from '../../../src/common/testData/generateNewArticleData';
@@ -15,11 +15,11 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 const testTitle =
   'User can see other user\'s new articles in "Your Feed" after following';
 
-test(testTitle, async ({ page1, page2, articleWithoutTags, logger }) => {
-  const viewArticlePage2 = new ViewArticlePage(page2);
+test(testTitle, async ({ page1, page2, user1, logger }) => {
+  const profilePage = new ProfilePage(page2);
 
-  await viewArticlePage2.open(articleWithoutTags.url);
-  await viewArticlePage2.clickFollowButton();
+  await profilePage.open(user1.username);
+  await profilePage.clickFollowButton();
 
   const newArticle = generateNewArticleData(logger);
 
