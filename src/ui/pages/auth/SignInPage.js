@@ -7,10 +7,10 @@ export class SignInPage {
     this.passwordField = page.getByPlaceholder('Password');
     this.signInButton = page.getByRole('button', { name: 'Sign in' });
     this.errorMessage = page.getByRole('list').nth(1);
-    this.settingPage = page.getByRole('link', { name: 'Settings' })
-    this.newPasswordField = page.getByPlaceholder('New Password')
-    this.updSettingButton = page.getByRole('button', { name: 'Update Settings' })
-    this.logOutButton = page.getByRole('button', { name: 'Or click here to logout.' })
+    this.settingPage = page.getByRole('link', { name: 'Settings' });
+    this.newPasswordField = page.getByPlaceholder('New Password');
+    this.updSettingButton = page.getByRole('button', { name: 'Update Settings' });
+    this.logOutButton = page.getByRole('button', { name: 'Or click here to logout.' });
   }
 
   async open() {
@@ -43,8 +43,8 @@ export class SignInPage {
     });
   }
 
-  async clickSettingBuuton() {
-    await test.step(`Clic Setting button`, async () => {
+  async clickSettingsButton() {
+    await test.step(`Click Setting button`, async () => {
       await this.settingPage.click()
     })
   }
@@ -66,5 +66,5 @@ export class SignInPage {
       await this.logOutButton.click()
     })
   }
-  
+
 }
