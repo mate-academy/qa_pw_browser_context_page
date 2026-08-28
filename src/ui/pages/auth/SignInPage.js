@@ -7,10 +7,6 @@ export class SignInPage {
     this.passwordField = page.getByPlaceholder('Password');
     this.signInButton = page.getByRole('button', { name: 'Sign in' });
     this.errorMessage = page.getByRole('list').nth(1);
-    this.settingPage = page.getByRole('link', { name: 'Settings' });
-    this.newPasswordField = page.getByPlaceholder('New Password');
-    this.updSettingButton = page.getByRole('button', { name: 'Update Settings' });
-    this.logOutButton = page.getByRole('button', { name: 'Or click here to logout.' });
   }
 
   async open() {
@@ -42,29 +38,4 @@ export class SignInPage {
       await expect(this.errorMessage).toContainText(messageText);
     });
   }
-
-  async clickSettingsButton() {
-    await test.step(`Click Setting button`, async () => {
-      await this.settingPage.click()
-    })
-  }
-
-  async fillNewPasswordField(password) {
-    await test.step(`Fill a new password`, async () => {
-       await this.newPasswordField.fill(password)
-    })
-  }
-
-  async clickUpdateSettingButton() {
-    await test.step(`Click update setting button`, async () => {
-      await this.updSettingButton.click()
-    })
-  }
-
-  async clickToLogOutButton() {
-    await test.step(`Click to LogOut`, async () => {
-      await this.logOutButton.click()
-    })
-  }
-
 }

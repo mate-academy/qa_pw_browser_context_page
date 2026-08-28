@@ -25,7 +25,7 @@ export class EditArticlePage {
     });
   }
 
-   async fillTitle(title) {
+  async fillTitle(title) {
     await test.step(`Fill article title in edit form: "${title}"`, async () => {
       await this.titleInput.fill(title);
     });
@@ -43,15 +43,13 @@ export class EditArticlePage {
     });
   }
 
-  
-async addTag(tag) {
-  await test.step(`Add tag "${tag}" in edit form`, async () => {
-    await this.tagsInput.fill(tag);
-    await this.tagsInput.press('Enter');
-    // Перевіряємо, що тег додано в список форма редагування перед відправкою
-    await expect(this.page.locator('.tag-list', { hasText: tag })).toBeVisible();
-  });
-}
+  async addTag(tag) {
+    await test.step(`Add tag "${tag}" in edit form`, async () => {
+      await this.tagsInput.fill(tag);
+      await this.tagsInput.press('Enter');
+      await expect(this.page.locator('.tag-list', { hasText: tag })).toBeVisible();
+    });
+  }
 
   async removeTag(tagName) {
     await test.step(`Remove tag "${tagName}" in edit form`, async () => {
@@ -61,10 +59,10 @@ async addTag(tag) {
     });
   }
 
- async clickUpdateArticleButton() {
-  await test.step("Click 'Update Article' button", async () => {
-    await this.publishButton.click();
-  });
+  async clickUpdateArticleButton() {
+    await test.step("Click 'Update Article' button", async () => {
+      await this.publishButton.click();
+    });
   }
   async assertErrorMessageContainsText(expectedError) {
     await test.step(`Assert error message contains: "${expectedError}"`, async () => {

@@ -19,6 +19,10 @@ export class ViewArticlePage {
     return this.page.getByRole('link', { name: title });
   }
 
+  articleTag(tag) {
+    return this.page.locator('.tag-list .tag-default', { hasText: tag });
+  }
+
   followButton(username) {
     return this.page.getByRole('button').filter({ hasText: username }).nth(1);
   }
@@ -82,8 +86,14 @@ export class ViewArticlePage {
   }
 
   async assertArticleIsNotVisibleInFeed(title) {
-  await test.step(`Assert the article '${title}' is not visible in the feed`, async () => {
-    await expect(this.articlePreviewLink(title)).toBeHidden();
-  });
+    await test.step(`Assert the article '${title}' is not visible in the feed`, async () => {
+      await expect(this.articlePreviewLink(title)).toBeHidden();
+    });
+  }
+
+  async assertArticleHasTag(tag) {
+    await test.step(`Assert the article has tag "${tag}"`, async () => {
+      await expect(this.articleTag(tag)).toBeVisible();
+    });
   }
 }

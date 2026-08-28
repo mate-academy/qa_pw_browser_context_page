@@ -6,7 +6,7 @@ export class HomePage {
     this.yourFeedTab = page.getByText('Your Feed', { exact: true });
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
     this.globalFeedTab = page.getByText('Global Feed', { exact: true });
-    this.conduitIcon = page.getByRole('link', { name: 'conduit' }).first()
+    this.conduitIcon = page.getByRole('link', { name: 'conduit' }).first();
   }
 
   articlePreviewLink(title) {
