@@ -4,10 +4,23 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.globalFeedTab = page.getByText('Global Feed', { exact: true });
+    this.editArticleLink = page
+      .getByRole('link', { name: 'Edit Article' })
+      .first();
   }
 
+
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    return this.page.getByRole('link', { name: username }).first();
+  }
+
+  articlePreviewLink(title) {
+    return this.page.getByRole('link', { name: title });
+  }
+
+  followButton(username) {
+    return this.page.getByRole('button').filter({ hasText: username }).nth(1);
   }
 
   url() {
@@ -36,5 +49,41 @@ export class ViewArticlePage {
     await test.step(`Assert the article has correct author username`, async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
+  }
+
+  async followUser(username) {
+    await test.step(`Follow user ${username}`, async () => {
+      await this.followButton(username).click();
+    });
+  }
+
+  async unfollowUser(username) {
+    await test.step(`Unfollow user ${username}`, async () => {
+      await this.followButton(username).click();
+    });
+  }
+
+  async clickGlobalFeedTab() {
+    await test.step(`Click the 'Global Feed' tab`, async () => {
+      await this.globalFeedTab.click();
+    });
+  }
+
+  async clickEditArticleLink() {
+    await test.step(`Click the 'Edit Article' link`, async () => {
+      await this.editArticleLink.click();
+    });
+  }
+
+  async openArticleFromFeed(title) {
+    await test.step(`Open the article "${title}" from the feed`, async () => {
+      await this.articlePreviewLink(title).click();
+    });
+  }
+
+  async assertArticleIsNotVisibleInFeed(title) {
+  await test.step(`Assert the article '${title}' is not visible in the feed`, async () => {
+    await expect(this.articlePreviewLink(title)).toBeHidden();
+  });
   }
 }

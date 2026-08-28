@@ -1,26 +1,24 @@
-import { test as base } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
 import { SignUpPage } from '../../src/ui/pages/auth/SignUpPage';
 import { SignInPage } from '../../src/ui/pages/auth/SignInPage';
 import { HomePage } from '../../src/ui/pages/HomePage';
 
-export const test = base.extend<{
-  signUpPage;
-  signInPage;
-  homePage;
-}>({
-  signUpPage: async ({ page }, use) => {
-    const signUpPage = new SignUpPage(page);
+type Fixtures = {
+  signUpPage: SignUpPage;
+  signInPage: SignInPage;
+  homePage: HomePage;
+};
 
-    await use(signUpPage);
+export const test = base.extend<Fixtures>({
+  signUpPage: async ({ page }, use) => {
+    await use(new SignUpPage(page));
   },
   signInPage: async ({ page }, use) => {
-    const signInPage = new SignInPage(page);
-
-    await use(signInPage);
+    await use(new SignInPage(page));
   },
   homePage: async ({ page }, use) => {
-    const homePage = new HomePage(page);
-
-    await use(homePage);
+    await use(new HomePage(page));
   },
 });
+
+export { expect };
