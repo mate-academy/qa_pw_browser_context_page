@@ -1,18 +1,20 @@
-import { test as base } from '@playwright/test';
+import { test as base, type Page } from '@playwright/test';
 import { Logger } from '../../src/common/logger/Logger';
 import { generateNewUserData } from '../../src/common/testData/generateNewUserData';
 
+type UserData = ReturnType<typeof generateNewUserData>;
+
 export const test = base.extend<
   {
-    page1;
-    page2;
-    user;
-    user1;
-    user2;
-    infoTestLog;
+    page1: Page;
+    page2: Page;
+    user: UserData;
+    user1: UserData;
+    user2: UserData;
+    infoTestLog: string;
   },
   {
-    logger;
+    logger: Logger;
   }
 >({
   page1: async ({ page }, use) => {
