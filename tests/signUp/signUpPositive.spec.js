@@ -11,7 +11,8 @@ test('Successful `Sign up` flow test', async ({
   await signUpPage.fillEmailField(user.email);
   await signUpPage.fillPasswordField(user.password);
   await signUpPage.clickSignUpButton();
-  await page.waitForURL('/', { waitUntil: 'networkidle' });
+  await page.waitForURL('/');
+  await page.waitForLoadState('networkidle');
 
   await homePage.assertYourFeedTabIsVisible();
 });

@@ -6,12 +6,12 @@ export function generateNewUserData(logger) {
   const password = faker.internet.password({ length: 12, memorable: true });
 
   const user = {
-    username: `${firstName}_${lastName}`.replaceAll(`'`),
+    username: `${firstName}_${lastName}`.replace(/'/g, ''),
     email: faker.internet.email().toLowerCase(),
     password,
   };
 
-  logger.debug(`Generated new user data: ${JSON.stringify(user)}`);
+  logger?.debug?.(`Generated new user data: ${JSON.stringify(user)}`);
 
   return user;
 }
