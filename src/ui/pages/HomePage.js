@@ -32,10 +32,25 @@ export class HomePage {
     });
   }
 
-  async assertArticleTitleInGlobalFeedIsVisible(title) {
+  async assertArticleTitleInGlobalFeedIsVisible(title, timeoutMs = 30000) {
     await test.step(`Assert article '${title}' is visible in the Global Feed`, async () => {
+      const articleLink = this.page.getByRole('link', { name: `Article title: ${title}` });
+      const checkTimeoutMs = 5000;
+      const deadline = Date.now() + timeoutMs;
+
+      while (Date.now() < deadline) {
+        try {
+          await this.globalFeedTab.click();
+          await articleLink.waitFor({ state: 'visible', timeout: checkTimeoutMs });
+          await expect(articleLink).toBeVisible();
+          return;
+        } catch (error) {
+          await this.page.reload({ waitUntil: 'domcontentloaded' });
+        }
+      }
+
       await this.globalFeedTab.click();
-      await expect(this.page.locator('a').filter({ hasText: title }).first()).toBeVisible({ timeout: 125000 });
+      await expect(articleLink).toBeVisible({ timeout: checkTimeoutMs });
     });
   }
 

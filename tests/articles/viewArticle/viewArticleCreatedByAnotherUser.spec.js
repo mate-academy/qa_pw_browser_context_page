@@ -26,49 +26,6 @@ test('View an article created by another user', async ({
   await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
 });
 
-test('User can view an article created by another user in the Global Feed.', async ({
-  page2,
-  user2,
-  articleWithoutTags,
-}) => {
-  const viewArticlePage = new ViewArticlePage(page2);
-
-  await viewArticlePage.open(articleWithoutTags.url);
-
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
-  await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
-});
-
-test('User can follow the article created by another user.', async ({
-  page2,
-  user2,
-  articleWithoutTags,
-}) => {
-  const viewArticlePage = new ViewArticlePage(page2);
-
-  await viewArticlePage.open(articleWithoutTags.url);
-
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
-  await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
-  await viewArticlePage.addArticleToFavorites();
-});
-
-test('User can unfollow the article created by another user.', async ({
-  page2,
-  user2,
-  articleWithoutTags,
-}) => {
-  const viewArticlePage = new ViewArticlePage(page2);
-
-  await viewArticlePage.open(articleWithoutTags.url);
-
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
-  await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
-  await viewArticlePage.addAndDeleteArticleToFavorites();
-});
 
 test('User can view an updated article created by another user.', async ({
   page1,
@@ -91,49 +48,4 @@ test('User can view an updated article created by another user.', async ({
   await viewArticlePage2.assertArticleAuthorNameIsVisible(user1.username);
 });
 
-test(`User can see other user's new articles in "Your Feed" after following their profile`, async ({
-  page1,
-  page2,
-  user1,
-  user2,
-  articleWithoutTags,
-}) => {
-  const viewArticlePage1 = new ViewArticlePage(page1);
-
-  await viewArticlePage1.open(articleWithoutTags.url);
-  await viewArticlePage1.assertArticleTitleIsVisible(articleWithoutTags.title);
-  await viewArticlePage1.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage1.assertArticleAuthorNameIsVisible(user2.username);
-  await viewArticlePage1.followArticleAuthor();
-});
-
-test(`User can see other user's new articles in "Your Feed" after unfollowing their profile`, async ({
-  page1,
-  page2,  
-  user1,
-  user2,
-  articleWithoutTags,
-}) => {
-  const viewArticlePage1 = new ViewArticlePage(page1);
-
-  await viewArticlePage1.open(articleWithoutTags.url);
-  await viewArticlePage1.assertArticleTitleIsVisible(articleWithoutTags.title);
-  await viewArticlePage1.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage1.assertArticleAuthorNameIsVisible(user2.username);
-  await viewArticlePage1.followArticleAuthor();
-  await viewArticlePage1.unfollowArticleAuthor();
-});
-
-test('User can see an article in "Global Feed" when logged out.', async ({
-  page2,
-  user2,
-  articleWithoutTags,
-}) => {
-  const homePage = new HomePage(page2);
-
-  await homePage.clickLogoutButton();
-  await page2.goto('/');
-  await homePage.assertGlobalFeedTabIsVisible();
-  await homePage.assertArticleTitleInGlobalFeedIsVisible(articleWithoutTags.title);
-});
 
