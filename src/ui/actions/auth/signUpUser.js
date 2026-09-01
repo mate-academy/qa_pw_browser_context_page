@@ -9,6 +9,8 @@ export async function signUpUser(page, user) {
 
     await signUpPage.open();
     await signUpPage.submitSignUpForm(user);
+    await page.waitForURL('/');
+    await page.waitForLoadState('networkidle');
 
     await homePage.assertYourFeedTabIsVisible();
   });

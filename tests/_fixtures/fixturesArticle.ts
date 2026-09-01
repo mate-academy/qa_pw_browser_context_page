@@ -1,14 +1,22 @@
 import { test as base } from '@playwright/test';
+import { Logger } from '../../src/common/logger/Logger';
 import { generateNewArticleData } from '../../src/common/testData/generateNewArticleData';
 import { CreateArticlePage } from '../../src/ui/pages/article/CreateArticlePage';
 import { ViewArticlePage } from '../../src/ui/pages/article/ViewArticlePage';
 
-export const test = base.extend<{
-  articleWithoutTags;
-  articleWithOneTag;
-  createArticlePage;
-  viewArticlePage;
-}>({
+type ArticleData = ReturnType<typeof generateNewArticleData>;
+
+export const test = base.extend<
+  {
+    articleWithoutTags: ArticleData;
+    articleWithOneTag: ArticleData;
+    createArticlePage: CreateArticlePage;
+    viewArticlePage: ViewArticlePage;
+  },
+  {
+    logger: Logger;
+  }
+>({
   articleWithoutTags: async ({ logger }, use) => {
     const article = generateNewArticleData(logger);
 
