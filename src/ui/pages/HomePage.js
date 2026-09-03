@@ -4,6 +4,7 @@ export class HomePage {
   constructor(page) {
     this.page = page;
     this.yourFeedTab = page.getByText('Your Feed');
+    this.fieldGlobalFeed = page.getByText('Global Feed');
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
   }
 
@@ -16,6 +17,12 @@ export class HomePage {
   async assertYourFeedTabIsVisible() {
     await test.step(`Assert the 'Your Feed' tab is visible`, async () => {
       await expect(this.yourFeedTab).toBeVisible();
+    });
+  }
+
+  async clickFieldGlobalFeed() {
+    await test.step('Click the “Global Feed” field', async () => {
+      await this.fieldGlobalFeed.click();
     });
   }
 }
