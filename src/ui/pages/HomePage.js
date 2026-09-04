@@ -8,9 +8,9 @@ export class HomePage {
     this.globalFeedTab = page.getByText('Global Feed');
   }
 
-  async open() {
+  async open(url = '/') {
     await test.step(`Open 'Home' page`, async () => {
-      await this.page.goto('/');
+      await this.page.goto(url);
     });
   }
 
@@ -42,6 +42,14 @@ export class HomePage {
   async assertGlobalFeedTabIsVisible() {
     await test.step(`Assert the 'Global Feed' tab is visible`, async () => {
       await expect(this.globalFeedTab).toBeVisible();
+    });
+  }
+
+  async assertUserIsVisibleInYourFeed(username) {
+    await test.step(`Assert the user is visible in 'Your Feed'`, async () => {
+      await expect(
+        this.page.getByRole('link', { name: username }),
+      ).toBeVisible();
     });
   }
 }

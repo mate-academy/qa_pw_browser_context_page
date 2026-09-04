@@ -17,7 +17,7 @@ export class ViewArticlePage {
     return this.page.url();
   }
 
-  async open(url) {
+  async open(url = '/') {
     await test.step(`Open 'View Article' page`, async () => {
       await this.page.goto(url);
     });
@@ -26,6 +26,22 @@ export class ViewArticlePage {
   async clickEditArticleButton() {
     await test.step(`Click the 'Edit Article' button`, async () => {
       await this.editArticleButton.click();
+    });
+  }
+
+  getFollowButton(username) {
+    return this.page.getByRole('button', { has: `${username}` }).first();
+  }
+
+  async clickFollowButton(username) {
+    await test.step(`Click the 'Follow ${username}' button`, async () => {
+      await this.getFollowButton(username).click();
+    });
+  }
+
+  async clickUnfollowButton(username) {
+    await test.step(`Click the 'Unfollow ${username}' button`, async () => {
+      await this.getFollowButton(username).click();
     });
   }
 
@@ -45,6 +61,20 @@ export class ViewArticlePage {
     await test.step(`
       Assert the article has correct author username`, async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
+    });
+  }
+
+  async assertFollowUserIsVisible(username) {
+    await test.step(`
+        Assert the 'Follow ${username}' user is visible`, async () => {
+      await expect(await this.getFollowButton(username)).toBeVisible();
+    });
+  }
+
+  async assertFollowUserIsNotVisible(username) {
+    await test.step(`
+        Assert the 'Follow ${username}' user is not visible`, async () => {
+      await expect(await this.getFollowButton(username)).not.toBeVisible();
     });
   }
 }
