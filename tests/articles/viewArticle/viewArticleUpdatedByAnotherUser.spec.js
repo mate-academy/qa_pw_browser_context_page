@@ -24,12 +24,14 @@ test.beforeEach(
 
 test('View an article updated by another user', async ({
   page2,
-  user2,
-  articleWithoutTags,
+  user1,
+  articleWithOneTag,
 }) => {
   const viewArticlePage = new ViewArticlePage(page2);
 
-  await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
-  await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
+  await viewArticlePage.open(articleWithOneTag.url);
+
+  await viewArticlePage.assertArticleTitleIsVisible(articleWithOneTag.title);
+  await viewArticlePage.assertArticleTextIsVisible(articleWithOneTag.text);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
 });
