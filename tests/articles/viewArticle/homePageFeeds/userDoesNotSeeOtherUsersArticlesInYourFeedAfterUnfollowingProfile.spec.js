@@ -24,10 +24,10 @@ test(`User doesn't see other user's articles in "Your Feed" after unfollowing th
   const homePage = new HomePage(page2);
 
   await homePage.clickHomeLink()
-  await homePage.asserArticlePreviewHasCorectTitle(articleWithoutTags.url, articleWithoutTags.title);
-  await homePage.asserArticlePreviewHasCorectDescription(articleWithoutTags.url, articleWithoutTags.description);
-  await homePage.asserArticlePreviewHasCorectTitle(articleWithOneTag.url, articleWithOneTag.title);
-  await homePage.asserArticlePreviewHasCorectDescription(articleWithOneTag.url, articleWithOneTag.description);
+  await homePage.assertArticlePreviewHasCorrectTitle(articleWithoutTags.url, articleWithoutTags.title);
+  await homePage.assertArticlePreviewHasCorrectDescription(articleWithoutTags.url, articleWithoutTags.description);
+  await homePage.assertArticlePreviewHasCorrectTitle(articleWithOneTag.url, articleWithOneTag.title);
+  await homePage.assertArticlePreviewHasCorrectDescription(articleWithOneTag.url, articleWithOneTag.description);
 
   await viewArticlePage.open(articleWithoutTags.url);
   await viewArticlePage.clickOnTheUnfollowUserButton(user1.username)

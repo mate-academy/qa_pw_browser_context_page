@@ -25,8 +25,8 @@ test('View an article created by another user in the Global Feed', async({
 
   await homePage.assertYourFeedTabIsVisible()
   await homePage.clickOnGlobalFeedTab()
-  await homePage.asserArticlePreviewHasCorectTitle(articleWithoutTags.url, articleWithoutTags.title);
-  await homePage.asserArticlePreviewHasCorectDescription(articleWithoutTags.url, articleWithoutTags.description);
-  await homePage.asserArticlePreviewHasCorectUserName(articleWithoutTags.url, user1.username);
-  await homePage.asserArticlePreviewHasCorectDate(articleWithoutTags.url, expectedDate);
+  await homePage.assertArticlePreviewHasCorrectTitle(articleWithoutTags.url, articleWithoutTags.title);
+  await homePage.assertArticlePreviewHasCorrectDescription(articleWithoutTags.url, articleWithoutTags.description);
+  await homePage.assertArticlePreviewHasCorrectUserName(articleWithoutTags.url, user1.username);
+  await homePage.assertArticlePreviewHasCorrectDate(articleWithoutTags.url, expectedDate);
 })

@@ -35,8 +35,8 @@ test('User can see own article in "Global feed" when not logged in', async({
     timeout: 20000, 
     intervals: [2000]
   });
-  await homePage.asserArticlePreviewHasCorectTitle(articleWithoutTags.url, articleWithoutTags.title);
-  await homePage.asserArticlePreviewHasCorectDescription(articleWithoutTags.url, articleWithoutTags.description);
-  await homePage.asserArticlePreviewHasCorectUserName(articleWithoutTags.url, user1.username);
-  await homePage.asserArticlePreviewHasCorectDate(articleWithoutTags.url, expectedDate);
+  await homePage.assertArticlePreviewHasCorrectTitle(articleWithoutTags.url, articleWithoutTags.title);
+  await homePage.assertArticlePreviewHasCorrectDescription(articleWithoutTags.url, articleWithoutTags.description);
+  await homePage.assertArticlePreviewHasCorrectUserName(articleWithoutTags.url, user1.username);
+  await homePage.assertArticlePreviewHasCorrectDate(articleWithoutTags.url, expectedDate);
 })

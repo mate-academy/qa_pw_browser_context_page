@@ -29,13 +29,13 @@ test(`User can see other user's new articles in "Your Feed" after following thei
   }).format(new Date());
 
   await homePage.clickHomeLink()
-  await homePage.asserArticlePreviewHasCorectTitle(articleWithoutTags.url, articleWithoutTags.title);
-  await homePage.asserArticlePreviewHasCorectDescription(articleWithoutTags.url, articleWithoutTags.description);
-  await homePage.asserArticlePreviewHasCorectUserName(articleWithoutTags.url, user1.username);
-  await homePage.asserArticlePreviewHasCorectDate(articleWithoutTags.url, expectedDate);
-  await homePage.asserArticlePreviewHasCorectTitle(articleWithOneTag.url, articleWithOneTag.title);
-  await homePage.asserArticlePreviewHasCorectDescription(articleWithOneTag.url, articleWithOneTag.description);
-  await homePage.asserArticlePreviewHasCorectUserName(articleWithOneTag.url, user1.username);
-  await homePage.asserArticlePreviewHasCorectDate(articleWithOneTag.url, expectedDate);
+  await homePage.assertArticlePreviewHasCorrectTitle(articleWithoutTags.url, articleWithoutTags.title);
+  await homePage.assertArticlePreviewHasCorrectDescription(articleWithoutTags.url, articleWithoutTags.description);
+  await homePage.assertArticlePreviewHasCorrectUserName(articleWithoutTags.url, user1.username);
+  await homePage.assertArticlePreviewHasCorrectDate(articleWithoutTags.url, expectedDate);
+  await homePage.assertArticlePreviewHasCorrectTitle(articleWithOneTag.url, articleWithOneTag.title);
+  await homePage.assertArticlePreviewHasCorrectDescription(articleWithOneTag.url, articleWithOneTag.description);
+  await homePage.assertArticlePreviewHasCorrectUserName(articleWithOneTag.url, user1.username);
+  await homePage.assertArticlePreviewHasCorrectDate(articleWithOneTag.url, expectedDate);
 })
 

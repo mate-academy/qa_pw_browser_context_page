@@ -11,7 +11,9 @@ export class CreateArticlePage {
       name: 'Publish Article',
     });
     this.errorMessage = page.getByRole('list').nth(1);
-    this.updateAritcleButton = page.getByRole('button', { name: 'Update Article' });
+    this.updateArticleButton = page.getByRole('button', {
+      name: 'Update Article',
+    });
   }
 
   async open() {
@@ -55,7 +57,7 @@ export class CreateArticlePage {
 
   async clickUpdateArticleButton() {
     await test.step(`Click on the 'Update Article' button`, async () => {
-      await this.updateAritcleButton.click();
+      await this.updateArticleButton.click();
     });
   }
 
