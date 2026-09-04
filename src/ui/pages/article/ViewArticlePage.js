@@ -10,6 +10,9 @@ export class ViewArticlePage {
     this.favoriteArticleButton = this.articleMeta.getByRole('button', {
       name: /Favorite/i,
     });
+    this.followUserButton = this.articleMeta.getByRole('button', {
+      name: /Follow|Unfollow/i,
+    });
   }
 
   authorLinkInArticleHeader(username) {
@@ -71,6 +74,12 @@ export class ViewArticlePage {
       await expect(this.favoriteArticleButton).toContainText(
         'Favorite Article',
       );
+    });
+  }
+
+  async clickFollowUserButton() {
+    await test.step(`Click 'Follow User' button`, async () => {
+      await this.followUserButton.click();
     });
   }
 }

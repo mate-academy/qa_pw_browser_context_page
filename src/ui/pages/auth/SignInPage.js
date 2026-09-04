@@ -33,9 +33,25 @@ export class SignInPage {
     });
   }
 
+  async signIn({ email, password }) {
+    await test.step('Sign in with credentials', async () => {
+      await this.fillEmailField(email);
+      await this.fillPasswordField(password);
+      await this.clickSignInButton();
+    });
+  }
+
   async assertErrorMessageContainsText(messageText) {
     await test.step(`Assert the '${messageText}' error is shown`, async () => {
       await expect(this.errorMessage).toContainText(messageText);
+    });
+  }
+
+  async assertUserIsLoggedIn(username) {
+    await test.step(`Assert user '${username}' is logged in`, async () => {
+      await expect(
+        this.page.getByRole('link', { name: username }),
+      ).toBeVisible();
     });
   }
 }
