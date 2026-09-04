@@ -10,13 +10,13 @@ export class SettingsPage {
   }
 
   async fillNewPassword(newPassword) {
-    test.step(`Fill in new password '${newPassword}'`, async () => {
+    await test.step(`Fill in new password '${newPassword}'`, async () => {
       this.newPasswordField.fill(newPassword);
     });
   }
 
   async clickOnUpdateSettingsButton() {
-    test.step(`Click on the 'Update Settings' button`, async () => {
+    await test.step(`Click on the 'Update Settings' button`, async () => {
       this.updateSettingsButton.click();
     });
   }

@@ -1,6 +1,5 @@
 import { createArticle } from "../../../../src/ui/actions/articles/createArticle";
 import { signUpUser } from "../../../../src/ui/actions/auth/signUpUser";
-import { ViewArticlePage } from "../../../../src/ui/pages/article/ViewArticlePage";
 import { HomePage } from "../../../../src/ui/pages/HomePage";
 import { test } from "../../../_fixtures/fixtures";
 
@@ -23,10 +22,10 @@ test('View an article created by another user in the Global Feed', async({
     year: 'numeric'
   }).format(new Date());
 
-  await homePage.assertYourFeedTabIsVisible()
-  await homePage.clickOnGlobalFeedTab()
+  await homePage.assertYourFeedTabIsVisible();
+  await homePage.clickOnGlobalFeedTab();
   await homePage.assertArticlePreviewHasCorrectTitle(articleWithoutTags.url, articleWithoutTags.title);
   await homePage.assertArticlePreviewHasCorrectDescription(articleWithoutTags.url, articleWithoutTags.description);
   await homePage.assertArticlePreviewHasCorrectUserName(articleWithoutTags.url, user1.username);
   await homePage.assertArticlePreviewHasCorrectDate(articleWithoutTags.url, expectedDate);
-})
+});

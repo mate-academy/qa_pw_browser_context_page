@@ -6,7 +6,16 @@ import { test } from "../../_fixtures/fixtures";
 
 let updatedArticleData;
 
-test.beforeEach(async ({user1, user2, page1, page2, articleWithoutTags, logger, viewArticlePage, createArticlePage}) => {
+test.beforeEach(async ({
+  user1,
+  user2,
+  page1,
+  page2,
+  articleWithoutTags,
+  logger,
+  viewArticlePage,
+  createArticlePage
+}) => {
   await signUpUser(page1, user1);
   await signUpUser(page2, user2);
 
@@ -14,13 +23,13 @@ test.beforeEach(async ({user1, user2, page1, page2, articleWithoutTags, logger, 
   updatedArticleData = generateNewArticleData(logger);
   updatedArticleData.title += Date.now();
 
-  await viewArticlePage.open(articleWithoutTags.url)
-  await viewArticlePage.clickOnEditArticleButton()
+  await viewArticlePage.open(articleWithoutTags.url);
+  await viewArticlePage.clickOnEditArticleButton();
 
   await createArticlePage.fillTitleField(updatedArticleData.title);
   await createArticlePage.fillTextField(updatedArticleData.text);
-  await createArticlePage.clickUpdateArticleButton() 
-})
+  await createArticlePage.clickUpdateArticleButton();
+});
 
 test('User can view an article updated by another user', async ({
   page2,
@@ -30,8 +39,7 @@ test('User can view an article updated by another user', async ({
   const viewArticlePage = new ViewArticlePage(page2);
 
   await viewArticlePage.open(articleWithoutTags.url);
-
   await viewArticlePage.assertArticleTitleIsVisible(updatedArticleData.title);
   await viewArticlePage.assertArticleTextIsVisible(updatedArticleData.text);
   await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
-})
+});

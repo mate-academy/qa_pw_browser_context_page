@@ -14,10 +14,10 @@ test.beforeEach(async ({user1, user2, page1, page2, articleWithoutTags, articleW
   viewArticlePage = new ViewArticlePage(page2);
 
   await viewArticlePage.open(articleWithoutTags.url);
-  await viewArticlePage.clickOnTheFollowUserButton(user1.username)
+  await viewArticlePage.clickOnTheFollowUserButton(user1.username);
 
   await createArticle(page1, articleWithOneTag);
-})
+});
 
 test(`User can see other user's new articles in "Your Feed" after following their profile`,
    async ({user1, page2, articleWithoutTags, articleWithOneTag}) => {
@@ -28,7 +28,7 @@ test(`User can see other user's new articles in "Your Feed" after following thei
     year: 'numeric'
   }).format(new Date());
 
-  await homePage.clickHomeLink()
+  await homePage.clickHomeLink();
   await homePage.assertArticlePreviewHasCorrectTitle(articleWithoutTags.url, articleWithoutTags.title);
   await homePage.assertArticlePreviewHasCorrectDescription(articleWithoutTags.url, articleWithoutTags.description);
   await homePage.assertArticlePreviewHasCorrectUserName(articleWithoutTags.url, user1.username);
@@ -37,5 +37,5 @@ test(`User can see other user's new articles in "Your Feed" after following thei
   await homePage.assertArticlePreviewHasCorrectDescription(articleWithOneTag.url, articleWithOneTag.description);
   await homePage.assertArticlePreviewHasCorrectUserName(articleWithOneTag.url, user1.username);
   await homePage.assertArticlePreviewHasCorrectDate(articleWithOneTag.url, expectedDate);
-})
+});
 

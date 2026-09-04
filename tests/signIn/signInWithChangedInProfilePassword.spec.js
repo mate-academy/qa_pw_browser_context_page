@@ -11,13 +11,13 @@ let newPassword;
 
 test.beforeEach(async ({ page1, page2, user }) => {
   const homePage1 = new HomePage(page1);
-  const settingsPage = new SettingsPage(page1)
-  newPassword = faker.internet.password()
+  const settingsPage = new SettingsPage(page1);
+  newPassword = faker.internet.password();
 
   await signUpUser(page1, user);
   await homePage1.clickOnSettingsLink();
   await settingsPage.fillNewPassword(newPassword);
-  await settingsPage.clickOnUpdateSettingsButton()
+  await settingsPage.clickOnUpdateSettingsButton();
 
   signInPage2 = new SignInPage(page2);
   homePage2 = new HomePage(page2);

@@ -17,21 +17,21 @@ test.beforeEach(async ({user1, user2, page1, page2, articleWithoutTags, articleW
   await viewArticlePage.open(articleWithoutTags.url);
   await viewArticlePage.clickOnTheFollowUserButton(user1.username)
   await viewArticlePage.assertUnfollowUserButtonsAreVisible(user1.username)
-})
+});
 
 test(`User doesn't see other user's articles in "Your Feed" after unfollowing their profile.`,
    async ({user1, page2, articleWithoutTags, articleWithOneTag}) => {
   const homePage = new HomePage(page2);
 
-  await homePage.clickHomeLink()
+  await homePage.clickHomeLink();
   await homePage.assertArticlePreviewHasCorrectTitle(articleWithoutTags.url, articleWithoutTags.title);
   await homePage.assertArticlePreviewHasCorrectDescription(articleWithoutTags.url, articleWithoutTags.description);
   await homePage.assertArticlePreviewHasCorrectTitle(articleWithOneTag.url, articleWithOneTag.title);
   await homePage.assertArticlePreviewHasCorrectDescription(articleWithOneTag.url, articleWithOneTag.description);
 
   await viewArticlePage.open(articleWithoutTags.url);
-  await viewArticlePage.clickOnTheUnfollowUserButton(user1.username)
-  await homePage.clickHomeLink()
-  await homePage.assertNoArticleMessageInYourFeedTabIsVisible()
-})
+  await viewArticlePage.clickOnTheUnfollowUserButton(user1.username);
+  await homePage.clickHomeLink();
+  await homePage.assertNoArticleMessageInYourFeedTabIsVisible();
+});
 

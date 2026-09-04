@@ -8,7 +8,7 @@ test.beforeEach(async ({user1, user2, page1, page2, articleWithoutTags}) => {
   await signUpUser(page2, user2);
 
   await createArticle(page1, articleWithoutTags);
-})
+});
 
 test('User can follow the article created by another user', async ({
   page2,
@@ -18,6 +18,6 @@ test('User can follow the article created by another user', async ({
   const viewArticlePage = new ViewArticlePage(page2);
 
   await viewArticlePage.open(articleWithoutTags.url);
-  await viewArticlePage.clickOnTheFollowUserButton(user1.username)
-  await viewArticlePage.assertUnfollowUserButtonsAreVisible(user1.username)
-})
+  await viewArticlePage.clickOnTheFollowUserButton(user1.username);
+  await viewArticlePage.assertUnfollowUserButtonsAreVisible(user1.username);
+});

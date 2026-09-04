@@ -13,12 +13,11 @@ test.beforeEach(async ({user1, user2, page1, page2, articleWithoutTags}) => {
   viewArticlePage = new ViewArticlePage(page2);
 
   await viewArticlePage.open(articleWithoutTags.url);
-  await viewArticlePage.clickOnTheFollowUserButton(user1.username)
+  await viewArticlePage.clickOnTheFollowUserButton(user1.username);
+});
 
-})
-
-test('User can unfollow the article created by another user', async ({user1}) => {
-  
-  await viewArticlePage.clickOnTheUnfollowUserButton(user1.username)
-  await viewArticlePage.assertFollowUserButtonsAreVisible(user1.username)
-})
+test('User can unfollow the article created by another user',
+   async ({user1}) => {
+  await viewArticlePage.clickOnTheUnfollowUserButton(user1.username);
+  await viewArticlePage.assertFollowUserButtonsAreVisible(user1.username);
+});

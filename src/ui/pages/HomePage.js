@@ -52,7 +52,9 @@ export class HomePage {
   }
 
   async assertNoArticleMessageInYourFeedTabIsVisible() {
-    await test.step(`Assert the message 'No articles are here... yet.' is visible`, async () => {
+    await test.step(
+      `Assert the message 'No articles are here... yet.' is visible`,
+      async () => {
       await expect(this.noArticlesMessageInYourFeed).toBeVisible();
     });
   }
@@ -60,7 +62,9 @@ export class HomePage {
   async getArticlePreviewItemByLink(articleUrl) {
     const articleSubstringLink = new URL(articleUrl).pathname;
     const locator =
-      await test.step(`Get article preview card by link '${articleSubstringLink}'`, async () => {
+      await test.step(
+        `Get article preview card by link '${articleSubstringLink}'`,
+        async () => {
         const articleItem = await this.articlePreviewCardItem.filter({
           has: this.page.locator(`a[href*="${articleSubstringLink}"]`),
         });
@@ -78,7 +82,8 @@ export class HomePage {
   }
 
   async assertArticlePreviewHasCorrectTitle(articleUrl, articleTitle) {
-    await test.step(`Assert article preview has title '${articleTitle}'`, async () => {
+    await test
+    .step(`Assert article preview has title '${articleTitle}'`, async () => {
       await expect(
         await this.getArticlePreviewItemByLink(articleUrl),
       ).toBeVisible({ timeout: 15000 });
@@ -93,7 +98,9 @@ export class HomePage {
     articleUrl,
     articleDescription,
   ) {
-    await test.step(`Assert article preview has description '${articleDescription}'`, async () => {
+    await test
+    .step(`Assert article preview has description '${articleDescription}'`,
+       async () => {
       await expect(
         (await this.getArticlePreviewItemByLink(articleUrl)).locator('p'),
       ).toContainText(articleDescription);
@@ -101,7 +108,8 @@ export class HomePage {
   }
 
   async assertArticlePreviewHasCorrectUserName(articleUrl, username) {
-    await test.step(`Assert article preview has user name '${username}'`, async () => {
+    await test.step(`Assert article preview has user name '${username}'`,
+      async () => {
       const usernameElement = (
         await this.getArticlePreviewItemByLink(articleUrl)
       ).locator('.info');
@@ -110,7 +118,8 @@ export class HomePage {
   }
 
   async assertArticlePreviewHasCorrectDate(articleUrl, expectedDate) {
-    await test.step(`Assert article preview has corect date '${expectedDate}'`, async () => {
+    await test
+    .step(`Assert article preview has correct date '${expectedDate}'`, async () => {
       const dateElement = (
         await this.getArticlePreviewItemByLink(articleUrl)
       ).locator(this.articlePreviewDate);

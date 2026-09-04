@@ -72,7 +72,7 @@ export class ViewArticlePage {
       });
       const buttons = await buttonLocator.all();
 
-      expect(buttonLocator).toHaveCount(2);
+      await expect(buttonLocator).toHaveCount(2);
 
       for (const button of buttons) {
         await expect(button).toBeVisible();
@@ -87,7 +87,7 @@ export class ViewArticlePage {
       });
       const buttons = await buttonLocator.all();
 
-      expect(buttonLocator).toHaveCount(2);
+      await expect(buttonLocator).toHaveCount(2);
 
       for (const button of buttons) {
         await expect(button).toBeVisible();
