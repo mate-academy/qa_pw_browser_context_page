@@ -17,4 +17,9 @@ export class EditArticlePage {
       await expect(this.page.getByText(text)).toBeVisible();
     });
   }
+  async clickEditArtickeButton(page = this.page) {
+    await test.step('Click Update Article Button', async () => {
+      await page.getByRole('button', { name: 'Update Article' }).click();
+    });
+  }
 }
