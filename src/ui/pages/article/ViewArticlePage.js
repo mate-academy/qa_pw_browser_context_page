@@ -54,6 +54,7 @@ export class ViewArticlePage {
   async clickFolowUserButton() {
     await test.step('Click Folow User Button', async () => {
       await this.folowButton.click();
+      await this.page.waitForTimeout(1000);
     });
   }
   async clickUnfollowUserButton(page = this.page) {
@@ -74,6 +75,16 @@ export class ViewArticlePage {
   async clickUpdateArticleButton(page = this.page) {
     await test.step('Click Update Article Button', async () => {
       page.getByRole('link', { name: ' Edit Article' }).first().click();
+    });
+  }
+  async assertInArticleLinkYourFeed(title, page = this.page) {
+    await test.step(`Assert article '${title}' is visible in Your Feed`, async () => {
+      await expect(
+        page
+          .locator('.article-preview')
+          .filter({ hasText: title })
+          .locator('a.preview-link'),
+      ).toBeVisible();
     });
   }
 }
