@@ -58,4 +58,9 @@ export class HomePage {
       await this.logoutButton.click();
     });
   }
+  async clickYourFeedButton() {
+    await test.step('Click Your Feed button', async () => {
+      await this.yourFeedTab.click();
+    });
+  }
 }

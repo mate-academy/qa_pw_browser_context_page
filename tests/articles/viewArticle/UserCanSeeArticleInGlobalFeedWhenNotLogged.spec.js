@@ -16,10 +16,7 @@ test('View an article created by another user in the Global Feed', async ({
   page,
   user,
 }) => {
-  await viewArticlePage.clickInArticleLinkGlobalFeed(
-    articleWithoutTags.title,
-    page,
-  );
+  await viewArticlePage.clickInArticleLink(articleWithoutTags.title, page);
 
   await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
   await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);

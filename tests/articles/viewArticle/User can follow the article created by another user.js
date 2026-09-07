@@ -20,10 +20,7 @@ test('View an article created by another user in the Global Feed', async ({
 
   await homePage.assertYourFeedTabIsVisible(page2);
   await homePage.clickGlobalFeedButton(page2);
-  await viewArticlePage.clickInArticleLinkGlobalFeed(
-    articleWithoutTags.title,
-    page2,
-  );
+  await viewArticlePage.clickInArticleLink(articleWithoutTags.title, page2);
 
   await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
   await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);

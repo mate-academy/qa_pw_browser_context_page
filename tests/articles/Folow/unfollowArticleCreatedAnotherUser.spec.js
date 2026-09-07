@@ -32,15 +32,15 @@ test('View an article created by another user in the Global Feed', async ({
   await viewArticlePage.clickFolowUserButton();
   await homePage.clickHomePageButton(page2);
 
-  await viewArticlePage.clickInArticleLinkGlobalFeed(
-    articleWithoutTags.title,
-    page2,
-  );
+  await viewArticlePage.clickInArticleLink(articleWithoutTags.title, page2);
   await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
   await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
   await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
 
   await viewArticlePage.clickUnfollowUserButton(page2);
   await homePage.clickHomePageButton(page2);
-  await viewArticlePage.assertArticleNotVisible(page2);
+  await viewArticlePage.assertArticleNotVisible(
+    page2,
+    articleWithoutTags.title,
+  );
 });

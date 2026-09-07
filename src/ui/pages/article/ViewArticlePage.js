@@ -42,7 +42,7 @@ export class ViewArticlePage {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
-  async clickInArticleLinkGlobalFeed(title, page = this.page) {
+  async clickInArticleLink(title, page = this.page) {
     await test.step(`Click article '${title}' from Global Feed`, async () => {
       await page
         .locator('.article-preview')
