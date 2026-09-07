@@ -6,12 +6,38 @@ export class HomePage {
     this.yourFeedTab = page.getByText('Your Feed');
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
     this.globalFeedTab = page.getByText('Global Feed');
+    this.navigaitonLink = page
+      .getByRole('navigation')
+      .getByRole('link', { name: 'conduit' });
   }
 
   async open(url = '/') {
     await test.step(`Open 'Home' page`, async () => {
       await this.page.goto(url);
     });
+  }
+
+  async clickToNaviLink() {
+    await test.step(`Click on navigation link`, async () => {
+      await this.navigaitonLink.click();
+      await this.page
+        .locator('.loading-spinner')
+        .waitFor({ state: 'hidden', timeout: 2000 });
+    });
+  }
+
+  async gotoProfilePage(username) {
+    await test.step(`Go to the profile page of ${username}`, async () => {
+      await this.page.getByRole('link', { name: username }).click();
+    });
+  }
+
+  getArticleInYourFeed(articleTitle) {
+    return this.page.getByText(`Article title: ${articleTitle}`);
+  }
+
+  getUsernameButton(username) {
+    return this.page.getByRole('link', { name: username });
   }
 
   async clickNewArticleLink() {
@@ -29,13 +55,19 @@ export class HomePage {
   async clickArticleInGlobalFeed(articleTitle) {
     await test.step(`
       Click the article ${articleTitle} in Global Feed`, async () => {
-      await this.page.getByText(`Article title: ${articleTitle}`).click();
+      await this.getArticleInYourFeed(articleTitle).click();
+    });
+  }
+
+  async clickYourFeedLink() {
+    await test.step(`Click the 'Your Feed' link`, async () => {
+      await this.yourFeedTab.click();
     });
   }
 
   async assertYourFeedTabIsVisible() {
     await test.step(`Assert the 'Your Feed' tab is visible`, async () => {
-      await expect(this.yourFeedTab).toBeVisible();
+      await expect(this.yourFeedTab).toBeVisible({ timeout: 1000 });
     });
   }
 
@@ -45,11 +77,34 @@ export class HomePage {
     });
   }
 
-  async assertUserIsVisibleInYourFeed(username) {
-    await test.step(`Assert the user is visible in 'Your Feed'`, async () => {
-      await expect(
-        this.page.getByRole('link', { name: username }),
-      ).toBeVisible();
+  async assertArticleInYourFeedIsVisible(articleTitle) {
+    await test.step(`
+      Assert the article ${articleTitle} is visible in 'Your Feed'`, async () => {
+      await expect(this.getArticleInYourFeed(articleTitle)).toBeVisible();
+    });
+  }
+
+  async assertArticleInGlobalFeedIsVisible(articleTitle) {
+    await test.step(`
+      Assert the article ${articleTitle} is visible in 'Global Feed'`, async () => {
+      await expect(this.getArticleInYourFeed(articleTitle)).toBeVisible({
+        timeout: 10000,
+      });
+    });
+  }
+
+  async assertArticleInYourFeedIsNotVisible(articleTitle) {
+    await test.step(`
+      Assert the article ${articleTitle} is not visible in 'Your Feed'`, async () => {
+      await this.page.reload();
+      await expect(this.getArticleInYourFeed(articleTitle)).not.toBeVisible();
+    });
+  }
+
+  async assertUsernameIsVisible(username) {
+    await test.step(`
+      Assert the username ${username} is visible`, async () => {
+      await expect(this.getUsernameButton(username)).toBeVisible();
     });
   }
 }

@@ -9,10 +9,6 @@ export class ViewArticlePage {
       .first();
   }
 
-  authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
-  }
-
   url() {
     return this.page.url();
   }
@@ -23,25 +19,69 @@ export class ViewArticlePage {
     });
   }
 
+  getFollowButton(username) {
+    return this.page
+      .locator('.article-meta')
+      .getByRole('button', { hasText: `Follow ${username}` })
+      .first();
+  }
+
+  getUnfollowButton(username) {
+    return this.page
+      .locator('.article-meta')
+      .getByRole('button', { hasText: `Unfollow ${username}` })
+      .first();
+  }
+
+  authorLinkInArticleHeader(username) {
+    return this.page.getByRole('link', { username }).first();
+  }
+
   async clickEditArticleButton() {
     await test.step(`Click the 'Edit Article' button`, async () => {
       await this.editArticleButton.click();
     });
   }
 
-  getFollowButton(username) {
-    return this.page.getByRole('button', { has: `${username}` }).first();
-  }
-
   async clickFollowButton(username) {
     await test.step(`Click the 'Follow ${username}' button`, async () => {
+      const responsePromise = this.page.waitForResponse(
+        response => {
+          const lowerCaseUrl = response.url().toLowerCase();
+          const targetPattern = `profiles/${username.toLowerCase()}/follow`;
+
+          return (
+            lowerCaseUrl.includes(targetPattern) &&
+            response.request().method() === 'POST' &&
+            response.status() === 200
+          );
+        },
+        { timeout: 1000 },
+      );
       await this.getFollowButton(username).click();
+      await responsePromise;
+      await expect(this.getUnfollowButton(username)).toBeVisible();
     });
   }
 
   async clickUnfollowButton(username) {
     await test.step(`Click the 'Unfollow ${username}' button`, async () => {
-      await this.getFollowButton(username).click();
+      const responsePromise = this.page.waitForResponse(
+        response => {
+          const lowerCaseUrl = response.url().toLowerCase();
+          const targetPattern = `profiles/${username.toLowerCase()}/follow`;
+
+          return (
+            lowerCaseUrl.includes(targetPattern) &&
+            lowerCaseUrl.includes(`profiles/${username.toLowerCase()}`) &&
+            (response.status() === 200 || response.status() === 204)
+          );
+        },
+        { timeout: 1000 },
+      );
+      await this.getUnfollowButton(username).click();
+      await responsePromise;
+      await expect(this.getFollowButton(username)).toBeVisible();
     });
   }
 
@@ -64,17 +104,17 @@ export class ViewArticlePage {
     });
   }
 
-  async assertFollowUserIsVisible(username) {
+  async assertFollowButtonIsVisible(username) {
     await test.step(`
-        Assert the 'Follow ${username}' user is visible`, async () => {
-      await expect(await this.getFollowButton(username)).toBeVisible();
+      Assert the 'Follow ${username}' button is visible`, async () => {
+      await expect(this.getFollowButton(username)).toBeVisible();
     });
   }
 
-  async assertFollowUserIsNotVisible(username) {
+  async assertUnfollowButtonIsVisible(username) {
     await test.step(`
-        Assert the 'Follow ${username}' user is not visible`, async () => {
-      await expect(await this.getFollowButton(username)).not.toBeVisible();
+      Assert the 'Unfollow ${username}' button is visible`, async () => {
+      await expect(this.getUnfollowButton(username)).toBeVisible();
     });
   }
 }
