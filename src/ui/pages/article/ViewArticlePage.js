@@ -4,10 +4,24 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.favoriteArticleButton = page
+      .getByRole('button', { name: ' Favorite Article' })
+      .nth(1);
+    this.editArticleButton = page
+      .getByRole('link', { name: ' Edit Article' })
+      .first();
+    this.followUserButton = page
+      .getByRole('button', { name: '   Follow ' })
+      .first();
+    this.unfollowUserButton = page
+      .getByRole('button', { name: '   Unfollow ' })
+      .first();
   }
 
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    return this.page
+      .locator('.banner .article-meta')
+      .getByRole('link', { name: username, exact: true });
   }
 
   url() {
@@ -17,6 +31,30 @@ export class ViewArticlePage {
   async open(url) {
     await test.step(`Open 'View Article' page`, async () => {
       await this.page.goto(url);
+    });
+  }
+
+  async clickFavoriteArticleButton() {
+    await test.step('Click on "Favorite Article" Button', async () => {
+      await this.favoriteArticleButton.click();
+    });
+  }
+
+  async clickEditArticleButton() {
+    await test.step('Click on "Edit Article" button', async () => {
+      await this.editArticleButton.click();
+    });
+  }
+
+  async clickFollowUserButton() {
+    await test.step('Click on "Follow User" button', async () => {
+      await this.followUserButton.click();
+    });
+  }
+
+  async clickUnfollowUserButton() {
+    await test.step('Click on "Unfollow User" button', async () => {
+      await this.unfollowUserButton.click();
     });
   }
 
