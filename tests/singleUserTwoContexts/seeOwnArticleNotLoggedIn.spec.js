@@ -15,6 +15,7 @@ test('User can see own article in Global feed when not logged in', async ({
   await createArticle(page1, articleWithoutTags);
 
   await homePage.open();
+  await homePage.clickFieldGlobalFeed();
 
   await homePage.assertArticleTitleIsVisible(articleWithoutTags.title);
 });

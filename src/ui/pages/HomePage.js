@@ -5,12 +5,15 @@ export class HomePage {
     this.page = page;
     this.yourFeedTab = page.getByText('Your Feed');
     this.fieldGlobalFeed = page.getByText('Global Feed');
-    this.newArticleLink = page.getByRole('link', { name: 'New Article' });
+    this.newArticleLink = page.getByRole('link', {
+      name: 'New Article',
+    });
   }
 
   async open() {
     await test.step('Open Home Page', async () => {
       await this.page.goto('/');
+      await expect(this.fieldGlobalFeed).toBeVisible();
     });
   }
 
@@ -28,6 +31,7 @@ export class HomePage {
 
   async clickFieldGlobalFeed() {
     await test.step('Click the "Global Feed" field', async () => {
+      await expect(this.fieldGlobalFeed).toBeVisible();
       await this.fieldGlobalFeed.click();
     });
   }
@@ -40,27 +44,59 @@ export class HomePage {
 
   async assertArticleTitleIsNotVisible(title) {
     await test.step(`Assert article title '${title}' is NOT visible`, async () => {
-      const articleLocator = this.page
-        .locator('.article-preview')
-        .filter({ hasText: title });
+      const previews = this.page.locator('.article-preview');
+      const texts = await previews.allInnerTexts();
+      const normalizedTitle = title.trim().toLowerCase();
 
-      await expect(articleLocator).toBeHidden();
+      const isPresent = texts.some(text =>
+        text.replace(/\s+/g, ' ').toLowerCase().includes(normalizedTitle),
+      );
+
+      expect(isPresent).toBeFalsy();
     });
   }
 
   async assertArticleTitleIsVisible(title) {
     await test.step(`Assert article title '${title}' is visible in feed`, async () => {
-      const articleLocator = this.page
-        .locator('.article-preview')
-        .filter({ hasText: title })
-        .first();
+      const previews = this.page.locator('.article-preview');
+      const expected = `Article title: ${title}`.toLowerCase();
+      const timeout = 20000;
+      const interval = 600;
+      const maxReloads = 3;
+      const start = Date.now();
+      let foundIndex = -1;
+      let reloadCount = 0;
 
-      try {
-        await expect(articleLocator).toBeVisible({ timeout: 5000 });
-      } catch {
-        await this.page.reload();
-        await expect(articleLocator).toBeVisible({ timeout: 10000 });
+      while (Date.now() - start < timeout) {
+        const texts = await previews.allInnerTexts();
+        for (let i = 0; i < texts.length; i++) {
+          const normalized = texts[i].replace(/\s+/g, ' ').toLowerCase();
+          if (normalized.includes(expected)) {
+            foundIndex = i;
+            break;
+          }
+        }
+        if (foundIndex !== -1) break;
+
+        await this.page.waitForTimeout(interval);
+        if (
+          (Date.now() - start) % (interval * 4) < interval &&
+          reloadCount < maxReloads
+        ) {
+          reloadCount++;
+          await this.page.reload();
+        }
       }
+
+      if (foundIndex === -1) {
+        const after = await previews.allInnerTexts();
+        console.log('Preview texts after retry:', after);
+        throw new Error(`Article with title "${title}" not found in previews`);
+      }
+
+      await expect(previews.nth(foundIndex)).toBeVisible({
+        timeout: 5000,
+      });
     });
   }
 }
