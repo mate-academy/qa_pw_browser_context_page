@@ -1,4 +1,5 @@
 import { test } from '../../_fixtures/fixtures';
+import { HomePage } from '../../../src/ui/pages/HomePage';
 import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
@@ -10,16 +11,21 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   await createArticle(page1, articleWithoutTags);
 });
 
-test('View an article created by another user', async ({
+test('View an article created by another user in Global Feed', async ({
   page2,
-  user2,
+  user1,
   articleWithoutTags,
 }) => {
+  const homePage = new HomePage(page2);
   const viewArticlePage = new ViewArticlePage(page2);
 
-  await viewArticlePage.open(articleWithoutTags.url);
+  await page2.goto('/');
+  await homePage.clickGlobalFeedTab();
+
+  await homePage.assertArticleTitleIsVisible(articleWithoutTags.title);
+  await homePage.articleTitle(articleWithoutTags.title).click();
 
   await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
   await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
 });
