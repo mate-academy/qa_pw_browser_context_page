@@ -1,5 +1,4 @@
 import { test } from '../../_fixtures/fixtures';
-import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 import { HomePage } from '../../../src/ui/pages/HomePage';
@@ -16,11 +15,8 @@ test('View an article created by another user in the Clobal Feed', async ({
   user1,
   articleWithoutTags,
 }) => {
-  const viewArticlePage = new ViewArticlePage(page2);
   const homePage = new HomePage(page2);
   await homePage.clickGlobalFeed();
-  await viewArticlePage.assertArticleTitleInGlobalFeed(
-    articleWithoutTags.title,
-  );
-  await viewArticlePage.assertArticleCreatedAnotherUser(user1.username);
+  await homePage.assertArticleTitleInGlobalFeed(articleWithoutTags.title);
+  await homePage.assertArticleAuthor(user1.username);
 });

@@ -58,22 +58,6 @@ export class ViewArticlePage {
       });
   }
 
-  async assertArticleTitleInGlobalFeed(title) {
-    await test.step(`Assert the article in global feed`, async () => {
-      await expect(
-        this.page.getByRole('link', { name: `Article title: ${title}` }),
-      ).toBeVisible();
-    });
-  }
-
-  async assertArticleCreatedAnotherUser(username) {
-    await test.step(`Assert the article created by another user`, async () => {
-      await expect(
-        this.page.getByRole('link', { name: username }),
-      ).toBeVisible();
-    });
-  }
-
   async favoriteArticleButtonClick() {
     await test.step('Click favorite article button', async () => {
       await this.favoriteArticleButton.click();

@@ -62,6 +62,7 @@ export class CreateArticlePage {
         await this.fillTagsField(article.tags);
       }
       await this.clickPublishArticleButton();
+      await this.page.waitForURL(/\/article\//);
     });
   }
 

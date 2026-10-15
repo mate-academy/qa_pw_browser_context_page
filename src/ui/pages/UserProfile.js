@@ -8,11 +8,25 @@ export class UserProfile {
       name: 'Favorited Posts',
     });
     this.emptyFavoriteList = page.getByText('No articles are here... yet.');
+    this.editProfileButton = page.getByRole('link', {
+      name: ' Edit Profile Settings',
+    });
+    this.newPasswordField = page.getByPlaceholder('New Password');
+    this.updateSettingsButton = page.getByRole('button', {
+      name: 'Update Settings',
+    });
   }
 
   async reload() {
     await test.step('reload', async () => {
       await this.page.reload();
+    });
+  }
+  async logout() {
+    await test.step('logout', async () => {
+      await this.page
+        .getByRole('button', { name: 'Or click here to logout.' })
+        .click();
     });
   }
 
@@ -24,6 +38,22 @@ export class UserProfile {
   async favoritePostsButtonClick() {
     await test.step('Click favorited posts button', async () => {
       await this.favoritePostsButton.click();
+    });
+  }
+  async editProfileButtonClick() {
+    await test.step('Click edit profile button', async () => {
+      await this.editProfileButton.click();
+    });
+  }
+  async updateSettingsButtonClick() {
+    await test.step('Click update settings button', async () => {
+      await this.updateSettingsButton.click();
+    });
+  }
+
+  async fillNewPasswordField(password) {
+    await test.step(`Fill the 'New Password' field`, async () => {
+      await this.newPasswordField.fill(password);
     });
   }
 

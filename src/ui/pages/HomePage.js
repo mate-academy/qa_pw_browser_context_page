@@ -34,6 +34,22 @@ export class HomePage {
     });
   }
 
+  async assertArticleTitleInGlobalFeed(title) {
+    await test.step(`Assert the article in global feed`, async () => {
+      await expect(
+        this.page.getByRole('link', { name: `Article title: ${title}` }),
+      ).toBeVisible();
+    });
+  }
+
+  async assertArticleAuthor(username) {
+    await test.step(`Assert the article author`, async () => {
+      await expect(
+        this.page.getByRole('link', { name: username }),
+      ).toBeVisible();
+    });
+  }
+
   async clickGlobalFeed() {
     await test.step(`Click the 'Clobal Feed'`, async () => {
       await this.globalFeedTab.click();
