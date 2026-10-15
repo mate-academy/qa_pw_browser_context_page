@@ -2,11 +2,13 @@ import { test as base } from '@playwright/test';
 import { SignUpPage } from '../../src/ui/pages/auth/SignUpPage';
 import { SignInPage } from '../../src/ui/pages/auth/SignInPage';
 import { HomePage } from '../../src/ui/pages/HomePage';
+import { UserProfile } from '../../src/ui/pages/UserProfile';
 
 export const test = base.extend<{
   signUpPage;
   signInPage;
   homePage;
+  userProfile;
 }>({
   signUpPage: async ({ page }, use) => {
     const signUpPage = new SignUpPage(page);
@@ -22,5 +24,10 @@ export const test = base.extend<{
     const homePage = new HomePage(page);
 
     await use(homePage);
+  },
+  userProfile: async ({ page }, use) => {
+    const userProfile = new UserProfile(page);
+
+    await use(userProfile);
   },
 });

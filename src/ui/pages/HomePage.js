@@ -3,8 +3,11 @@ import { expect, test } from '@playwright/test';
 export class HomePage {
   constructor(page) {
     this.page = page;
+    this.homeButton = page.getByRole('link', { name: 'Home' });
     this.yourFeedTab = page.getByText('Your Feed');
+    this.globalFeedTab = page.getByText('Global Feed');
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
+    this.emptyYourFeed = page.getByText('No articles are here... yet.');
   }
 
   async clickNewArticleLink() {
@@ -13,8 +16,40 @@ export class HomePage {
     });
   }
 
+  async reload() {
+    await test.step('reload', async () => {
+      await this.page.reload();
+    });
+  }
+
+  async clickHomeButton() {
+    await test.step('Click Home button', async () => {
+      await this.homeButton.click();
+    });
+  }
+
   async assertYourFeedTabIsVisible() {
     await test.step(`Assert the 'Your Feed' tab is visible`, async () => {
+      await expect(this.yourFeedTab).toBeVisible();
+    });
+  }
+
+  async clickGlobalFeed() {
+    await test.step(`Click the 'Clobal Feed'`, async () => {
+      await this.globalFeedTab.click();
+    });
+  }
+
+  async assertFollovingUserIsVisible(username) {
+    await test.step('Assert following user is visible', async () => {
+      await expect(
+        this.page.getByRole('link', { name: username }),
+      ).toBeVisible();
+    });
+  }
+
+  async assertYourFeedTabIsEmpty() {
+    await test.step('Assert your feed tab is empty', async () => {
       await expect(this.yourFeedTab).toBeVisible();
     });
   }

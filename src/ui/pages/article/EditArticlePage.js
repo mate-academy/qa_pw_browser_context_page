@@ -4,6 +4,9 @@ export class EditArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.updateArticleButton = page.getByRole('button', {
+      name: 'Update Article',
+    });
   }
 
   async assertArticleTitle(title) {
@@ -15,6 +18,12 @@ export class EditArticlePage {
   async assertArticleText(text) {
     await test.step(`Assert the article has correct text'`, async () => {
       await expect(this.page.getByText(text)).toBeVisible();
+    });
+  }
+
+  async updateArticleButtonClick() {
+    await test.step(`Click the 'Update Article' button`, async () => {
+      await this.updateArticleButton.click();
     });
   }
 }
