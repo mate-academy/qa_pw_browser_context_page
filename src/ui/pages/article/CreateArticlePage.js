@@ -40,7 +40,7 @@ export class CreateArticlePage {
   async fillTagsField(tags) {
     await test.step(`Fill the 'Tags' field`, async () => {
       for (let i = 0; i < tags.length; i++) {
-        await this.tagField.fill(tags[i]);
+        await this.tagsFiled.fill(tags[i]);
         await this.page.keyboard.press('Enter');
       }
     });
@@ -62,6 +62,7 @@ export class CreateArticlePage {
         await this.fillTagsField(article.tags);
       }
       await this.clickPublishArticleButton();
+      await this.page.waitForURL(/\/article\//);
     });
   }
 
