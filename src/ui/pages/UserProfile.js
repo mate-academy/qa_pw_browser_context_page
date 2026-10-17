@@ -67,7 +67,9 @@ export class UserProfile {
 
   async assertFavoritedPostsListAreEmpty() {
     await test.step('Assert favorite posts list are empty', async () => {
-      await expect(this.emptyFavoriteList).toBeVisible();
+      await expect(this.emptyFavoriteList).toContainText(
+        'No articles are here... yet.',
+      );
     });
   }
 }

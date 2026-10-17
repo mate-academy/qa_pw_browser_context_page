@@ -50,8 +50,14 @@ export class HomePage {
     });
   }
 
-  async clickGlobalFeed() {
+  async clickGlobalFeedTab() {
     await test.step(`Click the 'Clobal Feed'`, async () => {
+      await this.globalFeedTab.click();
+    });
+  }
+
+  async clickYourFeedTab() {
+    await test.step(`Click the 'Your Feed'`, async () => {
       await this.globalFeedTab.click();
     });
   }
@@ -63,10 +69,13 @@ export class HomePage {
       ).toBeVisible();
     });
   }
+  w;
 
   async assertYourFeedTabIsEmpty() {
     await test.step('Assert your feed tab is empty', async () => {
-      await expect(this.yourFeedTab).toBeVisible();
+      await expect(this.emptyYourFeed).toContainText(
+        'No articles are here... yet.',
+      );
     });
   }
 }

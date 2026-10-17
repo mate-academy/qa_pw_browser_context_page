@@ -21,6 +21,6 @@ test('Your Feed after following user profile', async ({
   await viewArticlePage.followUserButtonClick(user1.username);
   const homePage = new HomePage(page2);
   await homePage.clickHomeButton();
-  await homePage.reload();
+  await homePage.clickYourFeedTab();
   await homePage.assertFollovingUserIsVisible(user1.username);
 });

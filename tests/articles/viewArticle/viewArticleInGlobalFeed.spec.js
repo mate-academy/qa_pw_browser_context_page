@@ -16,7 +16,7 @@ test('View an article created by another user in the Clobal Feed', async ({
   articleWithoutTags,
 }) => {
   const homePage = new HomePage(page2);
-  await homePage.clickGlobalFeed();
+  await homePage.clickGlobalFeedTab();
   await homePage.assertArticleTitleInGlobalFeed(articleWithoutTags.title);
   await homePage.assertArticleAuthor(user1.username);
 });

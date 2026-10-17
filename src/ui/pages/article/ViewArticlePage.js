@@ -84,7 +84,6 @@ export class ViewArticlePage {
       await this.page
         .getByRole('button', { name: ` Unfollow ${username}` })
         .first()
-        .first()
         .click();
     });
   }

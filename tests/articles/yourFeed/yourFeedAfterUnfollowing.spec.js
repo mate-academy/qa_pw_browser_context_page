@@ -11,7 +11,7 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   await createArticle(page1, articleWithoutTags);
 });
 
-test('Your Feed after following user profile', async ({
+test('Your Feed after unfollowing user profile', async ({
   page2,
   user1,
   articleWithoutTags,
@@ -28,4 +28,5 @@ test('Your Feed after following user profile', async ({
   await viewArticlePage.unfollowUserButtonClick(user1.username);
   await homePage.clickHomeButton();
   await homePage.reload();
+  await homePage.assertYourFeedTabIsEmpty();
 });
