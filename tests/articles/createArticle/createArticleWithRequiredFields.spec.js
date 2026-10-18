@@ -1,11 +1,11 @@
 import { test } from '../../_fixtures/fixtures';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
-test.beforeEach(async ({ page, user }) => {
-  await signUpUser(page, user);
+test.beforeEach(async ({ signUpPage, homePage, user }) => {
+  await signUpUser(signUpPage, homePage, user);
 });
 
-test('Creat an article with required fields', async ({
+test('Create an article with required fields', async ({
   homePage,
   createArticlePage,
   viewArticlePage,
