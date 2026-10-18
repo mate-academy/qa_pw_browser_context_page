@@ -6,9 +6,10 @@ export class CreateArticlePage {
     this.titleField = page.getByPlaceholder('Article Title');
     this.descriptionField = page.getByPlaceholder(`What's this article about?`);
     this.textField = page.getByPlaceholder('Write your article (in markdown)');
-    this.tagsFiled = page.getByPlaceholder('Enter tags');
-    this.publishArticleButton = page.getByRole('button', {
-      name: 'Publish Article',
+    this.tagField = page.getByPlaceholder('Enter tags');
+    this.submitButtonName = 'Publish Article';
+    this.submitArticleButton = page.getByRole('button', {
+      name: this.submitButtonName,
     });
     this.errorMessage = page.getByRole('list').nth(1);
   }
@@ -47,20 +48,24 @@ export class CreateArticlePage {
   }
 
   async clickPublishArticleButton() {
-    await test.step(`Click the 'Publish Article' button`, async () => {
-      await this.publishArticleButton.click();
+    await test.step(`Click the '${this.submitButtonName}' button`, async () => {
+      await this.submitArticleButton.click();
     });
+  }
+
+  async fillArticleForm(article) {
+    await this.fillTitleField(article.title);
+    await this.fillDescriptionField(article.description);
+    await this.fillTextField(article.text);
+    // eslint-disable-next-line playwright/no-conditional-in-test
+    if (article.tags.length > 0) {
+      await this.fillTagsField(article.tags);
+    }
   }
 
   async submitCreateArticleForm(article) {
     await test.step(`Submit the 'Create Article' form`, async () => {
-      await this.fillTitleField(article.title);
-      await this.fillDescriptionField(article.description);
-      await this.fillTextField(article.text);
-      // eslint-disable-next-line playwright/no-conditional-in-test
-      if (article.tags.length > 0) {
-        await this.fillTagsField(article.tags);
-      }
+      await this.fillArticleForm(article);
       await this.clickPublishArticleButton();
     });
   }

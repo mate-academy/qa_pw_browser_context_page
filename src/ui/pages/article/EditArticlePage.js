@@ -1,20 +1,25 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
+import { CreateArticlePage } from './CreateArticlePage';
 
-export class EditArticlePage {
+export class EditArticlePage extends CreateArticlePage {
   constructor(page) {
-    this.page = page;
-    this.articleTitleHeader = page.getByRole('heading');
-  }
-
-  async assertArticleTitle(title) {
-    await test.step(`Assert the article has correct title'`, async () => {
-      await expect(this.articleTitleHeader).toContainText(title);
+    super(page);
+    this.submitButtonName = 'Update Article';
+    this.submitArticleButton = page.getByRole('button', {
+      name: this.submitButtonName,
     });
   }
 
-  async assertArticleText(text) {
-    await test.step(`Assert the article has correct text'`, async () => {
-      await expect(this.page.getByText(text)).toBeVisible();
+  async open(articleUrl) {
+    await test.step(`Open 'Edit Article' page`, async () => {
+      await this.page.goto(articleUrl.replace('/article/', '/editor/'));
+    });
+  }
+
+  async submitEditArticleForm(article) {
+    await test.step(`Submit the 'Edit Article' form`, async () => {
+      await this.fillArticleForm(article);
+      await this.clickPublishArticleButton();
     });
   }
 }

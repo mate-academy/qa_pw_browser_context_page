@@ -2,11 +2,11 @@ import { test } from '../../_fixtures/fixtures';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 import { TITLE_CANNOT_BE_EMPTY } from '../../../src/ui/constants/articleErrorMessages';
 
-test.beforeEach(async ({ page, user }) => {
-  await signUpUser(page, user);
+test.beforeEach(async ({ signUpPage, homePage, user }) => {
+  await signUpUser(signUpPage, homePage, user);
 });
 
-test('Creat an article without required fields', async ({
+test('Create an article without required fields', async ({
   createArticlePage,
   homePage,
 }) => {

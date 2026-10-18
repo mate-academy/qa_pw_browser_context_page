@@ -1,23 +1,31 @@
 import { test } from '../_fixtures/fixtures';
 import { signUpUser } from '../../src/ui/actions/auth/signUpUser';
-import { SignInPage } from '../../src/ui/pages/auth/SignInPage';
+import { signInUser } from '../../src/ui/actions/auth/signInUser';
 import { HomePage } from '../../src/ui/pages/HomePage';
+import { SignInPage } from '../../src/ui/pages/auth/SignInPage';
 
-let signInPage;
-let homePage;
-
-test.beforeEach(async ({ page1, page2, user }) => {
-  await signUpUser(page1, user);
-
-  signInPage = new SignInPage(page2);
-  homePage = new HomePage(page2);
+test.beforeEach(async ({ signUpPage, homePage, user }) => {
+  await signUpUser(signUpPage, homePage, user);
 });
 
-test('Successful `Sign in` flow test', async ({ user }) => {
-  await signInPage.open();
-  await signInPage.fillEmailField(user.email);
-  await signInPage.fillPasswordField(user.password);
-  await signInPage.clickSignInButton();
+test('Successful `Sign in` flow test', async ({ signInPage, user }) => {
+  await signInUser(signInPage, user);
+});
 
-  await homePage.assertYourFeedTabIsVisible();
+test('User can sign in with changed in profile password.', async ({
+  settingsPage,
+  user,
+  page2,
+  profilePage,
+}) => {
+  const newPassword = user.password + '1';
+  await settingsPage.open();
+  await settingsPage.fillPasswordField(newPassword);
+  await settingsPage.clickUpdateButton();
+
+  await test.step(`Sign in with new password in new tab`, async () => {
+  const newSignInPage = new SignInPage(page2);
+    await signInUser(newSignInPage, { email: user.email, password: newPassword });
+  });
+  await profilePage.assertNicknameTitleIsVisible(user.username);
 });
