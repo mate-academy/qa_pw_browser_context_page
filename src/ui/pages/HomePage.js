@@ -58,7 +58,7 @@ export class HomePage {
 
   async clickYourFeedTab() {
     await test.step(`Click the 'Your Feed'`, async () => {
-      await this.globalFeedTab.click();
+      await this.yourFeedTab.click();
     });
   }
 
@@ -69,7 +69,6 @@ export class HomePage {
       ).toBeVisible();
     });
   }
-  w;
 
   async assertYourFeedTabIsEmpty() {
     await test.step('Assert your feed tab is empty', async () => {

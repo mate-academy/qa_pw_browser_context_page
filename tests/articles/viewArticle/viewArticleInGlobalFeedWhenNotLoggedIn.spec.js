@@ -2,7 +2,7 @@ import { test } from '../../_fixtures/fixtures';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 import { HomePage } from '../../../src/ui/pages/HomePage';
-import { UserProfile } from '../../../src/ui/pages/UserProfile';
+import { UserProfile } from '../../../src/ui/pages/UserProfilePage';
 
 test.beforeEach(async ({ page1, user1, articleWithoutTags }) => {
   await signUpUser(page1, user1);

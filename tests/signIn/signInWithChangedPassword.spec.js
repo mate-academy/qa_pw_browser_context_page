@@ -6,18 +6,18 @@ import { HomePage } from '../../src/ui/pages/HomePage';
 let signInPage;
 let homePage;
 
-test.beforeEach(async ({ page1, page2, user }) => {
+test.beforeEach(async ({ page1, user }) => {
   await signUpUser(page1, user);
-
-  signInPage = new SignInPage(page2);
-  homePage = new HomePage(page2);
 });
 
 test('Sign in with changed in profile password', async ({
   userProfile,
   user2,
+  page2,
   user,
 }) => {
+  signInPage = new SignInPage(page2);
+  homePage = new HomePage(page2);
   await userProfile.profileButtonClick();
   await userProfile.editProfileButtonClick();
   await userProfile.fillNewPasswordField(user2.password);

@@ -3,11 +3,11 @@ import { expect, test } from '@playwright/test';
 export class UserProfile {
   constructor(page) {
     this.page = page;
-    this.profileButton = page.getByRole('link', { name: 'your profile image' });
+    this.profileLink = page.getByRole('link', { name: 'your profile image' });
     this.favoritePostsButton = page.getByRole('link', {
       name: 'Favorited Posts',
     });
-    this.emptyFavoriteList = page.getByText('No articles are here... yet.');
+    this.emptyArticlesMessage = page.getByText('No articles are here... yet.');
     this.editProfileButton = page.getByRole('link', {
       name: ' Edit Profile Settings',
     });
@@ -32,7 +32,7 @@ export class UserProfile {
 
   async profileButtonClick() {
     await test.step('Click profile', async () => {
-      await this.profileButton.click();
+      await this.profileLink.click();
     });
   }
   async favoritePostsButtonClick() {
@@ -65,9 +65,9 @@ export class UserProfile {
     });
   }
 
-  async assertFavoritedPostsListAreEmpty() {
-    await test.step('Assert favorite posts list are empty', async () => {
-      await expect(this.emptyFavoriteList).toContainText(
+  async assertFavoritedPostsListIsEmpty() {
+    await test.step('Assert favorite posts list is empty', async () => {
+      await expect(this.emptyArticlesMessage).toContainText(
         'No articles are here... yet.',
       );
     });
