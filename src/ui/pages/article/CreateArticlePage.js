@@ -10,6 +10,7 @@ export class CreateArticlePage {
     this.publishArticleButton = page.getByRole('button', {
       name: 'Publish Article',
     });
+    this.updateButton = page.getByRole('button', { name: 'Update Article' });
     this.errorMessage = page.getByRole('list').nth(1);
   }
 
@@ -44,6 +45,12 @@ export class CreateArticlePage {
         await this.page.keyboard.press('Enter');
       }
     });
+  }
+
+  async clickUpdateButton() {
+    await test.step(`Click the 'Update' button`, async () => {
+      await this.updateButton.click();
+    })
   }
 
   async clickPublishArticleButton() {
