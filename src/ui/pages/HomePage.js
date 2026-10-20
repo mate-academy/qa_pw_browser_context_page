@@ -86,4 +86,16 @@ export class HomePage {
         { name: /^your profile image/ })).toBeVisible();
     });
   }
+
+  async assertArticleIsVisibleInFeed(title) {
+    await test.step(`Assert the article is visible in the feed`, async () => {
+      // await expect(this.page.getByText(title)).toBeVisible();
+      await expect(this.page.getByRole('heading', 
+        { name: `Article title: ${title}` })).toBeVisible();
+    });
+  }
+
+  async reload() {
+    await this.page.reload();
+  }
 }

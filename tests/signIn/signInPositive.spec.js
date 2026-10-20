@@ -4,7 +4,6 @@ import { SignInPage } from '../../src/ui/pages/auth/SignInPage';
 import { HomePage } from '../../src/ui/pages/HomePage';
 import { expect } from '@playwright/test';
 import { createArticle } from '../../src/ui/actions/articles/createArticle';
-import { ViewArticlePage } from '../../src/ui/pages/article/ViewArticlePage';
 
 let signInPage;
 let homePage;
@@ -54,10 +53,10 @@ test('User can see own article in "Global feed" when not logged in', async ({
   await expect(page1).toHaveURL(/\/article\//);
 
   const homePageUser2 = new HomePage(page2);
-  const viewArticlePage = new ViewArticlePage(page2);
 
   await homePageUser2.open();
 
-  await viewArticlePage.assertArticleIsNotVisibleInFeed(
+  await homePageUser2.reload();
+  await homePageUser2.assertArticleIsVisibleInFeed(
     articleWithoutTags.title);
 });
