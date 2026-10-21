@@ -75,20 +75,4 @@ export class ViewArticlePage {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
-
-  async assertArticleIsVisibleInFeed(title) {
-    await test.step(`Assert article '${title}' is visible in feed`, 
-      async () => {
-      await expect(this.page.getByRole('heading', 
-        { name: title })).toBeVisible();
-    });
-  }
-
-  async assertArticleIsNotVisibleInFeed(title) {
-    await test.step(`Assert article '${title}' is not visible in feed`,
-      async () => {
-      await expect(this.page.getByRole('heading', 
-        { name: title })).toBeHidden();
-      });
-    }
 }

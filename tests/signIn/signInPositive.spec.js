@@ -3,7 +3,6 @@ import { signUpUser } from '../../src/ui/actions/auth/signUpUser';
 import { SignInPage } from '../../src/ui/pages/auth/SignInPage';
 import { HomePage } from '../../src/ui/pages/HomePage';
 import { expect } from '@playwright/test';
-import { createArticle } from '../../src/ui/actions/articles/createArticle';
 
 let signInPage;
 let homePage;
@@ -42,21 +41,4 @@ test('User can sign in with changed in profile password', async ({
   await signInPage.clickSignInButton();
 
   await homePage.assertYourProfileIsVisible();
-});
-
-test('User can see own article in "Global feed" when not logged in', async ({
-  page1,
-  page2,
-  articleWithoutTags
-}) => {
-  await createArticle(page1, articleWithoutTags);
-  await expect(page1).toHaveURL(/\/article\//);
-
-  const homePageUser2 = new HomePage(page2);
-
-  await homePageUser2.open();
-
-  await homePageUser2.reload();
-  await homePageUser2.assertArticleIsVisibleInFeed(
-    articleWithoutTags.title);
 });

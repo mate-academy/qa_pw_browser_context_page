@@ -89,9 +89,15 @@ export class HomePage {
 
   async assertArticleIsVisibleInFeed(title) {
     await test.step(`Assert the article is visible in the feed`, async () => {
-      // await expect(this.page.getByText(title)).toBeVisible();
+      await expect(this.page.getByText(title)).toBeVisible();
+    });
+  }
+
+  async assertArticleIsNotVisibleInFeed(title) {
+    await test.step(`Assert article '${title}' is not visible in feed`,
+      async () => {
       await expect(this.page.getByRole('heading', 
-        { name: `Article title: ${title}` })).toBeVisible();
+        { name: title })).toBeHidden();
     });
   }
 

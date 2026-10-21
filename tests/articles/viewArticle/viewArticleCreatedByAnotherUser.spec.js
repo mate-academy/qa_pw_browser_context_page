@@ -133,7 +133,7 @@ test("User can see other user's new articles in 'Your Feed' " +
   await homePage.open();
   await homePage.clickGlobalFeedTab();
 
-  await viewArticlePage.assertArticleIsVisibleInFeed(newArticle.title);
+  await homePage.assertArticleIsVisibleInFeed(newArticle.title);
 });
 
 test("User doesn't see other user's articles in 'Your Feed'" +
@@ -152,7 +152,7 @@ test("User doesn't see other user's articles in 'Your Feed'" +
 
   await homePage.open();
   await homePage.clickYourFeedTab();
-  await viewArticlePage.assertArticleIsVisibleInFeed(articleWithoutTags.title);
+  await homePage.assertArticleIsVisibleInFeed(articleWithoutTags.title);
 
   await homePage.clickArticleTitle(articleWithoutTags.title);
   
@@ -160,6 +160,6 @@ test("User doesn't see other user's articles in 'Your Feed'" +
   await homePage.open();
   await homePage.clickYourFeedTab();
 
-  await viewArticlePage.assertArticleIsNotVisibleInFeed(
+  await homePage.assertArticleIsNotVisibleInFeed(
     articleWithoutTags.title)
 });
