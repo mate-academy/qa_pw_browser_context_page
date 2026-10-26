@@ -4,14 +4,23 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.editArticleLink = page.getByRole('link', { name: 'Edit Article' }).first();
   }
 
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    return this.page.getByRole('link', { name: username }).first();
   }
 
   url() {
     return this.page.url();
+  }
+
+  followAuthorButton(username) {
+    return this.page.getByRole('button', { name: new RegExp(`Follow ${username.toLowerCase()}`) }).first();
+  }
+
+  unfollowAuthorButton(username) {
+    return this.page.getByRole('button', { name: new RegExp(`Unfollow ${username.toLowerCase()}`) }).first();
   }
 
   async open(url) {
@@ -37,4 +46,34 @@ export class ViewArticlePage {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
+
+  async clickFollowAuthorButton(username) {
+    await test.step(`Click the 'Follow ${username}' button`, async () => {
+      await this.followAuthorButton(username).click();
+    });
+  }
+
+  async assertUnfollowAuthorButtonIsVisible(username) {
+    await test.step(`Assert the 'Unfollow ${username}' button is visible`, async () => {
+      await expect(this.unfollowAuthorButton(username)).toBeVisible();
+    });
+  }
+
+  async clickUnfollowAuthorButton(username) {
+    await test.step(`Click the 'Unfollow ${username}' button`, async () => {
+      await this.unfollowAuthorButton(username).click();
+    });
+  }
+
+  async assertFollowAuthorButtonIsVisible(username) {
+    await test.step(`Assert the 'Follow ${username}' button is visible`, async () => {
+      await expect(this.followAuthorButton(username)).toBeVisible();
+    });
+  }
+
+  async clickEditArticleLink() {
+  await test.step(`Click the 'Edit Article' link`, async () => {
+    await this.editArticleLink.click();
+  });
+}
 }

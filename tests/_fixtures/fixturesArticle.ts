@@ -6,6 +6,7 @@ import { ViewArticlePage } from '../../src/ui/pages/article/ViewArticlePage';
 export const test = base.extend<{
   articleWithoutTags;
   articleWithOneTag;
+  updatedArticleData;
   createArticlePage;
   viewArticlePage;
 }>({
@@ -16,6 +17,11 @@ export const test = base.extend<{
   },
   articleWithOneTag: async ({ logger }, use) => {
     const article = generateNewArticleData(logger, 1);
+
+    await use(article);
+  },
+  updatedArticleData: async ({ logger }, use) => {
+    const article = generateNewArticleData(logger);
 
     await use(article);
   },
