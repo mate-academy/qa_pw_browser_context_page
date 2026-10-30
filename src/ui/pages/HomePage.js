@@ -70,9 +70,10 @@ export class HomePage {
   async clickArticlePreviewLink(title) {
     await test.step(`Click the article '${title}' in the feed`, async () => {
       await this.articlePreviewLink(title).click();
+      await this.page.waitForURL('**/article/**');
     });
   }
-
+  
   async assertArticlePreviewLinkIsVisibleAfterReload(title) {
     await test.step(
       `Assert the article '${title}' appears in the feed after reload`,
