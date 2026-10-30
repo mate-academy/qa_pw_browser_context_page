@@ -58,7 +58,9 @@ export class EditArticlePage {
   }
 
   async assertTitleFieldHasValue(title) {
-    await test.step(`Assert the 'Title' field has value '${title}'`, async () => {
+    await test.step(
+      `Assert the 'Title' field has value '${title}'`, 
+      async () => {
       await expect(this.titleField).toHaveValue(title);
     });
   }

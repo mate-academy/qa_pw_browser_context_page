@@ -4,7 +4,9 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
-    this.editArticleLink = page.getByRole('link', { name: 'Edit Article' }).first();
+    this.editArticleLink = page
+      .getByRole('link', { name: 'Edit Article' })
+      .first();
   }
 
   authorLinkInArticleHeader(username) {
@@ -16,11 +18,19 @@ export class ViewArticlePage {
   }
 
   followAuthorButton(username) {
-    return this.page.getByRole('button', { name: new RegExp(`Follow ${username.toLowerCase()}`) }).first();
+    return this.page
+      .getByRole('button', {
+        name: new RegExp(`Follow ${username.toLowerCase()}`),
+      })
+      .first();
   }
 
   unfollowAuthorButton(username) {
-    return this.page.getByRole('button', { name: new RegExp(`Unfollow ${username.toLowerCase()}`) }).first();
+    return this.page
+      .getByRole('button', {
+        name: new RegExp(`Unfollow ${username.toLowerCase()}`),
+      })
+      .first();
   }
 
   async open(url) {
@@ -42,7 +52,9 @@ export class ViewArticlePage {
   }
 
   async assertArticleAuthorNameIsVisible(username) {
-    await test.step(`Assert the article has correct author username`, async () => {
+    await test.step(
+      `Assert the article has correct author username`, 
+      async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
     });
   }
@@ -54,7 +66,9 @@ export class ViewArticlePage {
   }
 
   async assertUnfollowAuthorButtonIsVisible(username) {
-    await test.step(`Assert the 'Unfollow ${username}' button is visible`, async () => {
+    await test.step(
+      `Assert the 'Unfollow ${username}' button is visible`, 
+      async () => {
       await expect(this.unfollowAuthorButton(username)).toBeVisible();
     });
   }
@@ -66,7 +80,9 @@ export class ViewArticlePage {
   }
 
   async assertFollowAuthorButtonIsVisible(username) {
-    await test.step(`Assert the 'Follow ${username}' button is visible`, async () => {
+    await test.step(
+      `Assert the 'Follow ${username}' button is visible`, 
+      async () => {
       await expect(this.followAuthorButton(username)).toBeVisible();
     });
   }

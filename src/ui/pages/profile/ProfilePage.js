@@ -10,11 +10,15 @@ export class ProfilePage {
   }
 
   followUserButton(username) {
-    return this.page.getByRole('button', { name: new RegExp(`Follow ${username.toLowerCase()}`) });
+    return this.page.getByRole('button', {
+      name: new RegExp(`Follow ${username.toLowerCase()}`),
+    });
   }
 
   unfollowUserButton(username) {
-    return this.page.getByRole('button', { name: new RegExp(`Unfollow ${username.toLowerCase()}`) });
+    return this.page.getByRole('button', {
+      name: new RegExp(`Unfollow ${username.toLowerCase()}`),
+    });
   }
 
   async assertUsernameIsVisible(username) {
@@ -30,7 +34,9 @@ export class ProfilePage {
   }
 
   async assertUnfollowUserButtonIsVisible(username) {
-    await test.step(`Assert the 'Unfollow ${username}' button is visible`, async () => {
+    await test.step(
+      `Assert the 'Unfollow ${username}' button is visible`, 
+      async () => {
       await expect(this.unfollowUserButton(username)).toBeVisible();
     });
   }
@@ -42,7 +48,9 @@ export class ProfilePage {
   }
 
   async assertFollowUserButtonIsVisible(username) {
-    await test.step(`Assert the 'Follow ${username}' button is visible`, async () => {
+    await test.step(
+      `Assert the 'Follow ${username}' button is visible`, 
+      async () => {
       await expect(this.followUserButton(username)).toBeVisible();
     });
   }

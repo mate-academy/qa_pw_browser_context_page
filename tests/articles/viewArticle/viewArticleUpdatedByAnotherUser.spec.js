@@ -4,13 +4,22 @@ import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { editArticle } from '../../../src/ui/actions/articles/editArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
 
-test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags, updatedArticleData }) => {
-  await signUpUser(page1, user1);
-  await signUpUser(page2, user2);
+test.beforeEach(
+  async ({
+    page1,
+    page2,
+    user1,
+    user2,
+    articleWithoutTags,
+    updatedArticleData,
+  }) => {
+    await signUpUser(page1, user1);
+    await signUpUser(page2, user2);
 
-  await createArticle(page1, articleWithoutTags);
-  await editArticle(page1, articleWithoutTags, updatedArticleData);
-});
+    await createArticle(page1, articleWithoutTags);
+    await editArticle(page1, articleWithoutTags, updatedArticleData);
+  },
+);
 
 test('View an article updated by another user', async ({
   page2,
