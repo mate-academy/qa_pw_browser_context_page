@@ -72,8 +72,14 @@ export class ViewArticlePage {
   }
 
   async clickEditArticleLink() {
-  await test.step(`Click the 'Edit Article' link`, async () => {
-    await this.editArticleLink.click();
-  });
-}
+    await test.step(`Click the 'Edit Article' link`, async () => {
+      await this.editArticleLink.click();
+    });
+  }
+
+  async clickAuthorLinkInArticleHeader(username) {
+    await test.step(`Click the author '${username}' link`, async () => {
+      await this.authorLinkInArticleHeader(username).click();
+    });
+  }
 }
