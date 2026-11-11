@@ -1,18 +1,18 @@
-import { test as base } from '@playwright/test';
+import { test as base, type Page } from '@playwright/test';
 import { Logger } from '../../src/common/logger/Logger';
 import { generateNewUserData } from '../../src/common/testData/generateNewUserData';
 
 export const test = base.extend<
   {
-    page1;
-    page2;
-    user;
-    user1;
-    user2;
-    infoTestLog;
+    page1: Page;
+    page2: Page;
+    user: ReturnType<typeof generateNewUserData>;
+    user1: ReturnType<typeof generateNewUserData>;
+    user2: ReturnType<typeof generateNewUserData>;
+    infoTestLog: string;
   },
   {
-    logger;
+    logger: Logger;
   }
 >({
   page1: async ({ page }, use) => {
@@ -23,6 +23,8 @@ export const test = base.extend<
     const page2 = await context.newPage();
 
     await use(page2);
+
+    await context.close();
   },
   user: async ({ logger }, use) => {
     const user = generateNewUserData(logger);
@@ -39,7 +41,7 @@ export const test = base.extend<
   },
   logger: [
     async ({}, use) => {
-      const logger = new Logger('error');
+      const logger = new Logger('debug');
 
       await use(logger);
     },

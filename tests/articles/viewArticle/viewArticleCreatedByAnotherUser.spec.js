@@ -1,7 +1,9 @@
 import { test } from '../../_fixtures/fixtures';
+import { expect } from '@playwright/test';
 import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
+import { HomePage } from '../../../src/ui/pages/HomePage';
 
 test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   await signUpUser(page1, user1);
@@ -12,14 +14,17 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 
 test('View an article created by another user', async ({
   page2,
-  user2,
+  user1,
   articleWithoutTags,
 }) => {
   const viewArticlePage = new ViewArticlePage(page2);
+  const homePage2 = new HomePage(page2);
 
-  await viewArticlePage.open(articleWithoutTags.url);
-
+  await homePage2.clickGlobalFeedTab();
+  await homePage2.assertGlobalFeedTabIsActive();
+  await homePage2.clickArticleByTitle(articleWithoutTags.title);
+  await expect(page2).toHaveURL(/article/);
   await viewArticlePage.assertArticleTitleIsVisible(articleWithoutTags.title);
   await viewArticlePage.assertArticleTextIsVisible(articleWithoutTags.text);
-  await viewArticlePage.assertArticleAuthorNameIsVisible(user2.username);
+  await viewArticlePage.assertArticleAuthorNameIsVisible(user1.username);
 });
