@@ -14,3 +14,8 @@ export function generateNewUserData(logger) {
 
   return user;
 }
+
+export function generateNewPassword() {
+  const newPassword = faker.internet.password();
+  return newPassword;
+}

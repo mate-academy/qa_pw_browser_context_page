@@ -12,9 +12,24 @@ export function generateNewArticleData(logger, tagNumber = 0) {
 
   logger.debug(`Generated new article: ${JSON.stringify(article)}`);
 
-  if (tags.lenght === 0) {
-    logger.warning(`Article does not have tag: ${JSON.stringify(article)}`);
+  if (tags.length === 0) {
+    logger.warn(`Article does not have tag: ${JSON.stringify(article)}`);
   }
 
   return article;
-}
+};
+
+export function generateNewTitle() {
+  const newTitle = faker.lorem.sentence();
+  return newTitle;
+};
+
+export function generateNewDescr() {
+  const newDescr = faker.lorem.sentence();
+  return newDescr;
+};
+
+export function generateNewText() {
+  const newText = faker.lorem.paragraph();
+  return newText;
+};
